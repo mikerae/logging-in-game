@@ -48,6 +48,11 @@ Comments were used extensively in HTML, CSS and JS files to clearly mark each se
 The project was incrementally pushed to GitHub, ensuring that all commits were stored on GitHub.
 ### Local Web Page viewing
 A local python HTTP server was deployed via the GitPod terminal and the project was viewed in a local browser tab during all stages of development.git push
+### Creating 12 Column Grid Layout
+box-sizing: boarder-box was used to ensure all grid boxes as sized to include padding and border.
+12 classes were created for elements with widths of 1/12 of the screen width i.e. 100%/12 = 8.33%.
+Each column floats left, has padding of 15px and for layout puropses initially has a border. The css attribute selector "[attribute*=value]" was used to target all classes (attribute) with value "col-" in order to apply this styling.
+Column classes were applied to the html Nav and DisplayScreen sections.
 
 ## Deployment
 At the appropriate stage in development, the GitHub repository was deployed to GitHub Pages for public viewing via the GitHub server. The main repository was selected and an http link was generated and displaed in the repository Readme.md.

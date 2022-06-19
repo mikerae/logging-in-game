@@ -57,4 +57,15 @@
     display: none;
   }
 
+  #nav {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  #nav-list li {
+    display: inline;
+    padding: 2rem;
+    list-style: none;
+  }
+
 

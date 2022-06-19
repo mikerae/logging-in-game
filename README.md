@@ -17,8 +17,23 @@ Code from this site was used to structure the outer wrapper of the page.
 
 For this project it was decided to design from the smallest screen upwards.
 Three columns with 15px padding were used for extra small screens:
+
 ![Extra Small Screens](/assets/images/3-columns-xsm.png)
+
 Twelve narrow columns were used for small screens:
+
 ![Small Screens](/assets/images/12-columns-sm.png)
 Twelve wider columns were used for larger screens:
+
 ![Larger Screens](/assets/images/12-columns-lg.png)
+
+### Origonal Art Work
+All art work was created for this project by Sarah Rae and is used with permission and gratitude. All copyrights for the artwork are owned and reserved by Sarah Rae.  
+
+## Deployment
+### IDE
+The Integrated Development Environment used was Git Pod. A template from the Code Institute was used to load all necessary Git Pod resources.
+### Version Tracking: Git Commit
+Git Commit was used extensively to incrementally record each atomic development step. The use of Summary Lines and Body text in these commits helps towards keeping the purpose and detail of each commit easily understandable.
+### Version Tracking: Code Comments
+Comments were used extensively in HTML, CSS and JS files to clearly mark each section of code in order to facilitate future maintenece and development.

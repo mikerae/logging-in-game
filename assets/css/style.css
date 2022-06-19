@@ -57,6 +57,8 @@
     display: none;
   }
 
+  /* Nav Styling */
+
   #nav {
     padding-top: 0;
     padding-bottom: 0;
@@ -67,5 +69,21 @@
     padding: 2rem;
     list-style: none;
   }
+
+  /* Display Screen Header */
+header {
+  text-align: center;
+  }
+
+  /* Display Image and Text */
+  #inner-display-wrapper {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  #display-img-wrapper {
+    height: 40vh;
+  }
+
 
 

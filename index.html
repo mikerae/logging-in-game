@@ -8,7 +8,44 @@
   <title>Logging In</title>
 </head>
 <body>
-  
+  <!-- 
+    The Outer Wrapper is set to the width and height of the viewport.
+    It ensures that all elements within it are contained within the user's screen size, 
+    and forms the foundation to the sites responsiveness.
+  -->
+  <div class="outer-wrapper">
+    <!-- 
+      The Nav Element is an ARIA element. It contains the sites navigation elements and 
+      is visible at all times. 
+    -->
+    <nav id="nav">
+      <ul id="nav-list">
+        <li class="nav-elements">Quit</li>
+        <li class="nav-elements">New Game</li>
+        <!-- The Help Menu is a dropdown menu activated from the span tags using bootstrap-->
+        <li class="nav-elements"><span>Help</span></li>
+      </ul>
+    </nav>
+    <!-- 
+      This section diplays all the game monologues which ocurr before and after the main game display.
+      The content changes as the game flow progresses.
+      When this section is diplayed, the displayGame-wrapper section is hidden, and vica-versa.
+      This section is styled with layout columns, the number and width of which change acording to
+      screen size, and enable the site to be responsive.
+    -->
+    <section id="displayScreen-wrapper">
+
+    </section>
+    <!-- 
+      This section diplays the main game display.
+      When this section is diplayed, the displayScreen-wrapper section is hidden, and vica-versa.
+      This section is styled with layout columns, the number and width of which change acording to
+      screen size, and enable the site to be responsive.
+    -->
+    <section id="dispalyGame-wrapper">
+
+    </section>
+  </div>
 
   <script src="assets/js/script.js"></script>
 </body>

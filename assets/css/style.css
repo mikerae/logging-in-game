@@ -1,0 +1,60 @@
+/* Set outer wrapper to height and width of screen */
+#outer-wrapper {
+  width: 100vw;
+  height: 100vh;
+}
+/* Ensure all grid boxes as sized to include padding and border */
+* {
+  box-sizing: border-box;
+}
+
+/* 
+  12 column grid layout. Each class specifies a column whos width is a
+  muliple of 100% width/12 = 8.33%
+*/
+.col-1 {width: 8.33%;}
+.col-2 {width: 16.66%;}
+.col-3 {width: 25%;}
+.col-4 {width: 33.33%;}
+.col-5 {width: 41.66%;}
+.col-6 {width: 50%;}
+.col-7 {width: 58.33%;}
+.col-8 {width: 66.66%;}
+.col-9 {width: 75%;}
+.col-10 {width: 83.33%;}
+.col-11 {width: 91.66%;}
+.col-12 {width: 100%;}
+
+/* Each column floats left, has padding of 15px and for layout puropses
+  initially has a border. The css attribute selector [attribute*=value]
+  was used to target all classes (attribute) with value "col-" in order 
+  to apply this styling
+*/
+[class*="col-"] {
+  padding: 15px;
+  float:left;
+  border: 1px solid blue;
+}
+
+/* To prevent other elements in the rows being taken out of the flow of the 
+  page, the following css was copied from W3 Schools 'Responsive Web Desigh - Grid-View
+  https://www.w3schools.com/css/css_rwd_grid.asp */
+  .row::after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+
+  /* DisplayScreen Wrappers Temporary Styling*/
+  #displayScreen-wrapper {
+    background-color: rgb(109, 233, 233);
+    height: 80vh;
+  }
+
+  #displayyGame-wrapper {
+    background-color:antiquewhite;
+    height: 80vh;
+    display: none;
+  }
+
+

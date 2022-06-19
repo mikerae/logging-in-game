@@ -13,7 +13,6 @@ The one exception was the use of a dropdown help menu via bootstrap.
 
 ### UXD Resposnive Design
 Guidence on building a responsive Grid View was obtained from [W3 Schools](https://www.w3schools.com/css/css_rwd_grid.asp).
-Code from this site was used to structure the outer wrapper of the page.
 
 For this project it was decided to design from the smallest screen upwards.
 Three columns with 15px padding were used for extra small screens:
@@ -48,9 +47,8 @@ Comments were used extensively in HTML, CSS and JS files to clearly mark each se
 ### Git Push: GitHub 
 The project was incrementally pushed to GitHub, ensuring that all commits were stored on GitHub.
 ### Local Web Page viewing
-A local python HTTP server was deployed via the GitPod terminal and the project was viewed in a local browser tab during all stages of development.
-
+A local python HTTP server was deployed via the GitPod terminal and the project was viewed in a local browser tab during all stages of development.git push
 
 ## Deployment
-At the appropriate stage in development, the GitHub repository was deployed to GitHub Pages for public viewing via the GitHub server. The main repository was selected and an http link was generated and displaed in the reository Readme.md.
+At the appropriate stage in development, the GitHub repository was deployed to GitHub Pages for public viewing via the GitHub server. The main repository was selected and an http link was generated and displaed in the repository Readme.md.
 

@@ -54,7 +54,8 @@
 #displayScreen-wrapper {
   background-color: rgb(109, 233, 233);
   height: 80vh;
-  /* display:none; */
+
+    /* display:none; */
 }
 
 #displayyGame-wrapper {
@@ -367,7 +368,25 @@ header {
   3 column grid layout. Each class specifies a column whos width is a
   muliple of 100% width/3 = 33.33%
 */
-.col-1 {width: 33.33%;}
-.col-2 {width: 66.66%;}
-.col-3 {width: 100%;}
+.xsmcol-1 {width: 33.33%;}
+.xsmcol-2 {width: 66.66%;}
+.xsmcol-3 {width: 100%;}
 }
+
+#nav-list li {
+  padding: .5rem;
+}
+
+/* Display Image and Text */
+#inner-display-wrapper {
+  display:block;
+}
+
+/* To prevent other elements in the rows being taken out of the flow of the 
+  page, the following css was copied from W3 Schools 'Responsive Web Desigh - Grid-View
+  https://www.w3schools.com/css/css_rwd_grid.asp */
+  .xsmrow::after {
+    content: "";
+    clear: both;
+    display: table;
+  }

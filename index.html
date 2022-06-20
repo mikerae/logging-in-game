@@ -57,23 +57,29 @@
     <section id="displayyGame-wrapper" class="col-12">
       <div id="info-bar-wrapper" class="col-12">
         <!-- PLace holder for Fire Alert and spacer for Info Bar-->
-        <div id="fire-alert" class="col-2">
+        <div id="fire-alert-wrapper" class="col-2">
         </div>
+        <!-- Infor Bar Wrapper-->
         <div id="infor-bar" class="col-10">
-          <div id="time-left-wrapper" class="col-2">
-            <h3>Time Left: </h3>
-            <h3 id="time-left"></h3>
+          <!-- Time Left Container -->
+          <div id="time-left-wrapper" class="col-2" aria-labelledby="time-label">
+            <h3 id="time-label">Time Left: </h3>
+            <h3 id="time-left"></h3> <!-- Time Left Data written here-->
           </div>
-          <div id="logs-wrapper" class="col-2">
-            <h3>Logs In Stock: </h3>
-            <h3 id="logs"></h3>
+          <!-- Logs In Stock Container -->
+          <div id="logs-wrapper" class="col-2" aria-labelledby="logs-label">
+            <h3 id="logs-label">Logs In Stock: </h3>
+            <h3 id="logs"></h3> <!-- Logs In Stock Data written here-->
           </div>
-          <div id="profit-wrapper" class="col-2">
-            <h3>Profit: </h3>
-            <h3 id="profit"></h3>
-          </div><div id="target-profit-wrapper" class="col-2">
-            <h3>Target Profit: </h3>
-            <h3 id="target-profit"></h3>
+          <!-- Profit Container -->
+          <div id="profit-wrapper" class="col-2" aria-labelledby="profit-label">
+            <h3 id="profit-label">Profit: </h3>
+            <h3 id="profit"></h3> <!-- Profit Data written here-->
+            <!-- Target Profit Container -->
+          </div>
+          <div id="target-profit-wrapper" class="col-2" aria-labelledby="target-profit-label">
+            <h3 id="target-profit-label">Target Profit: </h3>
+            <h3 id="target-profit"></h3> <!-- Target Profit Data written here-->
         </div>
       </div>
 

@@ -54,14 +54,13 @@
 #displayScreen-wrapper {
   background-color: rgb(109, 233, 233);
   height: 80vh;
-
-    /* display:none; */
+  display:none;
 }
 
 #displayyGame-wrapper {
   background-color:antiquewhite;
   height: 80vh;
-  display:none;
+/* display:none; */
 }
 
 /* Nav Styling */
@@ -115,12 +114,12 @@ header {
   justify-content: space-between;
 }
 
-#infor-bar {
+#info-bar {
   display: inline-flex;
   justify-content: flex-end;
 }
 
-#infor-bar > div {
+#info-bar > div {
   display:inline-flex;
 }
 
@@ -390,3 +389,46 @@ header {
     clear: both;
     display: table;
   }
+
+  #info-bar-wrapper {
+    display: grid;
+    grid-template-columns: 1;
+    grid-template-rows: 2;
+  }
+
+  #time-left-wrapper {
+    grid-area: time-left;
+  }
+
+  #logs-wrapper {
+    grid-area: logs;
+  }
+
+  #profit-wrapper {
+    grid-area: profit;
+  }
+
+  #target-profit-wrapper {
+    grid-area: target-profit;
+  }
+
+  #info-bar {
+    order: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas:
+    "time-left profit"
+    "logs target-profit";
+  }
+
+#info-bar > div {
+  width:auto;
+  justify-content: flex-end;
+}
+
+  #fire-alert-wrapper {
+    order: 2;
+  }
+
+

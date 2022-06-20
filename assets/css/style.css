@@ -118,6 +118,17 @@ header {
   justify-content: flex-end;
 }
 
+#infor-bar > div {
+  display:inline-flex;
+}
+
+.info-item {
+  border: solid 1px black;
+  width: fit-content;
+  margin-left: 5px;
+  padding: 10px;
+}
+
 #menu-messages-wrapper {
   display: flexbox;
   text-align: center;

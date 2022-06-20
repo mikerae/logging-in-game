@@ -81,8 +81,19 @@ header {
     align-items: center;
     justify-content: center;
   }
+
+  /* 
+    Aspect ration used to keep Dispaly image 
+    proportional as screen width changes
+  */
+
   #display-img-wrapper {
-    height: 40vh;
+    height: 100%;
+    aspect-ratio: 16/9;
+  }
+
+  #display-txt-wrapper {
+    height: 33%;
   }
 
   /* Display Buttons */

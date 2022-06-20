@@ -433,26 +433,36 @@ header {
 #info-bar > div {
   width:auto;
   justify-content: flex-end;
+  font-size: 0.6em;
 }
 
 .info-item {
   margin: 0;
 }
 
-  #fire-alert-wrapper {
-    order: 2;
-  }
+#fire-alert-wrapper {
+  order: 2;
+}
 
-  #spacer {
-    display: none;
-  }
+#spacer {
+  display: none;
+}
 
-  #menu-messages-wrapper {
-    order: 4;
-  }
+#menu-messages-wrapper {
+  order: 4;
+}
 
-  #map {
-    order: 3;
-    margin: 0 auto;
-  }
+#map {
+  order: 3;
+  margin: 0 auto;
+}
+
+#menu-messages-wrapper {
+  display: flex;
+  flex-direction:row;
+}
+
+#menu-messages-wrapper h2 {
+  font-size: .8em;
+}
 

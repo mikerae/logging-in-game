@@ -49,12 +49,12 @@
   #displayScreen-wrapper {
     background-color: rgb(109, 233, 233);
     height: 80vh;
+    display:none;
   }
 
   #displayyGame-wrapper {
     background-color:antiquewhite;
     height: 80vh;
-    display: none;
   }
 
   /* Nav Styling */

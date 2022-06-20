@@ -390,10 +390,28 @@ header {
     display: table;
   }
 
+  #displayyGame-wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* This grid positions the info bar above the Fire Alet div*/
   #info-bar-wrapper {
     display: grid;
     grid-template-columns: 1;
     grid-template-rows: 2;
+    order: 1;
+  }
+
+  /* This grid positions the game data info */
+  #info-bar {
+    order: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas:
+    "time-left profit"
+    "logs target-profit";
   }
 
   #time-left-wrapper {
@@ -412,23 +430,29 @@ header {
     grid-area: target-profit;
   }
 
-  #info-bar {
-    order: 1;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
-    grid-template-areas:
-    "time-left profit"
-    "logs target-profit";
-  }
-
 #info-bar > div {
   width:auto;
   justify-content: flex-end;
+}
+
+.info-item {
+  margin: 0;
 }
 
   #fire-alert-wrapper {
     order: 2;
   }
 
+  #spacer {
+    display: none;
+  }
+
+  #menu-messages-wrapper {
+    order: 4;
+  }
+
+  #map {
+    order: 3;
+    margin: 0 auto;
+  }
 

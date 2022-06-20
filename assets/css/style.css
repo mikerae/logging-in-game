@@ -54,12 +54,13 @@
 #displayScreen-wrapper {
   background-color: rgb(109, 233, 233);
   height: 80vh;
-  display:none;
+  /* display:none; */
 }
 
 #displayyGame-wrapper {
   background-color:antiquewhite;
   height: 80vh;
+  display:none;
 }
 
 /* Nav Styling */
@@ -357,4 +358,16 @@ header {
 
 .tile {
   border: solid black 1px;
+}
+
+/* Extra small devices (phones, 640px and down) in portrate */
+@media only screen and (max-width: 640px) {
+
+/* 
+  3 column grid layout. Each class specifies a column whos width is a
+  muliple of 100% width/3 = 33.33%
+*/
+.col-1 {width: 33.33%;}
+.col-2 {width: 66.66%;}
+.col-3 {width: 100%;}
 }

@@ -57,115 +57,118 @@
       This section is styled with layout columns, the number and width of which change acording to
       screen size, and enable the site to be responsive.
     -->
-    <section id="displayyGame-wrapper" class="col-12">
-      <div id="info-bar-wrapper" class="col-12">
+    <section id="displayyGame-wrapper" class="col-12 container" >
+      <div id="info-bar-wrapper" class="col-12 container">
         <!-- PLace holder for Fire Alert and spacer for Info Bar-->
         <div id="fire-alert-wrapper" class="col-2">
         </div>
         <!-- Infor Bar Wrapper-->
-        <div id="infor-bar" class="col-10">
+        <div id="infor-bar" class="col-10 container">
           <!-- Time Left Container -->
-          <div id="time-left-wrapper" class="col-2" aria-labelledby="time-label">
+          <div id="time-left-wrapper" class="col-2 container" aria-labelledby="time-label">
             <h3 id="time-label">Time Left: </h3>
             <h3 id="time-left"></h3> <!-- Time Left Data written here-->
           </div>
           <!-- Logs In Stock Container -->
-          <div id="logs-wrapper" class="col-2" aria-labelledby="logs-label">
+          <div id="logs-wrapper" class="col-2 container" aria-labelledby="logs-label">
             <h3 id="logs-label">Logs In Stock: </h3>
             <h3 id="logs"></h3> <!-- Logs In Stock Data written here-->
           </div>
           <!-- Profit Container -->
-          <div id="profit-wrapper" class="col-2" aria-labelledby="profit-label">
+          <div id="profit-wrapper" class="col-2 container" aria-labelledby="profit-label">
             <h3 id="profit-label">Profit: </h3>
             <h3 id="profit"></h3> <!-- Profit Data written here-->
             <!-- Target Profit Container -->
           </div>
-          <div id="target-profit-wrapper" class="col-2" aria-labelledby="target-profit-label">
+          <div id="target-profit-wrapper" class="col-2 container" aria-labelledby="target-profit-label">
             <h3 id="target-profit-label">Target Profit: </h3>
             <h3 id="target-profit"></h3> <!-- Target Profit Data written here-->
           </div>
       </div>
+      <div class="col-1 row"></div> <!-- spacer-->
+      <!-- Container for the Actions Menu and Messages window-->
       <div id="menu-messages-wrapper" class="col-4">
-        <div id=action-menu-wrapper class="col-4" aria-labelledby="actions-menu-label">
+        <div id="action-menu-wrapper" class="col-12 row container" aria-labelledby="actions-menu-label">
           <h2 id="actions-menu-label">Actions Menu</h2>
-          <div id="actions-menu" class="col-4">
+          <div id="actions-menu game-windows container" class="col-12 game-windows container">
+            <ul>
+
+            </ul>
           </div>
         </div>
-        <div id=messages-wrapper class="col-4" aria-labelledby="messages-label">
+        <div id="messages-wrapper" class="col-12 row container" aria-labelledby="messages-label">
           <h2 id="messages-label">Messages</h2>
-          <div id="messages" class="col-4">
+          <div id="messages" class="col-12 game-windows container">
             <p></p>
           </div>
         </div>
-        <div id="map-wrapper" class="col-8">
-          <!-- Map -->
-          <div id="map">
-            <div id="a1" class="tile"></div>
-            <div id="a2" class="tile"></div>
-            <div id="a3" class="tile"></div>
-            <div id="a4" class="tile"></div>
-            <div id="a5" class="tile"></div>
-            <div id="a6" class="tile"></div>
-            <div id="a7" class="tile"></div>
-            <div id="a8" class="tile"></div>
-            <div id="b1" class="tile"></div>
-            <div id="b2" class="tile"></div>
-            <div id="b3" class="tile"></div>
-            <div id="b4" class="tile"></div>
-            <div id="b5" class="tile"></div>
-            <div id="b6" class="tile"></div>
-            <div id="b7" class="tile"></div>
-            <div id="b8" class="tile"></div>
-            <div id="c1" class="tile"></div>
-            <div id="c2" class="tile"></div>
-            <div id="c3" class="tile"></div>
-            <div id="c4" class="tile"></div>
-            <div id="c5" class="tile"></div>
-            <div id="c6" class="tile"></div>
-            <div id="c7" class="tile"></div>
-            <div id="c8" class="tile"></div>
-            <div id="d1" class="tile"></div>
-            <div id="d2" class="tile"></div>
-            <div id="d3" class="tile"></div>
-            <div id="d4" class="tile"></div>
-            <div id="d5" class="tile"></div>
-            <div id="d6" class="tile"></div>
-            <div id="d7" class="tile"></div>
-            <div id="d8" class="tile"></div>
-            <div id="e1" class="tile"></div>
-            <div id="e2" class="tile"></div>
-            <div id="e3" class="tile"></div>
-            <div id="e4" class="tile"></div>
-            <div id="e5" class="tile"></div>
-            <div id="e6" class="tile"></div>
-            <div id="e7" class="tile"></div>
-            <div id="e8" class="tile"></div>
-            <div id="f1" class="tile"></div>
-            <div id="f2" class="tile"></div>
-            <div id="f3" class="tile"></div>
-            <div id="f4" class="tile"></div>
-            <div id="f5" class="tile"></div>
-            <div id="f6" class="tile"></div>
-            <div id="f7" class="tile"></div>
-            <div id="f8" class="tile"></div>
-            <div id="g1" class="tile"></div>
-            <div id="g2" class="tile"></div>
-            <div id="g3" class="tile"></div>
-            <div id="g4" class="tile"></div>
-            <div id="g5" class="tile"></div>
-            <div id="g6" class="tile"></div>
-            <div id="g7" class="tile"></div>
-            <div id="g8" class="tile"></div>
-            <div id="h1" class="tile"></div>
-            <div id="h2" class="tile"></div>
-            <div id="h3" class="tile"></div>
-            <div id="h4" class="tile"></div>
-            <div id="h5" class="tile"></div>
-            <div id="h6" class="tile"></div>
-            <div id="h7" class="tile"></div>
-            <div id="h8" class="tile"></div>
-          </div>
-        </div>
+      </div>
+      <!-- Map -->
+      <div id="map" class="col-5 container">
+        <div id="a1" class="tile"></div>
+        <div id="a2" class="tile"></div>
+        <div id="a3" class="tile"></div>
+        <div id="a4" class="tile"></div>
+        <div id="a5" class="tile"></div>
+        <div id="a6" class="tile"></div>
+        <div id="a7" class="tile"></div>
+        <div id="a8" class="tile"></div>
+        <div id="b1" class="tile"></div>
+        <div id="b2" class="tile"></div>
+        <div id="b3" class="tile"></div>
+        <div id="b4" class="tile"></div>
+        <div id="b5" class="tile"></div>
+        <div id="b6" class="tile"></div>
+        <div id="b7" class="tile"></div>
+        <div id="b8" class="tile"></div>
+        <div id="c1" class="tile"></div>
+        <div id="c2" class="tile"></div>
+        <div id="c3" class="tile"></div>
+        <div id="c4" class="tile"></div>
+        <div id="c5" class="tile"></div>
+        <div id="c6" class="tile"></div>
+        <div id="c7" class="tile"></div>
+        <div id="c8" class="tile"></div>
+        <div id="d1" class="tile"></div>
+        <div id="d2" class="tile"></div>
+        <div id="d3" class="tile"></div>
+        <div id="d4" class="tile"></div>
+        <div id="d5" class="tile"></div>
+        <div id="d6" class="tile"></div>
+        <div id="d7" class="tile"></div>
+        <div id="d8" class="tile"></div>
+        <div id="e1" class="tile"></div>
+        <div id="e2" class="tile"></div>
+        <div id="e3" class="tile"></div>
+        <div id="e4" class="tile"></div>
+        <div id="e5" class="tile"></div>
+        <div id="e6" class="tile"></div>
+        <div id="e7" class="tile"></div>
+        <div id="e8" class="tile"></div>
+        <div id="f1" class="tile"></div>
+        <div id="f2" class="tile"></div>
+        <div id="f3" class="tile"></div>
+        <div id="f4" class="tile"></div>
+        <div id="f5" class="tile"></div>
+        <div id="f6" class="tile"></div>
+        <div id="f7" class="tile"></div>
+        <div id="f8" class="tile"></div>
+        <div id="g1" class="tile"></div>
+        <div id="g2" class="tile"></div>
+        <div id="g3" class="tile"></div>
+        <div id="g4" class="tile"></div>
+        <div id="g5" class="tile"></div>
+        <div id="g6" class="tile"></div>
+        <div id="g7" class="tile"></div>
+        <div id="g8" class="tile"></div>
+        <div id="h1" class="tile"></div>
+        <div id="h2" class="tile"></div>
+        <div id="h3" class="tile"></div>
+        <div id="h4" class="tile"></div>
+        <div id="h5" class="tile"></div>
+        <div id="h6" class="tile"></div>
+        <div id="h7" class="tile"></div>
+        <div id="h8" class="tile"></div>
       </div>
 
     </section>

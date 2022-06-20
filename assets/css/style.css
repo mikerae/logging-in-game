@@ -39,69 +39,311 @@
 /* To prevent other elements in the rows being taken out of the flow of the 
   page, the following css was copied from W3 Schools 'Responsive Web Desigh - Grid-View
   https://www.w3schools.com/css/css_rwd_grid.asp */
-  .row::after {
-    content: "";
-    clear: both;
-    display: table;
-  }
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
 
-  /* DisplayScreen Wrappers Temporary Styling*/
-  #displayScreen-wrapper {
-    background-color: rgb(109, 233, 233);
-    height: 80vh;
-    display:none;
-  }
+/* Removes unwanted padding from wrappers and containers */
+.container {
+  padding: 0;
+}
 
-  #displayyGame-wrapper {
-    background-color:antiquewhite;
-    height: 80vh;
-  }
+/* DisplayScreen Wrappers Temporary Styling*/
+#displayScreen-wrapper {
+  background-color: rgb(109, 233, 233);
+  height: 80vh;
+  display:none;
+}
 
-  /* Nav Styling */
+#displayyGame-wrapper {
+  background-color:antiquewhite;
+  height: 80vh;
+}
 
-  #nav {
-    padding-top: 0;
-    padding-bottom: 0;
-  }
+/* Nav Styling */
+#nav {
+  padding-top: 0;
+  padding-bottom: 0;
+}
 
-  #nav-list li {
-    display: inline;
-    padding: 2rem;
-    list-style: none;
-  }
+#nav-list li {
+  display: inline;
+  padding: 2rem;
+  list-style: none;
+}
 
-  /* Display Screen Header */
+/* Display Screen Header */
 header {
   text-align: center;
-  }
+}
 
-  /* Display Image and Text */
-  #inner-display-wrapper {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-  }
+/* Display Image and Text */
+#inner-display-wrapper {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
 
-  /* 
-    Aspect ration used to keep Dispaly image 
-    proportional as screen width changes
-  */
+/* 
+  Aspect ratio used to keep Display image 
+  proportional as screen width changes
+*/
+#display-img-wrapper {
+  height: 100%;
+  aspect-ratio: 16/9;
+}
 
-  #display-img-wrapper {
-    height: 100%;
-    aspect-ratio: 16/9;
-  }
+#display-txt-wrapper {
+  height: 33%;
+}
 
-  #display-txt-wrapper {
-    height: 33%;
-  }
+/* Display Buttons */
+#display-buttons {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
 
-  /* Display Buttons */
-  #display-buttons {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-  }
+/* Game Display */
+#displayyGame-wrapper {
+  height: 100%;
+  display: flexbox;
+  justify-content: space-between;
+}
+
+#infor-bar {
+  display: inline-flex;
+  justify-content: flex-end;
+}
+
+#menu-messages-wrapper {
+  display: flexbox;
+  text-align: center;
+  height: 100%;
+}
+
+.game-windows {
+  border: solid 1px black;
+  height:fit-content;
+  width: 100%;
+  overflow: scroll;
+}
 
 
+/* Map  and Styling */
+#map {
+  margin: 2rem;
+  border: solid black 2px;
+  display: grid;
+  aspect-ratio: 1/1;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-areas: 
+  "h1 h2 h3 h4 h5 h6 h7 h8"
+  "g1 g2 g3 g4 g5 g6 g7 g8"
+  "f1 f2 f3 f4 f5 f6 f7 f8"
+  "e1 e2 e3 e4 e5 e6 e7 e8"
+  "d1 d2 d3 d4 d5 d6 d7 d8"
+  "c1 c2 c3 c4 c5 c6 c7 c8"
+  "b1 b2 b3 b4 b5 b6 b7 b8"
+  "a1 a2 a3 a4 a5 a6 a7 a8";
+}
 
+#a1 {
+  grid-area: a1;
+}
+#a2 {
+  grid-area: a2;
+}
+#a3 {
+  grid-area: a3;
+}
+#a4 {
+  grid-area: a4;
+}
+#a5 {
+  grid-area: a5;
+}
+#a6 {
+  grid-area: a6;
+}
+#a7 {
+  grid-area: a7;
+}
+#a8 {
+  grid-area: a8;
+}
+#b1 {
+  grid-area: b1;
+}
+#b2 {
+  grid-area: b2;
+}
+#b3 {
+  grid-area: b3;
+}
+#b4 {
+  grid-area: b4;
+}
+#b5 {
+  grid-area: b5;
+}
+#b6 {
+  grid-area: b6;
+}
+#b7 {
+  grid-area: b7;
+}
+#b8 {
+  grid-area: b8;
+}
+#c1 {
+  grid-area: c1;
+}
+#c2 {
+  grid-area: c2;
+}
+#c3 {
+  grid-area: c3;
+}
+#c4 {
+  grid-area: c4;
+}
+#c5 {
+  grid-area: c5;
+}
+#c6 {
+  grid-area: c6;
+}
+#c7 {
+  grid-area: c7;
+}
+#c8 {
+  grid-area: c8;
+}
+#d1 {
+  grid-area: d1;
+}
+#d2 {
+  grid-area: d2;
+}
+#d3 {
+  grid-area: d3;
+}
+#d4 {
+  grid-area: d4;
+}
+#d5 {
+  grid-area: d5;
+}
+#d6 {
+  grid-area: d6;
+}
+#d7 {
+  grid-area: d7;
+}
+#d8 {
+  grid-area: d8;
+}
+#e1 {
+  grid-area: e1;
+}
+#e2 {
+  grid-area: e2;
+}
+#e3 {
+  grid-area: e3;
+}
+#e4 {
+  grid-area: e4;
+}
+#e5 {
+  grid-area: e5;
+}
+#e6 {
+  grid-area: e6;
+}
+#e7 {
+  grid-area: e7;
+}
+#e8 {
+  grid-area: e8;
+}
+#f1 {
+  grid-area: f1;
+}
+#f2 {
+  grid-area: f2;
+}
+#f3 {
+  grid-area: f3;
+}
+#f4 {
+  grid-area: f4;
+}
+#f5 {
+  grid-area: f5;
+}
+#f6 {
+  grid-area: f6;
+}
+#f7 {
+  grid-area: f7;
+}
+#f8 {
+  grid-area: f8;
+}
+#g1 {
+  grid-area: g1;
+}
+#g2 {
+  grid-area: g2;
+}
+#g3 {
+  grid-area: g3;
+}
+#g4 {
+  grid-area: g4;
+}
+#g5 {
+  grid-area: g5;
+}
+#g6 {
+  grid-area: g6;
+}
+#g7 {
+  grid-area: g7;
+}
+#g8 {
+  grid-area: g8;
+}
+#h1 {
+  grid-area: h1;
+}
+#h2 {
+  grid-area: h2;
+}
+#h3 {
+  grid-area: h3;
+}
+#h4 {
+  grid-area: h4;
+}
+#h5 {
+  grid-area: h5;
+}
+#h6 {
+  grid-area: h6;
+}
+#h7 {
+  grid-area: h7;
+}
+#h8 {
+  grid-area: h8;
+}
+
+.tile {
+  border: solid black 1px;
+}

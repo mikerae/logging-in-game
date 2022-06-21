@@ -29,9 +29,9 @@
    Small Screens: 3 column grid layout. Each class specifies a column who's width is a
   muliple of 100% width/3 = 33.33%
 */
-.xsmcol-1 {width: 33.33%;}
-.xsmcol-2 {width: 66.66%;}
-.xsmcol-3 {width: 100%;}
+.smcol-1 {width: 33.33%;}
+.smcol-2 {width: 66.66%;}
+.smcol-3 {width: 100%;}
 
 /* Medium Screens: 12 column grid layout */
 .mdcol-1 {width: 8.33%;}
@@ -61,11 +61,25 @@
 /* To prevent other elements in the rows being taken out of the flow of the 
   page, the following css was copied from W3 Schools 'Responsive Web Desigh - Grid-View
   https://www.w3schools.com/css/css_rwd_grid.asp */
-.row::after {
+
+.lgrow::after { /* large screens */
   content: "";
   clear: both;
   display: table;
 }
+
+.mdrow::after { /* medium screens */
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.smrow::after { /* small screens */
+  content: "";
+  clear: both;
+  display: table;
+}
+
 
 /* Removes unwanted padding from wrappers and containers */
 .container {
@@ -76,12 +90,12 @@
 #displayScreen-wrapper {
   background-color: rgb(109, 233, 233);
   height: 80vh;
+  display: none;
 }
 
 #displayGame-wrapper {
   background-color:antiquewhite;
   height: 90vh;
-  display: none;
 }
 
 /* Nav Styling */
@@ -383,49 +397,39 @@ header {
 
 /* Small device screens (phones, 640px and down) in portrate */
 @media only screen and (max-width: 640px) {
+  /* Nav Bar */
+  #nav-list li {
+    padding: .5rem;
+  }
 
-    #nav-list li {
-      padding: .5rem;
-    }
+  /* Display Image and Text */
+  #inner-display-wrapper {
+    display:block;
+  }
 
-    /* Display Image and Text */
-    #inner-display-wrapper {
-      display:block;
-    }
+  #game-body-wrapper {
+    display: flex;
+    flex-direction: column;
+  }
 
-    /* To prevent other elements in the rows being taken out of the flow of the 
-      page, the following css was copied from W3 Schools 'Responsive Web Desigh - Grid-View
-      https://www.w3schools.com/css/css_rwd_grid.asp */
-    .xsmrow::after {
-      content: "";
-      clear: both;
-      display: table;
-    }
-    /* End of copied code */
+  /* This grid positions the info bar above the Fire Alet div*/
+  #info-bar-wrapper {
+    display: grid;
+    grid-template-columns: 1;
+    grid-template-rows: 2;
+    order: 1;
+  }
 
-    #displayGame-wrapper {
-      display: flex;
-      flex-direction: column;
-    }
-
-    /* This grid positions the info bar above the Fire Alet div*/
-    #info-bar-wrapper {
-      display: grid;
-      grid-template-columns: 1;
-      grid-template-rows: 2;
-      order: 1;
-    }
-
-    /* This grid positions the game data info */
-    #info-bar {
-      order: 1;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      grid-template-rows: 1fr 1fr;
-      grid-template-areas:
-      "time-left profit"
-      "logs target-profit";
-    }
+  /* This grid positions the game data info */
+  #info-bar {
+    order: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas:
+    "time-left profit"
+    "logs target-profit";
+  }
 /* Inf0 Bar Data Elements */
     #time-left-wrapper {
       grid-area: time-left;
@@ -482,7 +486,10 @@ header {
   }
 
 /* Medium devices (taplets, 640 px and down) in portrate */
-@media only screen and (max-width: 641px) and (min-width: 1007px) {
+@media only screen and (min-width: 641px) and (max-width: 1007px) {
 
-
+  /* Display Image and Text */
+  #inner-display-wrapper {
+    display:block;
+  }
 }

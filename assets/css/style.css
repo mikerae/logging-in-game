@@ -54,12 +54,12 @@
 #displayScreen-wrapper {
   background-color: rgb(109, 233, 233);
   height: 80vh;
-  display: none;
 }
 
 #displayGame-wrapper {
   background-color:antiquewhite;
   height: 90vh;
+  display: none;
 }
 
 /* Nav Styling */
@@ -359,11 +359,11 @@ header {
   border: solid black 1px;
 }
 
-/* Extra small devices (phones, 640px and down) in portrate */
+/* Small device screens (phones, 640px and down) in portrate */
 @media only screen and (max-width: 640px) {
 
     /* 
-      3 column grid layout. Each class specifies a column whos width is a
+      3 column grid layout. Each class specifies a column who's width is a
       muliple of 100% width/3 = 33.33%
     */
     .xsmcol-1 {width: 33.33%;}
@@ -388,6 +388,7 @@ header {
       clear: both;
       display: table;
     }
+    /* End of copied code */
 
     #displayGame-wrapper {
       display: flex;
@@ -412,7 +413,7 @@ header {
       "time-left profit"
       "logs target-profit";
     }
-
+/* Inf0 Bar Data Elements */
     #time-left-wrapper {
       grid-area: time-left;
     }
@@ -438,7 +439,7 @@ header {
     .info-item {
       margin: 0;
     }
-
+/* The Fire Alert is turnd off in dev stage 1 */
     #fire-alert-wrapper {
       order: 2;
     }
@@ -446,14 +447,9 @@ header {
     #spacer {
       display: none;
     }
-
+/* Positioning and styling the Actions Menu and the Messages window */
     #menu-messages-wrapper {
       order: 4;
-    }
-
-    #map {
-      order: 3;
-      margin: 0 auto;
     }
 
     #menu-messages-wrapper {
@@ -464,4 +460,28 @@ header {
     #menu-messages-wrapper h2 {
       font-size: .8em;
     }
+
+/* Positioning the Map */
+    #map {
+      order: 3;
+      margin: 0 auto;
+    }
+  }
+
+/* Medium devices (taplets, 640 px and down) in portrate */
+@media only screen and (max-width: 641px) and (min-width: 1007px) {
+
+  .mdcol-1 {width: 8.33%;}
+  .mdcol-2 {width: 16.66%;}
+  .mdcol-3 {width: 25%;}
+  .mdcol-4 {width: 33.33%;}
+  .mdcol-5 {width: 41.66%;}
+  .mdcol-6 {width: 50%;}
+  .mdcol-7 {width: 58.33%;}
+  .mdcol-8 {width: 66.66%;}
+  .mdcol-9 {width: 75%;}
+  .mdcol-10 {width: 83.33%;}
+  .mdcol-11 {width: 91.66%;}
+  .mdcol-12 {width: 100%;}
+
 }

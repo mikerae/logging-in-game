@@ -9,21 +9,43 @@
 }
 
 /* 
-  12 column grid layout. Each class specifies a column whos width is a
+  Large Screens: 12 column grid layout. Each class specifies a column whos width is a
   muliple of 100% width/12 = 8.33%
 */
-.col-1 {width: 8.33%;}
-.col-2 {width: 16.66%;}
-.col-3 {width: 25%;}
-.col-4 {width: 33.33%;}
-.col-5 {width: 41.66%;}
-.col-6 {width: 50%;}
-.col-7 {width: 58.33%;}
-.col-8 {width: 66.66%;}
-.col-9 {width: 75%;}
-.col-10 {width: 83.33%;}
-.col-11 {width: 91.66%;}
-.col-12 {width: 100%;}
+.lgcol-1 {width: 8.33%;}
+.lgcol-2 {width: 16.66%;}
+.lgcol-3 {width: 25%;}
+.lgcol-4 {width: 33.33%;}
+.lgcol-5 {width: 41.66%;}
+.lgcol-6 {width: 50%;}
+.lgcol-7 {width: 58.33%;}
+.lgcol-8 {width: 66.66%;}
+.lgcol-9 {width: 75%;}
+.lgcol-10 {width: 83.33%;}
+.lgcol-11 {width: 91.66%;}
+.lgcol-12 {width: 100%;}
+
+/* 
+   Small Screens: 3 column grid layout. Each class specifies a column who's width is a
+  muliple of 100% width/3 = 33.33%
+*/
+.xsmcol-1 {width: 33.33%;}
+.xsmcol-2 {width: 66.66%;}
+.xsmcol-3 {width: 100%;}
+
+/* Medium Screens: 12 column grid layout */
+.mdcol-1 {width: 8.33%;}
+.mdcol-2 {width: 16.66%;}
+.mdcol-3 {width: 25%;}
+.mdcol-4 {width: 33.33%;}
+.mdcol-5 {width: 41.66%;}
+.mdcol-6 {width: 50%;}
+.mdcol-7 {width: 58.33%;}
+.mdcol-8 {width: 66.66%;}
+.mdcol-9 {width: 75%;}
+.mdcol-10 {width: 83.33%;}
+.mdcol-11 {width: 91.66%;}
+.mdcol-12 {width: 100%;}
 
 /* Each column floats left, has padding of 15px and for layout puropses
   initially has a border. The css attribute selector [attribute*=value]
@@ -362,15 +384,6 @@ header {
 /* Small device screens (phones, 640px and down) in portrate */
 @media only screen and (max-width: 640px) {
 
-    /* 
-      3 column grid layout. Each class specifies a column who's width is a
-      muliple of 100% width/3 = 33.33%
-    */
-    .xsmcol-1 {width: 33.33%;}
-    .xsmcol-2 {width: 66.66%;}
-    .xsmcol-3 {width: 100%;}
-
-
     #nav-list li {
       padding: .5rem;
     }
@@ -471,17 +484,5 @@ header {
 /* Medium devices (taplets, 640 px and down) in portrate */
 @media only screen and (max-width: 641px) and (min-width: 1007px) {
 
-  .mdcol-1 {width: 8.33%;}
-  .mdcol-2 {width: 16.66%;}
-  .mdcol-3 {width: 25%;}
-  .mdcol-4 {width: 33.33%;}
-  .mdcol-5 {width: 41.66%;}
-  .mdcol-6 {width: 50%;}
-  .mdcol-7 {width: 58.33%;}
-  .mdcol-8 {width: 66.66%;}
-  .mdcol-9 {width: 75%;}
-  .mdcol-10 {width: 83.33%;}
-  .mdcol-11 {width: 91.66%;}
-  .mdcol-12 {width: 100%;}
 
 }

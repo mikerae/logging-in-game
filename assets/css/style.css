@@ -54,13 +54,12 @@
 #displayScreen-wrapper {
   background-color: rgb(109, 233, 233);
   height: 80vh;
-  display:none;
+  display: none;
 }
 
-#displayyGame-wrapper {
+#displayGame-wrapper {
   background-color:antiquewhite;
-  height: 80vh;
-/* display:none; */
+  height: 90vh;
 }
 
 /* Nav Styling */
@@ -108,7 +107,7 @@ header {
 }
 
 /* Game Display */
-#displayyGame-wrapper {
+#displayGame-wrapper {
   height: 100%;
   display: flexbox;
   justify-content: space-between;
@@ -363,106 +362,106 @@ header {
 /* Extra small devices (phones, 640px and down) in portrate */
 @media only screen and (max-width: 640px) {
 
-/* 
-  3 column grid layout. Each class specifies a column whos width is a
-  muliple of 100% width/3 = 33.33%
-*/
-.xsmcol-1 {width: 33.33%;}
-.xsmcol-2 {width: 66.66%;}
-.xsmcol-3 {width: 100%;}
+    /* 
+      3 column grid layout. Each class specifies a column whos width is a
+      muliple of 100% width/3 = 33.33%
+    */
+    .xsmcol-1 {width: 33.33%;}
+    .xsmcol-2 {width: 66.66%;}
+    .xsmcol-3 {width: 100%;}
+
+
+    #nav-list li {
+      padding: .5rem;
+    }
+
+    /* Display Image and Text */
+    #inner-display-wrapper {
+      display:block;
+    }
+
+    /* To prevent other elements in the rows being taken out of the flow of the 
+      page, the following css was copied from W3 Schools 'Responsive Web Desigh - Grid-View
+      https://www.w3schools.com/css/css_rwd_grid.asp */
+    .xsmrow::after {
+      content: "";
+      clear: both;
+      display: table;
+    }
+
+    #displayGame-wrapper {
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* This grid positions the info bar above the Fire Alet div*/
+    #info-bar-wrapper {
+      display: grid;
+      grid-template-columns: 1;
+      grid-template-rows: 2;
+      order: 1;
+    }
+
+    /* This grid positions the game data info */
+    #info-bar {
+      order: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      grid-template-areas:
+      "time-left profit"
+      "logs target-profit";
+    }
+
+    #time-left-wrapper {
+      grid-area: time-left;
+    }
+
+    #logs-wrapper {
+      grid-area: logs;
+    }
+
+    #profit-wrapper {
+      grid-area: profit;
+    }
+
+    #target-profit-wrapper {
+      grid-area: target-profit;
+    }
+
+    #info-bar > div {
+      width:auto;
+      justify-content: flex-end;
+      font-size: 0.6em;
+    }
+
+    .info-item {
+      margin: 0;
+    }
+
+    #fire-alert-wrapper {
+      order: 2;
+    }
+
+    #spacer {
+      display: none;
+    }
+
+    #menu-messages-wrapper {
+      order: 4;
+    }
+
+    #map {
+      order: 3;
+      margin: 0 auto;
+    }
+
+    #menu-messages-wrapper {
+      display: flex;
+      flex-direction:row;
+    }
+
+    #menu-messages-wrapper h2 {
+      font-size: .8em;
+    }
 }
-
-#nav-list li {
-  padding: .5rem;
-}
-
-/* Display Image and Text */
-#inner-display-wrapper {
-  display:block;
-}
-
-/* To prevent other elements in the rows being taken out of the flow of the 
-  page, the following css was copied from W3 Schools 'Responsive Web Desigh - Grid-View
-  https://www.w3schools.com/css/css_rwd_grid.asp */
-  .xsmrow::after {
-    content: "";
-    clear: both;
-    display: table;
-  }
-
-  #displayyGame-wrapper {
-    display: flex;
-    flex-direction: column;
-  }
-
-  /* This grid positions the info bar above the Fire Alet div*/
-  #info-bar-wrapper {
-    display: grid;
-    grid-template-columns: 1;
-    grid-template-rows: 2;
-    order: 1;
-  }
-
-  /* This grid positions the game data info */
-  #info-bar {
-    order: 1;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
-    grid-template-areas:
-    "time-left profit"
-    "logs target-profit";
-  }
-
-  #time-left-wrapper {
-    grid-area: time-left;
-  }
-
-  #logs-wrapper {
-    grid-area: logs;
-  }
-
-  #profit-wrapper {
-    grid-area: profit;
-  }
-
-  #target-profit-wrapper {
-    grid-area: target-profit;
-  }
-
-#info-bar > div {
-  width:auto;
-  justify-content: flex-end;
-  font-size: 0.6em;
-}
-
-.info-item {
-  margin: 0;
-}
-
-#fire-alert-wrapper {
-  order: 2;
-}
-
-#spacer {
-  display: none;
-}
-
-#menu-messages-wrapper {
-  order: 4;
-}
-
-#map {
-  order: 3;
-  margin: 0 auto;
-}
-
-#menu-messages-wrapper {
-  display: flex;
-  flex-direction:row;
-}
-
-#menu-messages-wrapper h2 {
-  font-size: .8em;
-}
-

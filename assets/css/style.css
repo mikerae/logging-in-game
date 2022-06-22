@@ -25,27 +25,6 @@
 .lgcol-11 {width: 91.66%;}
 .lgcol-12 {width: 100%;}
 
-/* 
-   Small Screens: 3 column grid layout. Each class specifies a column who's width is a
-  muliple of 100% width/3 = 33.33%
-*/
-.smcol-1 {width: 33.33%;}
-.smcol-2 {width: 66.66%;}
-.smcol-3 {width: 100%;}
-
-/* Medium Screens: 12 column grid layout */
-.mdcol-1 {width: 8.33%;}
-.mdcol-2 {width: 16.66%;}
-.mdcol-3 {width: 25%;}
-.mdcol-4 {width: 33.33%;}
-.mdcol-5 {width: 41.66%;}
-.mdcol-6 {width: 50%;}
-.mdcol-7 {width: 58.33%;}
-.mdcol-8 {width: 66.66%;}
-.mdcol-9 {width: 75%;}
-.mdcol-10 {width: 83.33%;}
-.mdcol-11 {width: 91.66%;}
-.mdcol-12 {width: 100%;}
 
 /* Each column floats left, has padding of 15px and for layout puropses
   initially has a border. The css attribute selector [attribute*=value]
@@ -55,7 +34,7 @@
 [class*="col-"] {
   padding: 15px;
   float:left;
-  border: 1px solid blue;
+  border: 1px solid blue; /* temporary guid lines */
 }
 
 /* To prevent other elements in the rows being taken out of the flow of the 
@@ -68,19 +47,6 @@
   display: table;
 }
 
-.mdrow::after { /* medium screens */
-  content: "";
-  clear: both;
-  display: table;
-}
-
-.smrow::after { /* small screens */
-  content: "";
-  clear: both;
-  display: table;
-}
-
-
 /* Removes unwanted padding from wrappers and containers */
 .container {
   padding: 0;
@@ -89,7 +55,7 @@
 /* DisplayScreen Wrappers Temporary Styling*/
 #displayScreen-wrapper {
   background-color: rgb(109, 233, 233);
-  height: 80vh;
+  height: 90vh;
   display: none;
 }
 
@@ -117,7 +83,8 @@ header {
 
 /* Display Image and Text */
 #inner-display-wrapper {
-  display: inline-flex;
+  display: flex;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
 }
@@ -133,6 +100,7 @@ header {
 
 #display-txt-wrapper {
   height: 33%;
+  text-align: center;
 }
 
 /* Display Buttons */
@@ -145,8 +113,16 @@ header {
 /* Game Display */
 #displayGame-wrapper {
   height: 100%;
+  display:flexbox;
+  flex-direction: column;
+}
+
+#info-bar-wrapper {
   display: flexbox;
-  justify-content: space-between;
+}
+
+#fire-alert-wrapper {
+  height: 4rem;
 }
 
 #info-bar {
@@ -163,6 +139,13 @@ header {
   width: fit-content;
   margin-left: 5px;
   padding: 10px;
+}
+
+#game-body-wrapper {
+  height: 100%;
+  display: flexbox;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 #menu-messages-wrapper {
@@ -397,6 +380,20 @@ header {
 
 /* Small device screens (phones, 640px and down) in portrate */
 @media only screen and (max-width: 640px) {
+  /* 
+   Small Screens: 3 column grid layout. Each class specifies a column who's width is a
+  muliple of 100% width/3 = 33.33%
+  */
+  .smcol-1 {width: 33.33%;}
+  .smcol-2 {width: 66.66%;}
+  .smcol-3 {width: 100%;}
+
+  .smrow::after { /* small screens */
+    content: "";
+    clear: both;
+    display: table;
+  }
+  
   /* Nav Bar */
   #nav-list li {
     padding: .5rem;
@@ -430,7 +427,7 @@ header {
     "time-left profit"
     "logs target-profit";
   }
-/* Inf0 Bar Data Elements */
+/* Info Bar Data Elements */
     #time-left-wrapper {
       grid-area: time-left;
     }
@@ -466,12 +463,9 @@ header {
     }
 /* Positioning and styling the Actions Menu and the Messages window */
     #menu-messages-wrapper {
-      order: 4;
-    }
-
-    #menu-messages-wrapper {
       display: flex;
       flex-direction:row;
+      order: 4;
     }
 
     #menu-messages-wrapper h2 {
@@ -488,8 +482,105 @@ header {
 /* Medium devices (taplets, 640 px and down) in portrate */
 @media only screen and (min-width: 641px) and (max-width: 1007px) {
 
+  /* Medium Screens: 12 column grid layout */
+  .mdcol-1 {width: 8.33%;}
+  .mdcol-2 {width: 16.66%;}
+  .mdcol-3 {width: 25%;}
+  .mdcol-4 {width: 33.33%;}
+  .mdcol-5 {width: 41.66%;}
+  .mdcol-6 {width: 50%;}
+  .mdcol-7 {width: 58.33%;}
+  .mdcol-8 {width: 66.66%;}
+  .mdcol-9 {width: 75%;}
+  .mdcol-10 {width: 83.33%;}
+  .mdcol-11 {width: 91.66%;}
+  .mdcol-12 {width: 100%;}
+
+  .mdrow::after { /* medium screens */
+    content: "";
+    clear: both;
+    display: table;
+  }
+
   /* Display Image and Text */
   #inner-display-wrapper {
-    display:block;
+    display:flexbox;
+    flex-direction: column;
+  }
+
+  #game-body-wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* This grid positions the info bar above the Fire Alet div*/
+  #info-bar-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+  }
+
+  /* This grid positions the game data info */
+  #info-bar {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas:
+    "time-left profit"
+    "logs target-profit";
+  }
+
+  /* Info Bar Data Elements */
+  #time-left-wrapper {
+    grid-area: time-left;
+  }
+
+  #logs-wrapper {
+    grid-area: logs;
+  }
+
+  #profit-wrapper {
+    grid-area: profit;
+  }
+
+  #target-profit-wrapper {
+    grid-area: target-profit;
+  }
+
+  #info-bar > div {
+    width:max-content;
+    justify-content: flex-end;
+    font-size: 0.6em;
+  }
+
+  .info-item {
+    margin: 0;
+  }
+
+  #game-body-wrapper {
+    display: flexbox;
+  }
+
+  #spacer {
+    display: none;
+  }
+
+  /* Positioning and styling the Actions Menu and the Messages window */
+
+  #menu-messages-wrapper {
+    display: flex;
+    flex-direction:row;
+    order: 2;
+    margin: auto;
+  }
+
+  #menu-messages-wrapper h2 {
+    font-size: .8em;
+  }
+
+/* Positioning the Map */
+  #map {
+    order: 1;
+    margin: 0 auto;
   }
 }

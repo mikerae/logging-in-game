@@ -56,7 +56,6 @@
 #displayScreen-wrapper {
   background-color: rgb(109, 233, 233);
   height: 90vh;
-  display: none;
 }
 
 #displayGame-wrapper {

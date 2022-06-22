@@ -10,19 +10,32 @@ document.addEventListener("DOMContentLoaded", main());
  */
 function main() {
   // Initialsie Classes of Objects
+  class Screens {
+    constructor(name, title, msg, img) {
+      this.name = name;
+      this.title = title;
+      this.msg = msg;
+      this.img = img;
+    }
+  }
 
   // Initialise CONSTANTS
-  const SCREENS = ["welcome", "intro", "game", "win"];
+  const TARGETPROFIT = 10000;
   const MONOLOGUEDISPLAY = document.getElementById("displayScreen-wrapper");
   const GAMEDISPLAY = document.getElementById("displayGame-wrapper");
+  const WELCOME = new Screens("welcome", "Welcome to Logging-In", "You may be a LumberJack or LumberJackie, but are you O.K.?", "#");
+  const INTRO = new Screens("intro", "Harvest your logs!", `Ar you ready to harvest your Forest, build up your stock of Logs and sell them at your Lumber-Camp?
+   If you make £${TARGETPROFIT} in profit you Win!. Happy Harvesting!`, "#");
+  const GAME = new Screens("game", "", "", "");
+  const WIN = new Screens("win", "Congratulations! You Won!", "You reached your target profit. How will you spend it? Feel free to play again or quit", "#");
+
 
   // Initialise local variables
-  let screen = SCREENS[0]; // sets screen as 'welcome'
 
   //Initialse Objects
 
   //Display Welcome Screen
-  setDisplay(screen, GAMEDISPLAY, MONOLOGUEDISPLAY);
+  setDisplay(WIN, GAMEDISPLAY, MONOLOGUEDISPLAY);
 }
 
 // Screen Utility Functions
@@ -31,8 +44,8 @@ function main() {
  * Toggels the display between Monologue screens 
  * (welcome, intro, win) and Game screen
  */
-function setDisplay(screen, GAMEDISPLAY, MONOLOGUEDISPLAY) {
-  switch (screen) {
+function setDisplay(Screens, GAMEDISPLAY, MONOLOGUEDISPLAY) {
+  switch (Screens.name) {
     case 'game':
       MONOLOGUEDISPLAY.style.display = "none";
       GAMEDISPLAY.style.removeProperty('display');

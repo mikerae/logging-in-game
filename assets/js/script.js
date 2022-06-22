@@ -12,12 +12,12 @@ function main() {
   // Initialsie Classes of Objects
 
   // Initialise CONSTANTS
-  let SCREENS = ["welcome", "intro", "game", "win"];
-  let MONOLOGUEDISPLAY = document.getElementById("displayScreen-wrapper");
-  let GAMEDISPLAY = document.getElementById("displayGame-wrapper");
+  const SCREENS = ["welcome", "intro", "game", "win"];
+  const MONOLOGUEDISPLAY = document.getElementById("displayScreen-wrapper");
+  const GAMEDISPLAY = document.getElementById("displayGame-wrapper");
 
   // Initialise local variables
-  let screen = SCREENS[0];
+  let screen = SCREENS[0]; // sets screen as 'welcome'
 
   //Initialse Objects
 

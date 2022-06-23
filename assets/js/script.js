@@ -18,7 +18,7 @@ function main() {
       this.src = src;
       this.alt = alt;
       this.container = "#display-img-wrapper";
-      this.styling = "screen-image";
+      this.cssid = "screen-image";
 
     }
   }
@@ -38,9 +38,9 @@ function main() {
   const WIN = new Screens("win", "Congratulations! You Won!", "You reached your target profit. How will you spend it? Feel free to play again or quit", "assets/images/welcome-intro.png", "Win image");
 
   //Display Welcome Screen
-  //setDisplay(WELCOME, GAMEDISPLAY, MONOLOGUEDISPLAY);
-  //populateScreen(WELCOME);
-  //console.log(WELCOME.src);
+  setDisplay(WELCOME, GAMEDISPLAY, MONOLOGUEDISPLAY);
+  populateScreen(WELCOME);
+  console.log(WELCOME);
 }
 
 // Screen Utility Functions
@@ -92,7 +92,7 @@ function populateScreen(Screens) {
 
 function loadImage(Screens) {
   let image = document.createElement('img');
-  image.src = src;
-  image.setAttribute("class", Screens.styling);
-  //document.querySelector(Screens.container).appendChild(image);
+  image.src = Screens.src;
+  image.setAttribute("id", Screens.cssid);
+  document.querySelector(Screens.container).appendChild(image);
 }

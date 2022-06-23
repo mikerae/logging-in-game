@@ -93,7 +93,7 @@ header {
   height: 100%;
   aspect-ratio: 16/9;
 }
-.screen-image {
+#screen-image {
   object-fit: fill;
   width: 100%;
 aspect-ratio: 16 / 9;

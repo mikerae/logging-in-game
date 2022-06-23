@@ -61,4 +61,8 @@ At the appropriate stage in development, the GitHub repository was deployed to G
 ## Bugs and Resolutions
 ### Image does not display in #display-img-wrapper in js
 The path was tested by hard coding an img element withing the wrapper div. The image loaded.
+Next, the css stlye link was tested by hard coding it into the <img> element. It wqas found that a class identifiyer was used instead of an id identifyer. When corrected the style was applied correctly.
+Next, the <img> element was deleated in the html file. The image did not load => the bug is in function: populateScreen() or the object: WELCOME.
+Next, the object: WELCOME was tested.
+Resolution: The css identifyer was incorrectly applied to object Screens. A class identifer was used in the css file and the setAttribute, but an id identifyer was needed. The Screens key was changed to cssid for clarification, the identifyer in the css file was changed from .screen-image to #screen-image and the function line in loadImage(Screens) was changed to image.setAttribute("id", Screens.cssid)
 

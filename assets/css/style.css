@@ -34,7 +34,6 @@
 [class*="col-"] {
   padding: 15px;
   float:left;
-  border: 1px solid blue; /* temporary guid lines */
 }
 
 /* To prevent other elements in the rows being taken out of the flow of the 
@@ -52,14 +51,12 @@
   padding: 0;
 }
 
-/* DisplayScreen Wrappers Temporary Styling*/
+/* DisplayScreen Wrappers: used to toggles Displays in JS */
 #displayScreen-wrapper {
-  background-color: rgb(109, 233, 233);
   height: 90vh;
 }
 
 #displayGame-wrapper {
-  background-color:antiquewhite;
   height: 90vh;
 }
 

@@ -38,9 +38,9 @@ function main() {
   const WIN = new Screens("win", "Congratulations! You Won!", "You reached your target profit. How will you spend it? Feel free to play again or quit", "assets/images/welcome-intro.png", "Win image");
 
   //Display Welcome Screen
-  setDisplay(WELCOME, GAMEDISPLAY, MONOLOGUEDISPLAY);
+  //setDisplay(WELCOME, GAMEDISPLAY, MONOLOGUEDISPLAY);
   //populateScreen(WELCOME);
-  console.log(WELCOME.src);
+  //console.log(WELCOME.src);
 }
 
 // Screen Utility Functions

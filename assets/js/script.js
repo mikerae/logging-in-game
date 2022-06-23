@@ -11,13 +11,13 @@ document.addEventListener("DOMContentLoaded", main());
 function main() {
   // Initialsie Classes of Objects
   class Screens {
-    constructor(name, title, msg, imgPath, alt) {
+    constructor(name, title, msg, src, alt) {
       this.name = name;
       this.title = title;
       this.msg = msg;
-      this.imgPath = imgPath;
+      this.src = src;
       this.alt = alt;
-      this.container = "display-img-wrapper";
+      this.container = "#display-img-wrapper";
       this.styling = "screen-image";
 
     }
@@ -27,21 +27,20 @@ function main() {
   const TARGETPROFIT = 10000;
   const MONOLOGUEDISPLAY = document.getElementById("displayScreen-wrapper");
   const GAMEDISPLAY = document.getElementById("displayGame-wrapper");
-  const WELCOME = new Screens("welcome", "Welcome to Logging-In", "You may be a LumberJack or LumberJackie, but are you O.K.?", "assets/images/welcome-intro.png", "Welcome image");
-  const INTRO = new Screens("intro", "Harvest your logs!", `Ar you ready to harvest your Forest, build up your stock of Logs and sell them at your Lumber-Camp?
-   If you make £${TARGETPROFIT} in profit you Win!. Happy Harvesting!`, "assets/images/welcome-intro.png", "Intro image");
-  const GAME = new Screens("game", "", "", "", "");
-  const WIN = new Screens("win", "Congratulations! You Won!", "You reached your target profit. How will you spend it? Feel free to play again or quit", "assets/images/welcome-intro.png", "Win image");
-
-
+  
   // Initialise local variables
 
   //Initialse Objects
+  const WELCOME = new Screens("welcome", "Welcome to Logging-In", "You may be a LumberJack or LumberJackie, but are you O.K.?", "assets/images/welcome-intro.png", "Welcome image");
+  const INTRO = new Screens("intro", "Harvest your logs!", `Are you ready to harvest your Forest, build up your stock of Logs and sell them at your Lumber-Camp?
+   If you make £${TARGETPROFIT} in profit you Win!. Happy Harvesting!`, "assets/images/welcome-intro.png");
+  const GAME = new Screens("game", "", "", "", "");
+  const WIN = new Screens("win", "Congratulations! You Won!", "You reached your target profit. How will you spend it? Feel free to play again or quit", "assets/images/welcome-intro.png", "Win image");
 
   //Display Welcome Screen
   setDisplay(WELCOME, GAMEDISPLAY, MONOLOGUEDISPLAY);
-  populateScreen(WELCOME);
-  //console.log();
+  //populateScreen(WELCOME);
+  console.log(WELCOME.src);
 }
 
 // Screen Utility Functions
@@ -93,7 +92,7 @@ function populateScreen(Screens) {
 
 function loadImage(Screens) {
   let image = document.createElement('img');
-  image.src = Screens.imgPath;
+  image.src = src;
   image.setAttribute("class", Screens.styling);
-  document.querySelector(Screens.container).appendChild(image);
+  //document.querySelector(Screens.container).appendChild(image);
 }

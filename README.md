@@ -57,3 +57,7 @@ Column classes were applied to the html Nav and DisplayScreen sections.
 ## Deployment
 At the appropriate stage in development, the GitHub repository was deployed to GitHub Pages for public viewing via the GitHub server. The main repository was selected and an http link was generated and displaed in the repository Readme.md.
 
+## Bugs and Resolutions
+### Image does not display in #display-img-wrapper in js
+The path was tested by hard coding an img element withing the wrapper div. The image loaded.
+

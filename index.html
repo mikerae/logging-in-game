@@ -20,11 +20,11 @@
       is visible at all times. 
     -->
     <nav id="nav" class="lgcol-12 smcol-3">
-      <ul id="nav-list" class="lgcol-5 smcol-3 mdcol-8">
-        <li class="nav-elements">Quit</li>
-        <li class="nav-elements">New Game</li>
+      <ul id="nav-list" nav-type="quit" class="lgcol-5 smcol-3 mdcol-8">
+        <li id="nav-quit" nav-type="quit" class="nav-elements">Quit</li>
+        <li id="nav-newgame" nav-type="newgame"class="nav-elements">New Game</li>
         <!-- The Help Menu is a dropdown menu activated from the span tag -->
-        <li class="nav-elements"><span>Help</span></li>
+        <li id="help" class="nav-elements" ><span>Help</span></li>
       </ul>
     </nav>
 
@@ -48,7 +48,7 @@
         </div>
       </div>
       <div id="display-buttons" class="lgcol-12">
-        <button id="btn-1" class="button col-2 smcol-1"></button>
+        <button id="btn-1" class="button col-2 smcol-1" data-typr="play-game"></button>
       </div>
     </section>
 

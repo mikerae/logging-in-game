@@ -19,8 +19,10 @@ function main() {
       this.imgalt = imgalt;
       this.btn1id = "btn-1";
       this.btn1txt = btn1txt;
-      this.imgcontainer = "#display-img-wrapper";
-      this.imgcssid = "screen-image";
+      this.btn2id = "btn-2"
+      this.btn2txt = "Quit";
+      this.imgcontainer = "display-img-wrapper";
+      this.imgid = "screen-image";
     }
   }
 
@@ -29,20 +31,23 @@ function main() {
   const MONOLOGUEDISPLAY = document.getElementById("displayScreen-wrapper");
   const GAMEDISPLAY = document.getElementById("displayGame-wrapper");
 
-  // Initialise local variables
+  // Initialise block variables
   let currentScreen = null;
 
   //Initialse Objects
-  const WELCOME = new Screens("welcome", "Welcome to Logging-In", "You may be a LumberJack or LumberJackie, but are you O.K.?", "assets/images/welcome-intro.png", "Welcome image", "New Game");
+  const WELCOME = new Screens("welcome", "Welcome to Logging-In", "You may be a LumberJack or LumberJackie, but are you O.K.? Play Logging-In to find out!", "assets/images/welcome-intro.png", "Welcome image", "New Game");
   const INTRO = new Screens("intro", "Harvest your logs!", `Are you ready to harvest your Forest, build up your stock of Logs and sell them at your Lumber-Camp?
    If you make £${TARGETPROFIT} in profit you Win!. Happy Harvesting!`, "assets/images/welcome-intro.png");
-  const GAME = new Screens("game", "", "", "", "");
+  const GAME = new Screens("game");
   const WIN = new Screens("win", "Congratulations! You Won!", "You reached your target profit. How will you spend it? Feel free to play again or quit", "assets/images/welcome-intro.png", "Win image");
+  const SCREENCOLLECTION = [WELCOME, INTRO, GAME, WIN];
 
   //Display Welcome Screen and begin Game Flow
   currentScreen = WELCOME;
-  loadScreen(currentScreen, GAMEDISPLAY, MONOLOGUEDISPLAY)
-  //console.log(currentScreen.btn1txt);
+  loadScreen(currentScreen, GAMEDISPLAY, MONOLOGUEDISPLAY);
+
+// Initialise event listners for nav menu funtionality
+  activateNavMenu(SCREENCOLLECTION, currentScreen, GAMEDISPLAY, MONOLOGUEDISPLAY);
 }
 
 // Screen Utility Functions
@@ -52,19 +57,18 @@ function main() {
  * (welcome, intro, win) and Game screen
  */
 function setDisplay(Screens, GAMEDISPLAY, MONOLOGUEDISPLAY) {
+
   switch (Screens.name) {
     case 'game':
       MONOLOGUEDISPLAY.style.display = "none";
       GAMEDISPLAY.style.removeProperty('display');
+      
       break;
     case 'welcome':
     case 'intro':
     case 'win':
       MONOLOGUEDISPLAY.style.removeProperty('display');
       GAMEDISPLAY.style.display = "none";
-      break;
-    default:
-      alert("Im sorry, there is a problem with the game! Contact Mike for assistance");
   }
 }
 
@@ -79,19 +83,70 @@ function populateScreen(Screens) {
   populateButtons(Screens);
 }
 
+/** Gets button data from Screens object */
 function populateButtons(Screens) {
-  document.getElementById(Screens.btn1id).innerText(Screens.btn1txt);
-  console.log(Screens.btn1txt);
+  document.getElementById(Screens.btn1id).innerText = Screens.btn1txt;
 }
 
+/** Wites button data to DOM */
+function loadButton1(Screens) {
+  document.getElementById(Screens.btn1id).innerText = Screens.btn1txt;
+}
+
+/** Checks for image inside container of object.
+ * If present, removes image
+ * Loads object related images into relevant image container
+ */
 function loadImage(Screens) {
-  let image = document.createElement('img');
+  let image = document.getElementById(Screens.imgcontainer).getElementsByTagName("img");
+    
+  while (image[0] != undefined ){
+      console.log("there is an image: removing")
+      image[0].remove();
+    } 
+  image = document.createElement('img');
   image.src = Screens.imgsrc;
-  image.setAttribute("id", Screens.imgcssid);
-  document.querySelector(Screens.imgcontainer).appendChild(image);
+  image.setAttribute("id", Screens.imgid);
+  document.getElementById(Screens.imgcontainer).appendChild(image);
+  image = document.getElementById(Screens.imgcontainer).getElementsByTagName("img");
 }
 
+/** Loads the relevant screen */
 function loadScreen(Screens, GAMEDISPLAY, MONOLOGUEDISPLAY) {
   setDisplay(Screens, GAMEDISPLAY, MONOLOGUEDISPLAY);
   populateScreen(Screens);
 }
+
+// Nav Functions
+
+/** When called the Game screen is loaded and the main game loop is run */
+function newGame(SCREENCOLLECTION, currentScreen, GAMEDISPLAY, MONOLOGUEDISPLAY) {
+  loadScreen(SCREENCOLLECTION[2], GAMEDISPLAY, MONOLOGUEDISPLAY); //GAME
+  currentScreen = SCREENCOLLECTION[2];
+  //loadGame();
+}
+
+/**
+ * In the Nav Bar, when quit is clicked,  main() is called
+ * so the page is reset to the Welcome screen.
+ * When New Game is clicked, the Game screen is displayed,
+ * and the main game loop is called. 
+ * @param {*} SCREENCOLLECTION 
+ * @param {*} currentScreen 
+ * @param {*} GAMEDISPLAY 
+ * @param {*} MONOLOGUEDISPLAY 
+ */
+function activateNavMenu(SCREENCOLLECTION, currentScreen, GAMEDISPLAY, MONOLOGUEDISPLAY) {
+  let navElements = document.getElementsByClassName("nav-elements");
+  for (let navElement of navElements) {
+    navElement.addEventListener("click", function() {
+          if (this.getAttribute("nav-type") === "quit") {
+            main();
+          } else if (this.getAttribute("nav-type") === "newgame") {
+            newGame(SCREENCOLLECTION, currentScreen, GAMEDISPLAY, MONOLOGUEDISPLAY);
+          } else {
+          }
+      });
+  };
+}
+

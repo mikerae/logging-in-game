@@ -73,8 +73,9 @@ function setDisplay(Screens, GAMEDISPLAY, MONOLOGUEDISPLAY) {
 }
 
 /**
- * Populates the screen elements h1, p, button, and img in the DOM with data from the Screens 
+ *  * Populates the screen elements h1, p, button, and img in the DOM with data from the Screens 
  * objects
+ * @param {*} Screens 
  */
 function populateScreen(Screens) {
   document.getElementById("screen-title").innerText = Screens.title;
@@ -83,19 +84,38 @@ function populateScreen(Screens) {
   populateButtons(Screens);
 }
 
-/** Gets button data from Screens object */
+/**
+ * Gets button data from Screens object
+ * @param {*} Screens 
+ */
 function populateButtons(Screens) {
   document.getElementById(Screens.btn1id).innerText = Screens.btn1txt;
 }
 
-/** Wites button data to DOM */
+/**
+ * Writes button 1 text to DOM
+ * @param {*} Screens 
+ */
 function loadButton1(Screens) {
   document.getElementById(Screens.btn1id).innerText = Screens.btn1txt;
 }
 
-/** Checks for image inside container of object.
+/**
+ * Displays hidden Button 2
+ * Writes button 2 text to DOM
+ * @param {*} Screens 
+ */
+function loadButton2(Screens) {
+  let button = document.getElementById(Screens.btn1id);
+  button.style.removeProperty('display');
+  button.innerText = Screens.btn1txt;
+}
+
+/**
+ * Checks for image inside container of object.
  * If present, removes image
  * Loads object related images into relevant image container
+ * @param {*} Screens 
  */
 function loadImage(Screens) {
   let image = document.getElementById(Screens.imgcontainer).getElementsByTagName("img");
@@ -111,7 +131,12 @@ function loadImage(Screens) {
   image = document.getElementById(Screens.imgcontainer).getElementsByTagName("img");
 }
 
-/** Loads the relevant screen */
+/**
+ * Loads the relevant screen
+ * @param {*} Screens 
+ * @param {*} GAMEDISPLAY 
+ * @param {*} MONOLOGUEDISPLAY 
+ */
 function loadScreen(Screens, GAMEDISPLAY, MONOLOGUEDISPLAY) {
   setDisplay(Screens, GAMEDISPLAY, MONOLOGUEDISPLAY);
   populateScreen(Screens);
@@ -119,7 +144,13 @@ function loadScreen(Screens, GAMEDISPLAY, MONOLOGUEDISPLAY) {
 
 // Nav Functions
 
-/** When called the Game screen is loaded and the main game loop is run */
+/**
+ * When called the Game screen is loaded and the main game loop is run
+ * @param {*} SCREENCOLLECTION 
+ * @param {*} currentScreen 
+ * @param {*} GAMEDISPLAY 
+ * @param {*} MONOLOGUEDISPLAY 
+ */
 function newGame(SCREENCOLLECTION, currentScreen, GAMEDISPLAY, MONOLOGUEDISPLAY) {
   loadScreen(SCREENCOLLECTION[2], GAMEDISPLAY, MONOLOGUEDISPLAY); //GAME
   currentScreen = SCREENCOLLECTION[2];

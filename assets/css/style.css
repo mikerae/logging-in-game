@@ -105,10 +105,19 @@ aspect-ratio: 16 / 9;
 }
 
 /* Display Buttons */
-#display-buttons {
+#display-buttons-wrapper {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+}
+
+#btn-2 {
+  display: none;
+}
+
+
+.button {
+  background-color: blue;
 }
 
 /* Game Display */

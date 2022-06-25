@@ -47,7 +47,7 @@ function main() {
   
   //while (currentScreen !== WELCOME) {
     nextScreen = loadScreen(currentScreen, nextScreen, SCREENCOLLECTION, GAMEDISPLAY, MONOLOGUEDISPLAY);
-    console.log(nextScreen);
+    //console.log(nextScreen);
       if (nextScreen === "welcome") {
         currentScreen = WELCOME;
       };
@@ -143,7 +143,8 @@ function populateButtons(Screens, nextScreen) {
   
   if (Screens.name === "welcome") {
       button1.innerText = Screens.btn1txt;
-      button1.addEventListener('onclick', function() {
+      button1.addEventListener("click", function() {
+        console.log(Event);
         nextScreen = "intro";
       });
       if (button2.style.display) {
@@ -152,7 +153,7 @@ function populateButtons(Screens, nextScreen) {
       };
   } else if (Screens.name === "intro") {
       button1.innerText = Screens.btn1txt;
-      button1.addEventListener('onclick', function() {
+      button1.addEventListener('click', function() {
         nextScreen = "game";
       });
       if (button2.style.display) {
@@ -161,10 +162,10 @@ function populateButtons(Screens, nextScreen) {
         button2.style.display =  "none";
       };
       button2.innerText = Screens.btn2txt;
-      button2.addEventListener('onclick', quit);
+      button2.addEventListener('click', quit);
   }  else if (Screens.name === "win") {
         button1.innerText = Screens.btn1txt;
-      button1.addEventListener('onclick', function() {
+      button1.addEventListener('click', function() {
         nextScreen = "game";
       });
       if (button2.style.display) {
@@ -173,7 +174,7 @@ function populateButtons(Screens, nextScreen) {
         button2.style.display =  "none";
       };
       button2.innerText = Screens.btn2txt;
-      button2.addEventListener('onclick', quit);
+      button2.addEventListener('click', quit);
     };
   return nextScreen;
 }

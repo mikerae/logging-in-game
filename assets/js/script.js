@@ -141,41 +141,39 @@ function populateButtons(Screens, nextScreen) {
   let button1 = document.getElementById(Screens.btn1id);
   let button2 = document.getElementById(Screens.btn2id);
   
-  if (Screens.name === "welcome") {
-      button1.innerText = Screens.btn1txt;
-      button1.addEventListener("click", function() {
-        console.log(Event);
+  if (Screens.name === "welcome") { // for welcome screen
+      button1.innerText = Screens.btn1txt; // set button1 text
+      button1.addEventListener("click", function() { // when button1 is clicked , prepare to show intro screen
         nextScreen = "intro";
       });
-      if (button2.style.display) {
+      /* if (button2.style.display) { // Is the button already hidden? If so, do nothing
       } else {
-        button2.style.display = "none";
-      };
-  } else if (Screens.name === "intro") {
+        button2.style.display = "none"; // otherwise, hide the button
+      } */
+    } /* else if (Screens.name === "intro") { // for intro screen
       button1.innerText = Screens.btn1txt;
-      button1.addEventListener('click', function() {
+      button1.addEventListener('click', function() { // when button1 is clicked , prepare to show game screen
         nextScreen = "game";
       });
-      if (button2.style.display) {
-        button2.style.removeProperty('display');
-      } else {
-        button2.style.display =  "none";
-      };
-      button2.innerText = Screens.btn2txt;
-      button2.addEventListener('click', quit);
-  }  else if (Screens.name === "win") {
+      if (button2.style.display) { //Is  button2 already hidden?
+        button2.style.removeProperty('display');  // If so, show button2
+      } else { //the button is showing: do nothing
+      }
+      button2.innerText = Screens.btn2txt; // set button2 text
+      button2.addEventListener('click', quit); // when button2 is clicked , run quit function and reset the whole game
+    }  else if (Screens.name === "win") { // for win screen
         button1.innerText = Screens.btn1txt;
-      button1.addEventListener('click', function() {
+        button1.addEventListener('click', function() { // when button1 is clicked , prepare to show win screen
         nextScreen = "game";
-      });
-      if (button2.style.display) {
-        button2.style.removeProperty('display');
-      } else {
-        button2.style.display =  "none";
-      };
-      button2.innerText = Screens.btn2txt;
-      button2.addEventListener('click', quit);
-    };
+        });
+      if (button2.style.display) { //Is  button2 already hidden?
+        button2.style.removeProperty('display'); // If so, show button2
+      } else { //the button is showing: do nothing
+      }
+      button2.innerText = Screens.btn2txt; // set button2 text
+      button2.addEventListener('click', quit); // when button2 is clicked , run quit function and reset the whole game
+    } */
+  console.log(nextScreen);
   return nextScreen;
 }
 

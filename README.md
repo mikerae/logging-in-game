@@ -79,10 +79,21 @@ WELCOME was tested be defined using console.log(Screens) at the start of the fun
 WELCOME is corerectly passed into populateButtons().
 It became clear that the condition (Screens === WELCOME) needed to be repaced by (Screens.name === "welcome"). This corrected the first level of error so that text loaded into the botton. The other similar conditions in the function were ammended accordingly.
 ### Buttons not populating with text or event - Bug 2
-The eventListener to load the next screen when button 1 was clicked did not work. Cosole.log(Event) was undifined.
+The eventListener to load the next screen when button 1 was clicked did not work. Console.log(Event) was undifined.
 ```Button1.addEventListener("onclick", function()...```
 After checking the syntax of th onclick was changed to:
 ```Button1.addEventListener("click", function()...```
 Console.log(Event) returned an event.
 ```script.js:147 ƒ Event() { [native code] }```
 The next page still did not load.
+The varriable nextScreen was tested with at the end of populateButtons().
+```console.log(nextScreen);``` returned undefined, but should have returned "intro".
+The varriable nextScreen was tested with at the  eventListener of populateButtons().
+```
+if (Screens.name === "welcome") {
+      button1.innerText = Screens.btn1txt;
+      button1.addEventListener("click", function() {
+        nextScreen = "intro";
+        console.log(nextScreen);
+```
+Console.log(nextScreen) was not called => the eventListener funtion was not called. The syntax of the eventListener was checked.

@@ -68,5 +68,15 @@ Resolution: The css identifyer was incorrectly applied to object Screens. A clas
 ### Multiple images display in the welcome screen when Nav item 'Quit' is clicked
 The loadImage() function was ammended to check for the presence of a live <img> in the HTMLcollections list for the image container. If found, it was removed until hHTMLcollection was empty. Then the required image was loaded using values from the Screens object.
 This funcionality will become signifcant during the main game loop.
-
-
+### Buttons not populating with text or event - Bug 1
+Console error shows: Uncaught ReferenceError: WELCOME is not defined
+    at populateButtons (script.js:144)
+    at populateScreen (script.js:117)
+    at loadScreen (script.js:78)
+    at main (script.js:49)
+The screen toggled corectlt, the image was loaded and text was correctly loaded, therefore the problems begin at populateButtons.
+WELCOME was tested be defined using console.log(Screens) at the start of the function populateButtons().
+WELCOME is corerectly passed into populateButtons().
+It became clear that the condition (Screens === WELCOME) needed to be repaced by (Screens.name === "welcome"). This corrected the first level of error so that text loaded into the botton. The other similar conditions in the function were ammended accordingly.
+### Buttons not populating with text or event - Bug 2
+The eventListener to load the next screen when button 1 was clicked did not work.

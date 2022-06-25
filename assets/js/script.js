@@ -2,7 +2,7 @@
 document.addEventListener("DOMContentLoaded", main());
 
 /**
- * Intialise all CONSTANTS, top level variables, classes and objects.
+ *  * Intialise all CONSTANTS, top level variables, classes and objects.
  * Ensure all varriables have local scope.
  * Ensure all varriables have local scope.
  * Call the Wecome Screen.
@@ -69,7 +69,7 @@ function main() {
  */
  function loadScreen(Screens, nextScreen, SCREENCOLLECTION, GAMEDISPLAY, MONOLOGUEDISPLAY) {
     // Initialise event listners for nav menu funtionality
-    activateNavMenu(SCREENCOLLECTION, nextScreen, GAMEDISPLAY, MONOLOGUEDISPLAY);
+    activateNavMenu(nextScreen, SCREENCOLLECTION, GAMEDISPLAY, MONOLOGUEDISPLAY);
   if (nextScreen === "game") {
     toggleDisplay(Screens, GAMEDISPLAY, MONOLOGUEDISPLAY); // show game screen/ hide dispaly screen
     game(); // initialise game and run game loop
@@ -141,7 +141,7 @@ function populateButtons(Screens, nextScreen) {
   let button1 = document.getElementById(Screens.btn1id);
   let button2 = document.getElementById(Screens.btn2id);
   
-  if (Screens === WELCOME) {
+  if (Screens.name === "welcome") {
       button1.innerText = Screens.btn1txt;
       button1.addEventListener('onclick', function() {
         nextScreen = "intro";
@@ -150,7 +150,7 @@ function populateButtons(Screens, nextScreen) {
       } else {
         button2.style.display = "none";
       };
-  } else if (Screens === INTRO) {
+  } else if (Screens.name === "intro") {
       button1.innerText = Screens.btn1txt;
       button1.addEventListener('onclick', function() {
         nextScreen = "game";
@@ -162,7 +162,7 @@ function populateButtons(Screens, nextScreen) {
       };
       button2.innerText = Screens.btn2txt;
       button2.addEventListener('onclick', quit);
-  }  else if (Screens === WIN) {
+  }  else if (Screens.name === "win") {
         button1.innerText = Screens.btn1txt;
       button1.addEventListener('onclick', function() {
         nextScreen = "game";

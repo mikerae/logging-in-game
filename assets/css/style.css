@@ -56,6 +56,11 @@
   height: 90vh;
 }
 
+.screen {
+  background-image: url('/assets/images/screen\ background.jpg');
+  background-size: contain;
+}
+
 #displayGame-wrapper {
   height: 90vh;
 }

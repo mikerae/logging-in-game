@@ -73,6 +73,7 @@ body {
 #nav {
   padding-top: 0;
   padding-bottom: 0;
+  background-color: rgb(33	89	159		);
 }
 
 #nav-list li {
@@ -88,13 +89,11 @@ header {
   display: flex;
   justify-content: center;
   align-items: center;
-  border: solid 1px whitesmoke;
 }
 
 #header-img {
   object-fit: fit;
   height: inherit;
-  border: solid 1px whitesmoke;
 }
 
 /* Display Image and Text */

@@ -49,7 +49,7 @@ function main() {
     WELCOME, INTRO, GAME, WIN, 
     MONOLOGUEDISPLAY, GAMEDISPLAY);
 
-  win(screen, nextScreen, 
+  welcome(screen, nextScreen, 
     WELCOME, INTRO, GAME, WIN, 
     MONOLOGUEDISPLAY, GAMEDISPLAY); // temporary test of event function
 }
@@ -128,7 +128,7 @@ function selectScreen(screen, nextScreen,
  * @param {*} MONOLOGUEDISPLAY 
  * @param {*} GAMEDISPLAY 
  */
-function quit(screen, nextScreen, 
+function welcome(screen, nextScreen, 
   WELCOME, INTRO, GAME, WIN, 
   MONOLOGUEDISPLAY, GAMEDISPLAY) {
 

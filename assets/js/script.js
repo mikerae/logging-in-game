@@ -49,9 +49,6 @@ function main() {
     WELCOME, INTRO, GAME, WIN, 
     MONOLOGUEDISPLAY, GAMEDISPLAY);
 
-  welcome(screen, nextScreen, 
-    WELCOME, INTRO, GAME, WIN, 
-    MONOLOGUEDISPLAY, GAMEDISPLAY); // temporary test of event function
 }
 
 /**
@@ -76,58 +73,87 @@ function selectScreen(screen, nextScreen,
   WELCOME, INTRO, GAME, WIN, 
   MONOLOGUEDISPLAY, GAMEDISPLAY) {
 
-    setScreen(screen, nextScreen);
+    setScreen(screen, nextScreen, 
+    WELCOME, INTRO, GAME, WIN, 
+    MONOLOGUEDISPLAY, GAMEDISPLAY);
+
     displayScreen(screen, nextScreen);
     setEventListeners(nextScreen);
   }
 
 // Main Screen Functions
 
-  /**
-   * Sets variable 'screen' to the relevant object 
-   * according to the value of 'nextScreen'
-   * @param {*} screen 
-   * @param {*} nextScreen 
-   */
-  function setScreen(screen, nextScreen) {
-    console.log("setScreen is called");
-  }
+/**
+ * Sets variable 'screen' to the relevant object 
+ * according to the value of 'nextScreen'
+ * @param {*} screen 
+ * @param {*} nextScreen 
+ */
+function setScreen(screen, nextScreen, 
+  WELCOME, INTRO, GAME, WIN, 
+  MONOLOGUEDISPLAY, GAMEDISPLAY) {
 
-  /**
-   * Displays all text, images and other elements 
-   * according to the value of 'nextScreen'
-   * @param {*} screen 
-   * @param {*} nextScreen 
-   */
-  function displayScreen(screen, nextScreen) {
-    console.log("displayScreen is called");
-  }
+  switch(nextScreen) {
+    case 'game':
+      MONOLOGUEDISPLAY.style.display = "none";
+      GAMEDISPLAY.style.removeProperty('display');
+      nextScreen = "game";
+      screen = GAME;
+      break;
+    case 'welcome':
+      MONOLOGUEDISPLAY.style.removeProperty('display');
+      GAMEDISPLAY.style.display = "none";
+      screen = WELCOME;
+      break;
+    case 'intro':
+      MONOLOGUEDISPLAY.style.removeProperty('display');
+      GAMEDISPLAY.style.display = "none";
+      screen = INTRO;
+      break;
+    case 'win':
+      MONOLOGUEDISPLAY.style.removeProperty('display');
+      GAMEDISPLAY.style.display = "none";
+      screen = WIN;
+      break;
+    }
+}
 
-  /**
-   * Adds event listeners to buttons and nav elements
-   * according to the value of 'nextScreen'
-   * @param {*} nextScreen 
-   */
-  function setEventListeners(nextScreen) {
-    console.log("setEventListenersis called");
-  }
+
+/**
+ * Displays all text, images and other elements 
+ * according to the value of 'nextScreen'
+ * @param {*} screen 
+ * @param {*} nextScreen 
+ */
+function displayScreen(screen, nextScreen) {
+  console.log("displayScreen is called");
+}
+
+/**
+ * Adds event listeners to buttons and nav elements
+ * according to the value of 'nextScreen'
+ * @param {*} nextScreen 
+ */
+function setEventListeners(nextScreen) {
+  console.log("setEventListenersis called");
+}
 
 // Event Functions
 
 /**
- * displays the Welcome Screen by
- * setting nextScreen to "welcome"
- * calling 
- * 
- * @param {*} screen 
- * @param {*} nextScreen 
- * @param {*} WELCOME 
- * @param {*} INTRO 
- * @param {*} GAME 
- * @param {*} WIN 
- * @param {*} MONOLOGUEDISPLAY 
- * @param {*} GAMEDISPLAY 
- */
+  * displays the Welcome Screen by
+  * setting nextScreen to "welcome"
+  * calling 
+  * 
+  * @param {*} screen 
+  * @param {*} nextScreen 
+  * @param {*} WELCOME 
+  * @param {*} INTRO 
+  * @param {*} GAME 
+  * @param {*} WIN 
+  * @param {*} MONOLOGUEDISPLAY 
+  * @param {*} GAMEDISPLAY 
+*/
 function welcome(screen, nextScreen, 
   WELCOME, INTRO, GAME, WIN, 
   MONOLOGUEDISPLAY, GAMEDISPLAY) {

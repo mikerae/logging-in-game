@@ -1,3 +1,7 @@
+body {
+  color: whitesmoke;
+}
+
 /* Set outer wrapper to height and width of screen */
 #outer-wrapper {
   width: 100vw;
@@ -133,10 +137,11 @@ aspect-ratio: 16 / 9;
 
 
 .button {
-background-image: linear-gradient(to top, rgb(235	108	74), rgb(227	93	144));
-border:groove 0.5em rgb(238	141	185	);
-border-style: outset hidden hidden outset ;
-border-radius: 0.5rem;
+  color: whitesmoke;
+  background-image: linear-gradient(to top, rgb(235	108	74), rgb(227	93	144));
+  border:groove 0.5em rgb(238	141	185	);
+  border-style: outset hidden hidden outset ;
+  border-radius: 0.5rem;
 }
 
 .button:hover {

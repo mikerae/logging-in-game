@@ -42,7 +42,7 @@ function main() {
   const GAME = new Screens("game");
   const WIN = new Screens("win", "Congratulations! You Won!", "You reached your target profit. How will you spend it? Feel free to play again or quit", "assets/images/welcome-screen-and play-buttn.jpg", "Win image");
 
-  nextScreen = "welcome"; // The Welcome Screen is the first screen to display
+  nextScreen = "win"; // The Welcome Screen is the first screen to display
 
   selectScreen( // The top level screen flow function is called.
     screen, nextScreen, 
@@ -73,9 +73,11 @@ function selectScreen(screen, nextScreen,
   WELCOME, INTRO, GAME, WIN, 
   MONOLOGUEDISPLAY, GAMEDISPLAY) {
 
-    setScreen(screen, nextScreen, 
+    screen = setScreen(screen, nextScreen, 
     WELCOME, INTRO, GAME, WIN, 
     MONOLOGUEDISPLAY, GAMEDISPLAY);
+
+    console.log(screen);
 
     displayScreen(screen, nextScreen);
     setEventListeners(nextScreen);
@@ -99,25 +101,24 @@ function setScreen(screen, nextScreen,
       GAMEDISPLAY.style.removeProperty('display');
       nextScreen = "game";
       screen = GAME;
-      break;
+      return screen;
     case 'welcome':
       MONOLOGUEDISPLAY.style.removeProperty('display');
       GAMEDISPLAY.style.display = "none";
       screen = WELCOME;
-      break;
+      return screen;
     case 'intro':
       MONOLOGUEDISPLAY.style.removeProperty('display');
       GAMEDISPLAY.style.display = "none";
       screen = INTRO;
-      break;
+      return screen;
     case 'win':
       MONOLOGUEDISPLAY.style.removeProperty('display');
       GAMEDISPLAY.style.display = "none";
       screen = WIN;
-      break;
+      return screen;
     }
 }
-
 
 /**
  * Displays all text, images and other elements 
@@ -127,6 +128,15 @@ function setScreen(screen, nextScreen,
  */
 function displayScreen(screen, nextScreen) {
   console.log("displayScreen is called");
+  console.log(screen);
+
+    if (nextScreen === "game") {
+      console.log("Since game has no element content to load, nothing is loaded here")
+      // do nothing
+    } else {
+      populateScreen(screen); // enter screen flow 
+      console.log("displayScreen calls populateScreen");
+    }
 }
 
 /**
@@ -136,6 +146,58 @@ function displayScreen(screen, nextScreen) {
  */
 function setEventListeners(nextScreen) {
   console.log("setEventListenersis called");
+}
+
+// Screen Display Utility Functions
+
+/**
+ * Populates the screen with text, image and buttons
+ * by using  data from the screen object 
+ * to set attributes on DOM elements.
+ * Adds event listenres onclick to buttons which set nextScreen
+ * Returns nextScreen
+ * @param {*} screen 
+ * @returns 
+ */
+ function populateScreen(screen, nextScreen) {
+  console.log("populateScreen is called");
+  console.log(screen);
+
+  populateScreenText(screen); // Loads relevant text on screen
+  loadImage(screen); // Loads relevenat image on screen
+  //populateButtons(screen, nextScreen); // Gives buttons the relevant properties
+}
+
+/**
+ * Add text to h1 and p elements in Dispaly Screen
+ * @param {*} screen 
+ */
+ function populateScreenText(screen) {
+  console.log("populateScreenText is called");
+
+  document.getElementById("screen-title").innerText = screen.title; // h1 element
+  document.getElementById("screen-msg").innerText = screen.msg; // p element
+}
+
+/**
+ * Checks for image inside container of object.
+ * If present, removes image
+ * Loads object related images into relevant image container
+ * @param {*} screen 
+ */
+ function loadImage(screen) {
+  console.log("loadeImage is called");
+  console.log(screen);
+
+  let image = document.getElementById(screen.imgcontainer).getElementsByTagName("img");
+    
+  while (image[0] != undefined ){ // checks if an image is present in wrraper
+      image[0].remove(); // if present, imahe is removed
+    } 
+  image = document.createElement('img'); // create image element 
+  image.src = screen.imgsrc; // set image src path
+  image.setAttribute("id", screen.imgid); // set image id
+  document.getElementById(screen.imgcontainer).appendChild(image); // put image in wrapper in the DOM
 }
 
 // Event Functions

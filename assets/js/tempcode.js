@@ -57,75 +57,13 @@ function main() {
   
 // Screen Flow Management Functions
 
-/**
- * Main Screen Flow Function
- * Loads the relevant screen based on currentScreen
- * and returns the next screen} Screens 
- * @param {*} nextScreen 
- * @param {*} SCREENCOLLECTION 
- * @param {*} GAMEDISPLAY 
- * @param {*} MONOLOGUEDISPLAY 
- * @returns 
- */
- function loadScreen(Screens, nextScreen, SCREENCOLLECTION, GAMEDISPLAY, MONOLOGUEDISPLAY) {
-    // Initialise event listners for nav menu funtionality
-    activateNavMenu(nextScreen, SCREENCOLLECTION, GAMEDISPLAY, MONOLOGUEDISPLAY);
-  if (nextScreen === "game") {
-    toggleDisplay(Screens, GAMEDISPLAY, MONOLOGUEDISPLAY); // show game screen/ hide dispaly screen
-    game(); // initialise game and run game loop
-  } else {
-    toggleDisplay(Screens, GAMEDISPLAY, MONOLOGUEDISPLAY); // hide game screen/ show display screen
-    nextScreen = populateScreen(Screens); // enter screen flow 
-    return nextScreen;
-  }
-}
 
-/**
- *  * Toggels the display between Monologue screens 
- * (welcome, intro, win) and Game screen
- * @param {*} Screens 
- * @param {*} GAMEDISPLAY 
- * @param {*} MONOLOGUEDISPLAY 
- */
-function toggleDisplay(Screens, GAMEDISPLAY, MONOLOGUEDISPLAY) {
-  switch (Screens.name) {
-    case 'game':
-      MONOLOGUEDISPLAY.style.display = "none";
-      GAMEDISPLAY.style.removeProperty('display');
-      nextScreen= game();
-      break;
-    case 'welcome':
-    case 'intro':
-    case 'win':
-      MONOLOGUEDISPLAY.style.removeProperty('display');
-      GAMEDISPLAY.style.display = "none";
-  }
-}
 
-/**
- * Populates the screen with text, image and buttons
- * by using  data from the Screens object 
- * to set attributes on DOM elements.
- * Adds event listenres onclick to buttons which set nextScreen
- * Returns nextScreen
- * @param {*} Screens 
- * @returns 
- */
-function populateScreen(Screens, nextScreen) {
-  populateScreenText(Screens); // Loads relevant text on screen
-  loadImage(Screens); // Loads relevenat image on screen
-  nextScreen = populateButtons(Screens, nextScreen); // Gives buttons the relevant properties
-  return nextScreen;
-}
 
-/**
- * Add text to h1 and p elements in Dispaly Screen
- * @param {*} Screens 
- */
-function populateScreenText(Screens) {
-  document.getElementById("screen-title").innerText = Screens.title; // h1 element
-  document.getElementById("screen-msg").innerText = Screens.msg; // p element
-}
+
+
+
+
 
 /**
  *  * Gets button data from Screens object
@@ -177,23 +115,7 @@ function populateButtons(Screens, nextScreen) {
   return nextScreen;
 }
 
-/**
- * Checks for image inside container of object.
- * If present, removes image
- * Loads object related images into relevant image container
- * @param {*} Screens 
- */
-function loadImage(Screens) {
-  let image = document.getElementById(Screens.imgcontainer).getElementsByTagName("img");
-    
-  while (image[0] != undefined ){ // checks if an image is present in wrraper
-      image[0].remove(); // if present, imahe is removed
-    } 
-  image = document.createElement('img'); // create image element 
-  image.src = Screens.imgsrc; // set image src path
-  image.setAttribute("id", Screens.imgid); // set image id
-  document.getElementById(Screens.imgcontainer).appendChild(image); // put image in wrapper in the DOM
-}
+
 
 
 // Nav Functions

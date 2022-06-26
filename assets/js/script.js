@@ -42,7 +42,7 @@ function main() {
   const GAME = new Screens("game");
   const WIN = new Screens("win", "Congratulations! You Won!", "You reached your target profit. How will you spend it? Feel free to play again or quit", "assets/images/welcome-screen-and play-buttn.jpg", "Win image");
 
-  nextScreen = "win"; // The Welcome Screen is the first screen to display
+  nextScreen = "intro"; // The Welcome Screen is the first screen to display
 
   selectScreen( // The top level screen flow function is called.
     screen, nextScreen, 
@@ -76,8 +76,6 @@ function selectScreen(screen, nextScreen,
     screen = setScreen(screen, nextScreen, 
     WELCOME, INTRO, GAME, WIN, 
     MONOLOGUEDISPLAY, GAMEDISPLAY);
-
-    console.log(screen);
 
     displayScreen(screen, nextScreen);
     setEventListeners(nextScreen);
@@ -128,7 +126,6 @@ function setScreen(screen, nextScreen,
  */
 function displayScreen(screen, nextScreen) {
   console.log("displayScreen is called");
-  console.log(screen);
 
     if (nextScreen === "game") {
       console.log("Since game has no element content to load, nothing is loaded here")
@@ -145,7 +142,7 @@ function displayScreen(screen, nextScreen) {
  * @param {*} nextScreen 
  */
 function setEventListeners(nextScreen) {
-  console.log("setEventListenersis called");
+  console.log("setEventListeners is called");
 }
 
 // Screen Display Utility Functions
@@ -161,11 +158,10 @@ function setEventListeners(nextScreen) {
  */
  function populateScreen(screen, nextScreen) {
   console.log("populateScreen is called");
-  console.log(screen);
 
   populateScreenText(screen); // Loads relevant text on screen
   loadImage(screen); // Loads relevenat image on screen
-  //populateButtons(screen, nextScreen); // Gives buttons the relevant properties
+  populateButtons(screen, nextScreen); // Gives buttons the relevant properties
 }
 
 /**
@@ -187,7 +183,6 @@ function setEventListeners(nextScreen) {
  */
  function loadImage(screen) {
   console.log("loadeImage is called");
-  console.log(screen);
 
   let image = document.getElementById(screen.imgcontainer).getElementsByTagName("img");
     
@@ -198,6 +193,44 @@ function setEventListeners(nextScreen) {
   image.src = screen.imgsrc; // set image src path
   image.setAttribute("id", screen.imgid); // set image id
   document.getElementById(screen.imgcontainer).appendChild(image); // put image in wrapper in the DOM
+}
+
+/**
+ *  * Gets button data from Screens object
+ * Shows or hides button 2 as required
+ * Adds eventListners to buttons
+ * sets nextScreen.
+ * retuens nextScreen
+ * @param {*} Screens 
+ * @param {*} nextScreen 
+ * @returns 
+ */
+ function populateButtons(screen, nextScreen) {
+  let button1 = document.getElementById(screen.btn1id);
+  let button2 = document.getElementById(screen.btn2id);
+  
+  if (screen.name === "welcome") { // for welcome screen
+      button1.innerText = screen.btn1txt; // set button1 text
+      if (button2.style.display) { // Is the button already hidden? If so, do nothing
+      } else {
+        button2.style.display = "none"; // otherwise, hide the button
+      }
+    } else if (screen.name === "intro") { // for intro screen
+      button1.innerText = screen.btn1txt;
+        if (button2.style.display) { //Is  button2 already hidden?
+          button2.style.removeProperty('display');  // If so, show button2
+        } else { //the button is showing: do nothing
+        }
+      button2.innerText = screen.btn2txt; // set button2 text
+    }  else if (screen.name === "win") { // for win screen
+        button1.innerText = screen.btn1txt;
+        if (button2.style.display) { //Is  button2 already hidden?
+          button2.style.removeProperty('display'); // If so, show button2
+        } else { //the button is showing: do nothing
+        }
+      button2.innerText = screen.btn2txt; // set button2 text
+    }
+
 }
 
 // Event Functions

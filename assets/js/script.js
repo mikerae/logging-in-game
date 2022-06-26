@@ -49,10 +49,9 @@ function main() {
     WELCOME, INTRO, GAME, WIN, 
     MONOLOGUEDISPLAY, GAMEDISPLAY);
 
-    quit(screen, nextScreen, 
-      WELCOME, INTRO, GAME, WIN, 
-      MONOLOGUEDISPLAY, GAMEDISPLAY); // temporary test of event function
-  
+  win(screen, nextScreen, 
+    WELCOME, INTRO, GAME, WIN, 
+    MONOLOGUEDISPLAY, GAMEDISPLAY); // temporary test of event function
 }
 
 /**
@@ -76,7 +75,6 @@ function main() {
 function selectScreen(screen, nextScreen, 
   WELCOME, INTRO, GAME, WIN, 
   MONOLOGUEDISPLAY, GAMEDISPLAY) {
-    console.log("selectScreen is called");
 
     setScreen(screen, nextScreen);
     displayScreen(screen, nextScreen);
@@ -114,7 +112,7 @@ function selectScreen(screen, nextScreen,
     console.log("setEventListenersis called");
   }
 
-  // Event Functions
+// Event Functions
 
 /**
  * displays the Welcome Screen by
@@ -130,14 +128,82 @@ function selectScreen(screen, nextScreen,
  * @param {*} MONOLOGUEDISPLAY 
  * @param {*} GAMEDISPLAY 
  */
-  function quit(screen, nextScreen, 
-    WELCOME, INTRO, GAME, WIN, 
-    MONOLOGUEDISPLAY, GAMEDISPLAY) {
+function quit(screen, nextScreen, 
+  WELCOME, INTRO, GAME, WIN, 
+  MONOLOGUEDISPLAY, GAMEDISPLAY) {
 
-      console.log("quit is called");
-      nextScreen = "welcome";
-      selectScreen(screen, nextScreen, 
-        WELCOME, INTRO, GAME, WIN, 
-        MONOLOGUEDISPLAY, GAMEDISPLAY);
-        console.log(nextScreen);
-    }
+    nextScreen = "welcome";
+    selectScreen(screen, nextScreen, 
+      WELCOME, INTRO, GAME, WIN, 
+      MONOLOGUEDISPLAY, GAMEDISPLAY);
+      console.log(nextScreen);
+}
+
+/** displays the Intro Screen by setting nextScreen to "intro"
+ * and calling selectScreen()
+ * 
+ * @param {*} screen 
+ * @param {*} nextScreen 
+ * @param {*} WELCOME 
+ * @param {*} INTRO 
+ * @param {*} GAME 
+ * @param {*} WIN 
+ * @param {*} MONOLOGUEDISPLAY 
+ * @param {*} GAMEDISPLAY 
+ */
+function intro(screen, nextScreen, 
+  WELCOME, INTRO, GAME, WIN, 
+  MONOLOGUEDISPLAY, GAMEDISPLAY) {
+
+    nextScreen = "intro";
+    selectScreen(screen, nextScreen, 
+      WELCOME, INTRO, GAME, WIN, 
+      MONOLOGUEDISPLAY, GAMEDISPLAY);
+      console.log(nextScreen);
+}
+
+/** displays the Game Screen by setting nextScreen to "game"
+ * and calling selectScreen()
+ * 
+ * @param {*} screen 
+ * @param {*} nextScreen 
+ * @param {*} WELCOME 
+ * @param {*} INTRO 
+ * @param {*} GAME 
+ * @param {*} WIN 
+ * @param {*} MONOLOGUEDISPLAY 
+ * @param {*} GAMEDISPLAY 
+ */
+function game(screen, nextScreen, 
+  WELCOME, INTRO, GAME, WIN, 
+  MONOLOGUEDISPLAY, GAMEDISPLAY) {
+
+  nextScreen = "game";
+  selectScreen(screen, nextScreen, 
+    WELCOME, INTRO, GAME, WIN, 
+    MONOLOGUEDISPLAY, GAMEDISPLAY);
+    console.log(nextScreen);
+}
+
+/** displays the Win Screen by setting nextScreen to "win"
+ * and calling selectScreen()
+ * 
+ * @param {*} screen 
+ * @param {*} nextScreen 
+ * @param {*} WELCOME 
+ * @param {*} INTRO 
+ * @param {*} GAME 
+ * @param {*} WIN 
+ * @param {*} MONOLOGUEDISPLAY 
+ * @param {*} GAMEDISPLAY 
+ */
+ function win(screen, nextScreen, 
+  WELCOME, INTRO, GAME, WIN, 
+  MONOLOGUEDISPLAY, GAMEDISPLAY) {
+
+  nextScreen = "win";
+  selectScreen(screen, nextScreen, 
+    WELCOME, INTRO, GAME, WIN, 
+    MONOLOGUEDISPLAY, GAMEDISPLAY);
+    console.log(nextScreen);
+}

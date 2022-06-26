@@ -97,3 +97,31 @@ if (Screens.name === "welcome") {
         console.log(nextScreen);
 ```
 Console.log(nextScreen) was not called => the eventListener funtion was not called. The syntax of the eventListener was checked.
+
+The Logic of the screen flow was reconsidered and it was decided to redesign the flow og the program. A temporary file temporarycode.js was created and contents of script.js was copied.
+Here is the commit message for this stage of development:
+
+```
+The button eventListener action were not working because the flow
+logic of the progam is flawed.
+A summary of the redesigned flow is as follows:
+
+After initialisation selectScreen(......) is called.
+Its behaviour is controled by the value of nextScreen.
+selectScreen(.....) calls the following:
+  setScreen(....) sets the screen object
+  displayScreen(....) callls all the screen utilityies
+  setEventListeners(....) adds event Listeners to screen and nav buttons
+
+Event functions are then called as screen or nav buttons are preeed.
+
+Event functions are:
+  quit()  sets nextScreen to "welcome' and calls selectScreen()
+  playNow() sets nextScreen to "intro' and calls selectScreen()
+  newGame() sets nextScreen to "game' and calls selectScreen()
+  win() sets nextScreen to "win' and calls selectScreen()
+
+  The initialisegame() function and rungame() main game loop are called
+  within displayScreen() when nextscreen = "game" and selectScreen() is
+  called.
+  ```

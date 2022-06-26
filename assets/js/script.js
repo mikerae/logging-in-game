@@ -32,7 +32,7 @@ function main() {
   const GAMEDISPLAY = document.getElementById("displayGame-wrapper");
 
   // Initialise block variables
-  let currentScreen = null;
+  let Screen = null;
   let nextScreen = "";
 
   //Initialse Objects
@@ -43,7 +43,7 @@ function main() {
   const WIN = new Screens("win", "Congratulations! You Won!", "You reached your target profit. How will you spend it? Feel free to play again or quit", "assets/images/welcome-screen-and play-buttn.jpg", "Win image");
   const SCREENCOLLECTION = [WELCOME, INTRO, GAME, WIN];
 
-  currentScreen = WELCOME; // The Welcome Screen is the first screen to display
+  nextScreen = WELCOME; // The Welcome Screen is the first screen to display
   
   //while (currentScreen !== WELCOME) {
     nextScreen = loadScreen(currentScreen, nextScreen, SCREENCOLLECTION, GAMEDISPLAY, MONOLOGUEDISPLAY);

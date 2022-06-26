@@ -79,13 +79,33 @@ function selectScreen (screen, nextScreen,
     setEventListeners(nextScreen);
   }
 
+// Main Screen Functions
+
+  /**
+   * Sets variable 'screen' to the relevant object 
+   * according to the value of 'nextScreen'
+   * @param {*} screen 
+   * @param {*} nextScreen 
+   */
   function setScreen(screen, nextScreen) {
     console.log("setScreen is called");
   }
+
+  /**
+   * Displays all text, images and other elements 
+   * according to the value of 'nextScreen'
+   * @param {*} screen 
+   * @param {*} nextScreen 
+   */
   function displayScreen(screen, nextScreen) {
     console.log("displayScreen is called");
   }
 
+  /**
+   * Adds event listeners to buttons and nav elements
+   * according to the value of 'nextScreen'
+   * @param {*} nextScreen 
+   */
   function setEventListeners(nextScreen) {
     console.log("setEventListenersis called");
   }

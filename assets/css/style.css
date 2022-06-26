@@ -80,6 +80,17 @@
 /* Display Screen Header */
 header {
   text-align: center;
+  height: 10rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: solid 1px whitesmoke;
+}
+
+#header-img {
+  object-fit: fit;
+  height: inherit;
+  border: solid 1px whitesmoke;
 }
 
 /* Display Image and Text */
@@ -122,7 +133,14 @@ aspect-ratio: 16 / 9;
 
 
 .button {
-background-color: darkorange;
+background-image: linear-gradient(to top, rgb(235	108	74), rgb(227	93	144));
+border:groove 0.5em rgb(238	141	185	);
+border-style: outset hidden hidden outset ;
+border-radius: 0.5rem;
+}
+
+.button:hover {
+  border-style: inset hidden hidden inset ;
 }
 
 /* Game Display */

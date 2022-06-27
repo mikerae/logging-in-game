@@ -146,7 +146,9 @@ function setEventListeners(screen, nextScreen,
   setEventListenersButtons(screen, nextScreen,
     WELCOME, INTRO, GAME, WIN, 
     MONOLOGUEDISPLAY, GAMEDISPLAY); // calls function which adds event listners to buttons
-  setEventListenersNav(); // calls function which adds event listners to nav elements
+  setEventListenersNav(screen, nextScreen, 
+    WELCOME, INTRO, GAME, WIN, 
+    MONOLOGUEDISPLAY, GAMEDISPLAY); // calls function which adds event listners to nav elements
 }
 
 /**
@@ -200,10 +202,32 @@ function setEventListenersButtons(screen, nextScreen,
 
 /**
  * Sets event listeners to nav elements
+ * @param {*} screen 
+ * @param {*} nextScreen 
+ * @param {*} WELCOME 
+ * @param {*} INTRO 
+ * @param {*} GAME 
+ * @param {*} WIN 
+ * @param {*} MONOLOGUEDISPLAY 
+ * @param {*} GAMEDISPLAY 
  */
- function setEventListenersNav() {
-  console.log("setEventListenersNav is called");
-
+ function setEventListenersNav(screen, nextScreen, 
+  WELCOME, INTRO, GAME, WIN, 
+  MONOLOGUEDISPLAY, GAMEDISPLAY) {
+  let navElements = document.getElementsByClassName("nav-elements"); // the nav elements are stored in the htmlCollection navElements
+  for (let navElement of navElements) { // The nav elements collection are iterated through
+    navElement.addEventListener("click", function() {
+      if (this.getAttribute("nav-type") === "nav-quit") { //If Quit is clicked in the welcome() is called and the Welcome Screen is displayed
+        welcome(screen, nextScreen, // welcome() is called
+        WELCOME, INTRO, GAME, WIN, 
+        MONOLOGUEDISPLAY, GAMEDISPLAY);
+      } else if (this.getAttribute("nav-type") === "nav-newgame") { //If New Game is clicked in the welcome() is called and the Welcome Screen is displayed
+        game(screen, nextScreen, // game() is called
+        WELCOME, INTRO, GAME, WIN, 
+        MONOLOGUEDISPLAY, GAMEDISPLAY);
+      };
+    });
+  };
 }
 
 // Screen Display Utility Functions

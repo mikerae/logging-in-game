@@ -127,4 +127,4 @@ Event functions are:
   ```
   ### Screen Flow rebuild bug 1
   The rebuild progressed well untill the screen display utilities (except button content and event listeners) were copied and ammended. The screen object was  undefined.
-  The solution was found in the setScreen funtion. The 'break' instrunction was replaced with 'return screen', and screen was set to receive this functions output. 
+  Solution: In the setScreen funtion the 'break' instruction was replaced with 'return screen', and screen was set to receive this functions output. 

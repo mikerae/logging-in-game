@@ -38,11 +38,11 @@ function main() {
   //Initialse Objects
   const WELCOME = new Screens("welcome", "Welcome to Logging-In", "You may be a LumberJack or LumberJackie, but are you O.K.? Play Logging-In to find out!", "assets/images/welcome-screen-and play-buttn.jpg", "Welcome image", "New Game");
   const INTRO = new Screens("intro", "Harvest your logs!", `Are you ready to harvest your Forest, build up your stock of Logs and sell them at your Lumber-Camp?
-   If you make £${TARGETPROFIT} in profit you Win!. Happy Harvesting!`, "assets/images/welcome-screen-and play-buttn.jpg");
+   If you make £${TARGETPROFIT} in profit you Win!. Happy Harvesting!`, "assets/images/welcome-screen-and play-buttn.jpg", "Game Introduction image", "Play Game");
   const GAME = new Screens("game");
-  const WIN = new Screens("win", "Congratulations! You Won!", "You reached your target profit. How will you spend it? Feel free to play again or quit", "assets/images/welcome-screen-and play-buttn.jpg", "Win image");
+  const WIN = new Screens("win", "Congratulations! You Won!", "You reached your target profit. How will you spend it? Feel free to play again or quit", "assets/images/welcome-screen-and play-buttn.jpg", "Win image", "New Game");
 
-  nextScreen = "intro"; // The Welcome Screen is the first screen to display
+  nextScreen = "win"; // The Welcome Screen is the first screen to display
 
   selectScreen( // The top level screen flow function is called.
     screen, nextScreen, 
@@ -125,14 +125,11 @@ function setScreen(screen, nextScreen,
  * @param {*} nextScreen 
  */
 function displayScreen(screen, nextScreen) {
-  console.log("displayScreen is called");
 
     if (nextScreen === "game") {
-      console.log("Since game has no element content to load, nothing is loaded here")
       // do nothing
     } else {
-      populateScreen(screen); // enter screen flow 
-      console.log("displayScreen calls populateScreen");
+      populateScreen(screen, nextScreen); // enter screen flow 
     }
 }
 
@@ -157,11 +154,10 @@ function setEventListeners(nextScreen) {
  * @returns 
  */
  function populateScreen(screen, nextScreen) {
-  console.log("populateScreen is called");
 
   populateScreenText(screen); // Loads relevant text on screen
   loadImage(screen); // Loads relevenat image on screen
-  populateButtons(screen, nextScreen); // Gives buttons the relevant properties
+  populateScreenButtons(screen, nextScreen); // Gives buttons the relevant properties
 }
 
 /**
@@ -169,7 +165,6 @@ function setEventListeners(nextScreen) {
  * @param {*} screen 
  */
  function populateScreenText(screen) {
-  console.log("populateScreenText is called");
 
   document.getElementById("screen-title").innerText = screen.title; // h1 element
   document.getElementById("screen-msg").innerText = screen.msg; // p element
@@ -182,7 +177,6 @@ function setEventListeners(nextScreen) {
  * @param {*} screen 
  */
  function loadImage(screen) {
-  console.log("loadeImage is called");
 
   let image = document.getElementById(screen.imgcontainer).getElementsByTagName("img");
     
@@ -205,32 +199,31 @@ function setEventListeners(nextScreen) {
  * @param {*} nextScreen 
  * @returns 
  */
- function populateButtons(screen, nextScreen) {
+ function populateScreenButtons(screen, nextScreen) {
   let button1 = document.getElementById(screen.btn1id);
   let button2 = document.getElementById(screen.btn2id);
   
-  if (screen.name === "welcome") { // for welcome screen
+  if (nextScreen === "welcome") { // for welcome screen
       button1.innerText = screen.btn1txt; // set button1 text
       if (button2.style.display) { // Is the button already hidden? If so, do nothing
       } else {
         button2.style.display = "none"; // otherwise, hide the button
       }
-    } else if (screen.name === "intro") { // for intro screen
-      button1.innerText = screen.btn1txt;
+    } else if (nextScreen === "intro") { // for intro screen
+      button1.innerText = screen.btn1txt; // set button1 text
+      button2.innerText = screen.btn2txt; // set button2 text
         if (button2.style.display) { //Is  button2 already hidden?
           button2.style.removeProperty('display');  // If so, show button2
-        } else { //the button is showing: do nothing
+        } else { // button2 is showing: do nothing
         }
-      button2.innerText = screen.btn2txt; // set button2 text
-    }  else if (screen.name === "win") { // for win screen
-        button1.innerText = screen.btn1txt;
+    }  else if (nextScreen === "win") { // for win screen
+        button1.innerText = screen.btn1txt; // set button1 text
+        button2.innerText = screen.btn2txt; // set button2 text
         if (button2.style.display) { //Is  button2 already hidden?
           button2.style.removeProperty('display'); // If so, show button2
-        } else { //the button is showing: do nothing
+        } else { // button2 is showing: do nothing
         }
-      button2.innerText = screen.btn2txt; // set button2 text
     }
-
 }
 
 // Event Functions
@@ -257,7 +250,6 @@ function welcome(screen, nextScreen,
     selectScreen(screen, nextScreen, 
       WELCOME, INTRO, GAME, WIN, 
       MONOLOGUEDISPLAY, GAMEDISPLAY);
-      console.log(nextScreen);
 }
 
 /** displays the Intro Screen by setting nextScreen to "intro"
@@ -280,7 +272,6 @@ function intro(screen, nextScreen,
     selectScreen(screen, nextScreen, 
       WELCOME, INTRO, GAME, WIN, 
       MONOLOGUEDISPLAY, GAMEDISPLAY);
-      console.log(nextScreen);
 }
 
 /** displays the Game Screen by setting nextScreen to "game"
@@ -303,7 +294,6 @@ function game(screen, nextScreen,
   selectScreen(screen, nextScreen, 
     WELCOME, INTRO, GAME, WIN, 
     MONOLOGUEDISPLAY, GAMEDISPLAY);
-    console.log(nextScreen);
 }
 
 /** displays the Win Screen by setting nextScreen to "win"
@@ -326,5 +316,4 @@ function game(screen, nextScreen,
   selectScreen(screen, nextScreen, 
     WELCOME, INTRO, GAME, WIN, 
     MONOLOGUEDISPLAY, GAMEDISPLAY);
-    console.log(nextScreen);
 }

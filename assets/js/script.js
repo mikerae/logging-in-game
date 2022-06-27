@@ -42,17 +42,16 @@ function main() {
   const GAME = new Screens("game");
   const WIN = new Screens("win", "Congratulations! You Won!", "You reached your target profit. How will you spend it? Feel free to play again or quit", "assets/images/welcome-screen-and play-buttn.jpg", "Win image", "New Game");
 
-  nextScreen = "win"; // The Welcome Screen is the first screen to display
+  nextScreen = "welcome"; // The Welcome Screen is the first screen to display
 
   selectScreen( // The top level screen flow function is called.
     screen, nextScreen, 
     WELCOME, INTRO, GAME, WIN, 
     MONOLOGUEDISPLAY, GAMEDISPLAY);
-
 }
 
 /**
- * This top level function cotrols the screen flow of the game 
+ * This top level function controls the screen flow of the game 
  * according to the value of nextScreen.
  * It calls the following 
  * setScreen() sets screen object varriable to the next screen object
@@ -78,7 +77,9 @@ function selectScreen(screen, nextScreen,
     MONOLOGUEDISPLAY, GAMEDISPLAY);
 
     displayScreen(screen, nextScreen);
-    setEventListeners(nextScreen);
+    setEventListeners(screen, nextScreen,
+      WELCOME, INTRO, GAME, WIN, 
+      MONOLOGUEDISPLAY, GAMEDISPLAY );
   }
 
 // Main Screen Functions
@@ -125,7 +126,6 @@ function setScreen(screen, nextScreen,
  * @param {*} nextScreen 
  */
 function displayScreen(screen, nextScreen) {
-
     if (nextScreen === "game") {
       // do nothing
     } else {
@@ -133,13 +133,77 @@ function displayScreen(screen, nextScreen) {
     }
 }
 
+// Event Listener Functions
+
 /**
- * Adds event listeners to buttons and nav elements
- * according to the value of 'nextScreen'
+ * Calls event listener functions for  buttons and nav elements
  * @param {*} nextScreen 
  */
-function setEventListeners(nextScreen) {
-  console.log("setEventListeners is called");
+function setEventListeners(screen, nextScreen,
+  WELCOME, INTRO, GAME, WIN, 
+  MONOLOGUEDISPLAY, GAMEDISPLAY) {
+
+  setEventListenersButtons(screen, nextScreen,
+    WELCOME, INTRO, GAME, WIN, 
+    MONOLOGUEDISPLAY, GAMEDISPLAY); // calls function which adds event listners to buttons
+  setEventListenersNav(); // calls function which adds event listners to nav elements
+}
+
+/**
+ * Sets event listeners to buttons according to the value of nextScreen
+ * @param {*} screen 
+ * @param {*} nextScreen 
+ * @param {*} WELCOME 
+ * @param {*} INTRO 
+ * @param {*} GAME 
+ * @param {*} WIN 
+ * @param {*} MONOLOGUEDISPLAY 
+ * @param {*} GAMEDISPLAY 
+ */
+function setEventListenersButtons(screen, nextScreen,
+  WELCOME, INTRO, GAME, WIN, 
+  MONOLOGUEDISPLAY, GAMEDISPLAY) {
+
+  let button1 = document.getElementById(screen.btn1id);
+  let button2 = document.getElementById(screen.btn2id);
+  
+  if (nextScreen === "welcome") { // for welcome screen
+      button1.addEventListener("click", function() { // when button1 is clicked , the intro event function is called
+        intro(screen, nextScreen, 
+        WELCOME, INTRO, GAME, WIN, 
+        MONOLOGUEDISPLAY, GAMEDISPLAY);
+      });
+  } else if (screen.name === "intro") { // for intro screen
+      button1.addEventListener('click', function() { // when button1 is clicked , the game event function is called
+        game(screen, nextScreen, 
+        WELCOME, INTRO, GAME, WIN, 
+        MONOLOGUEDISPLAY, GAMEDISPLAY);
+      });
+      button2.addEventListener('click', function() {  // when button2 is clicked , the welcome event function is called
+        welcome(screen, nextScreen, 
+        WELCOME, INTRO, GAME, WIN, 
+        MONOLOGUEDISPLAY, GAMEDISPLAY);
+      });
+  } else if (screen.name === "win") { // for win screen
+        button1.addEventListener('click', function() { //when button1 is clicked , the game event function is called
+          game(screen, nextScreen, 
+          WELCOME, INTRO, GAME, WIN, 
+          MONOLOGUEDISPLAY, GAMEDISPLAY);
+        });
+        button2.addEventListener('click', function() {  // when button2 is clicked , the welcome event function is called
+          welcome(screen, nextScreen, 
+          WELCOME, INTRO, GAME, WIN, 
+          MONOLOGUEDISPLAY, GAMEDISPLAY);
+      });
+  }
+}
+
+/**
+ * Sets event listeners to nav elements
+ */
+ function setEventListenersNav() {
+  console.log("setEventListenersNav is called");
+
 }
 
 // Screen Display Utility Functions
@@ -190,12 +254,12 @@ function setEventListeners(nextScreen) {
 }
 
 /**
- *  * Gets button data from Screens object
+ *  * Gets button data from screen object
  * Shows or hides button 2 as required
  * Adds eventListners to buttons
  * sets nextScreen.
  * retuens nextScreen
- * @param {*} Screens 
+ * @param {*} screen 
  * @param {*} nextScreen 
  * @returns 
  */

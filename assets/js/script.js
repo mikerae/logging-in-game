@@ -28,6 +28,7 @@ function main() {
 
   // Initialise CONSTANTS
   const TARGETPROFIT = 10000;
+  const HARVESTFOREST = 100;
   const MONOLOGUEDISPLAY = document.getElementById("displayScreen-wrapper");
   const GAMEDISPLAY = document.getElementById("displayGame-wrapper");
 
@@ -47,7 +48,7 @@ function main() {
   selectScreen( // The top level screen flow function is called.
     screen, nextScreen, 
     WELCOME, INTRO, GAME, WIN, 
-    MONOLOGUEDISPLAY, GAMEDISPLAY, TARGETPROFIT);
+    MONOLOGUEDISPLAY, GAMEDISPLAY, TARGETPROFIT, HARVESTFOREST);
 }
 
 /**
@@ -70,7 +71,7 @@ function main() {
  */
 function selectScreen(screen, nextScreen, 
   WELCOME, INTRO, GAME, WIN, 
-  MONOLOGUEDISPLAY, GAMEDISPLAY, TARGETPROFIT) {
+  MONOLOGUEDISPLAY, GAMEDISPLAY, TARGETPROFIT, HARVESTFOREST) {
 
     screen = setScreen(screen, nextScreen, // sets the screen view to Monologue or Game, and sets the screen object
       WELCOME, INTRO, GAME, WIN, 
@@ -78,7 +79,7 @@ function selectScreen(screen, nextScreen,
 
     displayScreen(screen, nextScreen,  // displays content on the screen or loads the game
       WELCOME, INTRO, GAME, WIN,
-      MONOLOGUEDISPLAY, GAMEDISPLAY, TARGETPROFIT);
+      MONOLOGUEDISPLAY, GAMEDISPLAY, TARGETPROFIT, HARVESTFOREST);
 
     setEventListeners(screen, nextScreen, // sets event listeners and waits for user input
       WELCOME, INTRO, GAME, WIN, 
@@ -131,12 +132,12 @@ function setScreen(screen, nextScreen,
  */
 function displayScreen(screen, nextScreen, 
   WELCOME, INTRO, GAME, WIN,
-  MONOLOGUEDISPLAY, GAMEDISPLAY, TARGETPROFIT) {
+  MONOLOGUEDISPLAY, GAMEDISPLAY, TARGETPROFIT, HARVESTFOREST) {
 
     if (nextScreen === "game") { 
       loadGame(screen, nextScreen, // Load the Game and run the main game loop
         WELCOME, INTRO, GAME, WIN, 
-        MONOLOGUEDISPLAY, GAMEDISPLAY, TARGETPROFIT);
+        MONOLOGUEDISPLAY, GAMEDISPLAY, TARGETPROFIT, HARVESTFOREST);
     } else {
 
       populateScreen(screen, nextScreen); // enter screen flow 
@@ -435,21 +436,24 @@ function game(screen, nextScreen,
  */
 function loadGame(screen, nextScreen, 
   WELCOME, INTRO, GAME, WIN, 
-  MONOLOGUEDISPLAY, GAMEDISPLAY, TARGETPROFIT) {
+  MONOLOGUEDISPLAY, GAMEDISPLAY, TARGETPROFIT, HARVESTFOREST) {
     console.log("loadGame() has been called");
     console.log(TARGETPROFIT);
 
     // Initilise Variables
   let gameResult = null; // resets the game result
   let profit = 0;
-  
+  let logsInStock = 0;
 
+  
+  logsInStock = harvestForest(logsInStock, HARVESTFOREST);
+  console.log(logsInStock);
 
   gameResult = checkProfit(profit, TARGETPROFIT); // Checks if the Target Profit has been made
 
   if (gameResult === "win") { // if the game is won.... which it is!
     console.log("You have won the Game!");
-    
+
     win(screen, nextScreen, // display the Win Screen and wait for user input
       WELCOME, INTRO, GAME, WIN, 
       MONOLOGUEDISPLAY, GAMEDISPLAY);
@@ -466,4 +470,16 @@ function loadGame(screen, nextScreen,
 function checkProfit(profit, TARGETPROFIT) {
   console.log("checkProfit() has been called")
   return (profit >= TARGETPROFIT ? "win": null);
+}
+
+/**
+ * Adds harvested logs to LogsInStock when a Forest is harvested
+ * The amount of logs a forest yeilds is set by HARVESTFOREST
+ * @param {*} logsInStock 
+ * @param {*} HARVESTFOREST 
+ * @returns 
+ */
+function harvestForest(logsInStock, HARVESTFOREST) {
+  logsInStock = logsInStock + HARVESTFOREST;
+  return logsInStock;
 }

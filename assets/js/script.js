@@ -28,7 +28,8 @@ function main() {
 
   // Initialise CONSTANTS
   const TARGETPROFIT = 10000;
-  const HARVESTFOREST = 100;
+  const HARVESTFOREST = 700;
+  const SELLLOGS = 50;
   const MONOLOGUEDISPLAY = document.getElementById("displayScreen-wrapper");
   const GAMEDISPLAY = document.getElementById("displayGame-wrapper");
 
@@ -48,7 +49,7 @@ function main() {
   selectScreen( // The top level screen flow function is called.
     screen, nextScreen, 
     WELCOME, INTRO, GAME, WIN, 
-    MONOLOGUEDISPLAY, GAMEDISPLAY, TARGETPROFIT, HARVESTFOREST);
+    MONOLOGUEDISPLAY, GAMEDISPLAY, TARGETPROFIT, HARVESTFOREST, SELLLOGS);
 }
 
 /**
@@ -71,7 +72,7 @@ function main() {
  */
 function selectScreen(screen, nextScreen, 
   WELCOME, INTRO, GAME, WIN, 
-  MONOLOGUEDISPLAY, GAMEDISPLAY, TARGETPROFIT, HARVESTFOREST) {
+  MONOLOGUEDISPLAY, GAMEDISPLAY, TARGETPROFIT, HARVESTFOREST, SELLLOGS) {
 
     screen = setScreen(screen, nextScreen, // sets the screen view to Monologue or Game, and sets the screen object
       WELCOME, INTRO, GAME, WIN, 
@@ -79,7 +80,7 @@ function selectScreen(screen, nextScreen,
 
     displayScreen(screen, nextScreen,  // displays content on the screen or loads the game
       WELCOME, INTRO, GAME, WIN,
-      MONOLOGUEDISPLAY, GAMEDISPLAY, TARGETPROFIT, HARVESTFOREST);
+      MONOLOGUEDISPLAY, GAMEDISPLAY, TARGETPROFIT, HARVESTFOREST, SELLLOGS);
 
     setEventListeners(screen, nextScreen, // sets event listeners and waits for user input
       WELCOME, INTRO, GAME, WIN, 
@@ -132,12 +133,12 @@ function setScreen(screen, nextScreen,
  */
 function displayScreen(screen, nextScreen, 
   WELCOME, INTRO, GAME, WIN,
-  MONOLOGUEDISPLAY, GAMEDISPLAY, TARGETPROFIT, HARVESTFOREST) {
+  MONOLOGUEDISPLAY, GAMEDISPLAY, TARGETPROFIT, HARVESTFOREST, SELLLOGS) {
 
     if (nextScreen === "game") { 
       loadGame(screen, nextScreen, // Load the Game and run the main game loop
         WELCOME, INTRO, GAME, WIN, 
-        MONOLOGUEDISPLAY, GAMEDISPLAY, TARGETPROFIT, HARVESTFOREST);
+        MONOLOGUEDISPLAY, GAMEDISPLAY, TARGETPROFIT, HARVESTFOREST, SELLLOGS);
     } else {
 
       populateScreen(screen, nextScreen); // enter screen flow 
@@ -436,20 +437,25 @@ function game(screen, nextScreen,
  */
 function loadGame(screen, nextScreen, 
   WELCOME, INTRO, GAME, WIN, 
-  MONOLOGUEDISPLAY, GAMEDISPLAY, TARGETPROFIT, HARVESTFOREST) {
+  MONOLOGUEDISPLAY, GAMEDISPLAY, TARGETPROFIT, HARVESTFOREST, SELLLOGS) {
     console.log("loadGame() has been called");
     console.log(TARGETPROFIT);
 
     // Initilise Variables
   let gameResult = null; // resets the game result
-  let profit = 0;
-  let logsInStock = 0;
+  let stockProfit = {logsInStock: 0, profit: 0}; // this object contains the Game Info and is needed because JavaScript does not support functions returning multiple values.
 
   
-  logsInStock = harvestForest(logsInStock, HARVESTFOREST);
-  console.log(logsInStock);
+  stockProfit.logsInStock = harvestForest(stockProfit, HARVESTFOREST); // A forest is harvested and the logs are added to logsInStock 
+    console.log(stockProfit.logsInStock);
 
-  gameResult = checkProfit(profit, TARGETPROFIT); // Checks if the Target Profit has been made
+  stockProfit = sellLogs(stockProfit, SELLLOGS);
+    console.log("profit is now: ", stockProfit.profit);
+    console.log("logsInStock is now: ", stockProfit.logsInStock);
+
+
+  gameResult = checkProfit(stockProfit, TARGETPROFIT); // Checks if the Target Profit has been made
+  console.log("game Result is: ", gameResult)
 
   if (gameResult === "win") { // if the game is won.... which it is!
     console.log("You have won the Game!");
@@ -467,9 +473,11 @@ function loadGame(screen, nextScreen,
  * @param {*} TARGETPROFIT 
  * @returns 
  */
-function checkProfit(profit, TARGETPROFIT) {
+function checkProfit(stockProfit, TARGETPROFIT) {
   console.log("checkProfit() has been called")
-  return (profit >= TARGETPROFIT ? "win": null);
+  console.log("profit is now: ", stockProfit.profit);
+
+  return (stockProfit.profit >= TARGETPROFIT ? "win": null);
 }
 
 /**
@@ -479,7 +487,22 @@ function checkProfit(profit, TARGETPROFIT) {
  * @param {*} HARVESTFOREST 
  * @returns 
  */
-function harvestForest(logsInStock, HARVESTFOREST) {
-  logsInStock = logsInStock + HARVESTFOREST;
-  return logsInStock;
+function harvestForest(stockProfit, HARVESTFOREST) {
+  stockProfit.logsInStock = stockProfit.logsInStock + HARVESTFOREST;
+  return stockProfit.logsInStock;
+}
+
+/**
+ * Sells logs in stock and generate profit = logsInStock * SELLLOGS
+ * LogsInStock is set to 0
+ * Profit is added to current profit
+ * @param {*} stockProfit 
+ * @param {*} SELLLOGS 
+ * @returns 
+ */
+function sellLogs(stockProfit, SELLLOGS) {
+  let saleProfit = stockProfit.logsInStock * SELLLOGS;
+  stockProfit.logsInStock = 0;
+  stockProfit.profit += saleProfit;
+  return stockProfit;
 }

@@ -47,7 +47,7 @@ function main() {
   selectScreen( // The top level screen flow function is called.
     screen, nextScreen, 
     WELCOME, INTRO, GAME, WIN, 
-    MONOLOGUEDISPLAY, GAMEDISPLAY);
+    MONOLOGUEDISPLAY, GAMEDISPLAY, TARGETPROFIT);
 }
 
 /**
@@ -70,7 +70,7 @@ function main() {
  */
 function selectScreen(screen, nextScreen, 
   WELCOME, INTRO, GAME, WIN, 
-  MONOLOGUEDISPLAY, GAMEDISPLAY) {
+  MONOLOGUEDISPLAY, GAMEDISPLAY, TARGETPROFIT) {
 
     screen = setScreen(screen, nextScreen, // sets the screen view to Monologue or Game, and sets the screen object
       WELCOME, INTRO, GAME, WIN, 
@@ -78,7 +78,7 @@ function selectScreen(screen, nextScreen,
 
     displayScreen(screen, nextScreen,  // displays content on the screen or loads the game
       WELCOME, INTRO, GAME, WIN,
-      MONOLOGUEDISPLAY, GAMEDISPLAY);
+      MONOLOGUEDISPLAY, GAMEDISPLAY, TARGETPROFIT);
 
     setEventListeners(screen, nextScreen, // sets event listeners and waits for user input
       WELCOME, INTRO, GAME, WIN, 
@@ -131,12 +131,12 @@ function setScreen(screen, nextScreen,
  */
 function displayScreen(screen, nextScreen, 
   WELCOME, INTRO, GAME, WIN,
-  MONOLOGUEDISPLAY, GAMEDISPLAY) {
+  MONOLOGUEDISPLAY, GAMEDISPLAY, TARGETPROFIT) {
 
     if (nextScreen === "game") { 
       loadGame(screen, nextScreen, // Load the Game and run the main game loop
         WELCOME, INTRO, GAME, WIN, 
-        MONOLOGUEDISPLAY, GAMEDISPLAY);
+        MONOLOGUEDISPLAY, GAMEDISPLAY, TARGETPROFIT);
     } else {
 
       populateScreen(screen, nextScreen); // enter screen flow 
@@ -419,29 +419,51 @@ function game(screen, nextScreen,
 
 // Game Functions
 
+/**
+ * Initialises the game, then runs the main game loop 
+ * by calling runGame().
+ * It receives the gameResult and calls the appropriate outcome screen.
+ * In this version the gameResult can only be "win".
+ * @param {*} screen 
+ * @param {*} nextScreen 
+ * @param {*} WELCOME 
+ * @param {*} INTRO 
+ * @param {*} GAME 
+ * @param {*} WIN 
+ * @param {*} MONOLOGUEDISPLAY 
+ * @param {*} GAMEDISPLAY 
+ */
 function loadGame(screen, nextScreen, 
   WELCOME, INTRO, GAME, WIN, 
-  MONOLOGUEDISPLAY, GAMEDISPLAY) {
+  MONOLOGUEDISPLAY, GAMEDISPLAY, TARGETPROFIT) {
     console.log("loadGame() has been called");
+    console.log(TARGETPROFIT);
 
-  let gameResult = null;
+    // Initilise Variables
+  let gameResult = null; // resets the game result
+  let profit = 0;
+  
 
-  gameResult = runGame();
 
-  if (gameResult === "win") {
+  gameResult = checkProfit(profit, TARGETPROFIT); // Checks if the Target Profit has been made
+
+  if (gameResult === "win") { // if the game is won.... which it is!
     console.log("You have won the Game!");
-
-
-    win(screen, nextScreen, 
+    
+    win(screen, nextScreen, // display the Win Screen and wait for user input
       WELCOME, INTRO, GAME, WIN, 
       MONOLOGUEDISPLAY, GAMEDISPLAY);
   }
 }
 
-function runGame(gameResult) {
-  console.log("runGame() has been called")
-
-  gameResult = "";
-
-  return gameResult;
+/**
+ * Checks to see if profit has reached TARGETPROFIT
+ * and returns "win" if it has.
+ * @param {*} profit 
+ * @param {*} TARGETPROFIT 
+ * @returns 
+ */
+function checkProfit(profit, TARGETPROFIT) {
+  console.log("checkProfit() has been called")
+  return (profit >= TARGETPROFIT ? "win": null);
 }

@@ -171,6 +171,10 @@ aspect-ratio: 16 / 9;
   display: flexbox;
 }
 
+#time-left-wrapper * { /* hide time left feature for dev stage 1 */
+  display: none;
+}
+
 #fire-alert-wrapper {
   height: 4rem;
 }

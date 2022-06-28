@@ -72,12 +72,15 @@ function selectScreen(screen, nextScreen,
   WELCOME, INTRO, GAME, WIN, 
   MONOLOGUEDISPLAY, GAMEDISPLAY) {
 
-    screen = setScreen(screen, nextScreen, 
-    WELCOME, INTRO, GAME, WIN, 
-    MONOLOGUEDISPLAY, GAMEDISPLAY);
+    screen = setScreen(screen, nextScreen, // sets the screen view to Monologue or Game, and sets the screen object
+      WELCOME, INTRO, GAME, WIN, 
+      MONOLOGUEDISPLAY, GAMEDISPLAY);
 
-    displayScreen(screen, nextScreen);
-    setEventListeners(screen, nextScreen,
+    displayScreen(screen, nextScreen,  // displays content on the screen or loads the game
+      WELCOME, INTRO, GAME, WIN,
+      MONOLOGUEDISPLAY, GAMEDISPLAY);
+
+    setEventListeners(screen, nextScreen, // sets event listeners and waits for user input
       WELCOME, INTRO, GAME, WIN, 
       MONOLOGUEDISPLAY, GAMEDISPLAY );
   }
@@ -121,14 +124,21 @@ function setScreen(screen, nextScreen,
 
 /**
  * Displays all text, images and other elements 
- * according to the value of 'nextScreen'
+ * according to the value of 'nextScreen'.
+ * If next screen is "game", the Game is loaded and run
  * @param {*} screen 
  * @param {*} nextScreen 
  */
-function displayScreen(screen, nextScreen) {
-    if (nextScreen === "game") {
-      // do nothing
+function displayScreen(screen, nextScreen, 
+  WELCOME, INTRO, GAME, WIN,
+  MONOLOGUEDISPLAY, GAMEDISPLAY) {
+
+    if (nextScreen === "game") { 
+      loadGame(screen, nextScreen, // Load the Game and run the main game loop
+        WELCOME, INTRO, GAME, WIN, 
+        MONOLOGUEDISPLAY, GAMEDISPLAY);
     } else {
+
       populateScreen(screen, nextScreen); // enter screen flow 
     }
 }
@@ -399,9 +409,39 @@ function game(screen, nextScreen,
  function win(screen, nextScreen, 
   WELCOME, INTRO, GAME, WIN, 
   MONOLOGUEDISPLAY, GAMEDISPLAY) {
+    console.log("win() has been called");
 
   nextScreen = "win";
   selectScreen(screen, nextScreen, 
     WELCOME, INTRO, GAME, WIN, 
     MONOLOGUEDISPLAY, GAMEDISPLAY);
+}
+
+// Game Functions
+
+function loadGame(screen, nextScreen, 
+  WELCOME, INTRO, GAME, WIN, 
+  MONOLOGUEDISPLAY, GAMEDISPLAY) {
+    console.log("loadGame() has been called");
+
+  let gameResult = null;
+
+  gameResult = runGame();
+
+  if (gameResult === "win") {
+    console.log("You have won the Game!");
+
+
+    win(screen, nextScreen, 
+      WELCOME, INTRO, GAME, WIN, 
+      MONOLOGUEDISPLAY, GAMEDISPLAY);
+  }
+}
+
+function runGame(gameResult) {
+  console.log("runGame() has been called")
+
+  gameResult = "win";
+
+  return gameResult;
 }

@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", main());
  */
 function main() {
   // Initialsie Classes of Objects
-  class Screens {
+  class Screens { // This class of objects will contain data for screen maniplulation
     constructor(name, title, msg, imgsrc, imgalt, btn1txt) {
       this.name = name;
       this.title = title;
@@ -27,15 +27,15 @@ function main() {
   }
 
   // Initialise CONSTANTS
-  const TARGETPROFIT = 10000;
-  const HARVESTFOREST = 700;
-  const SELLLOGS = 50;
-  const MONOLOGUEDISPLAY = document.getElementById("displayScreen-wrapper");
-  const GAMEDISPLAY = document.getElementById("displayGame-wrapper");
+  const TARGETPROFIT = 10000; // The profit needed to win the game
+  const HARVESTFOREST = 700; // The amount of logs produced when a Forest tile is harvested
+  const SELLLOGS = 50; // The profit factor for selling logs ()
+  const MONOLOGUEDISPLAY = document.getElementById("displayScreen-wrapper"); // The area of the screen used to display Monologe Screens eg welcome, intro, win etc.
+  const GAMEDISPLAY = document.getElementById("displayGame-wrapper"); // The are if the screen displaying the main game area
 
   // Initialise block variables
-  let Screen = null;
-  let nextScreen = "";
+  let Screen = null; // This object is of the class Screens
+  let nextScreen = ""; // nextScreen controls the screen flow of the game
 
   //Initialse Objects
   const WELCOME = new Screens("welcome", "Welcome to Logging-In", "You may be a LumberJack or LumberJackie, but are you O.K.? Play Logging-In to find out!", "assets/images/welcome-screen-and play-buttn.jpg", "Welcome image", "New Game");

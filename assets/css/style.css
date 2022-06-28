@@ -62,11 +62,11 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  /* background-image: linear-gradient(top to bottom, rgb(55	100	158	), rgb(109	224	159	)); */
 }
 
 .screen {
-  background-image: url('/assets/images/screen\ background.jpg');
-  background-size: contain;
+  background: linear-gradient( rgb(33,	89,	160) 60%	, rgb(109,	224,	159));
 }
 
 #displayGame-wrapper {
@@ -75,29 +75,42 @@ body {
 
 /* Nav Styling */
 #nav {
-  padding-top: 0;
-  padding-bottom: 0;
-  background-color: rgb(33	89	159		);
+  background: rgb(33,	89,	160);
+  display:flex;
+}
+
+#nav-list {
+  display: flex;
+
 }
 
 #nav-list li {
-  display: inline;
-  padding: 2rem;
   list-style: none;
+  padding: 1rem;
+  background: linear-gradient(to top, rgb(235	108	74), rgb(227	93	144));
+  border-radius: 0.5rem;
+  margin-left: 1rem;
 }
+
+#nav-list li:hover {
+  background: linear-gradient(to top, rgb(230, 60, 12), rgb(229, 15, 97));
+}
+
+#nav-list li:nth-of-type(0) {
+  margin-left:auto;
+}
+
+#help {
+  display: none; /* not implemented in dev stage 1 */
+}
+
 
 /* Display Screen Header */
 header {
   text-align: center;
-  height: 10rem;
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-#header-img {
-  object-fit: fit;
-  height: inherit;
 }
 
 /* Display Image and Text */
@@ -138,7 +151,7 @@ aspect-ratio: 16 / 9;
 
 .button {
   color: whitesmoke;
-  background-image: linear-gradient(to top, rgb(235	108	74), rgb(227	93	144));
+  background: linear-gradient(to top, rgb(235	108	74), rgb(227	93	144));
   border:groove 0.5em rgb(238	141	185	);
   border-style: outset hidden hidden outset ;
   border-radius: 0.5rem;

@@ -128,4 +128,6 @@ Event functions are:
   ### Screen Flow rebuild bug 1
   The rebuild progressed well untill the screen display utilities (except button content and event listeners) were copied and ammended. The screen object was  undefined.
   Solution: In the setScreen funtion the 'break' instruction was replaced with 'return screen', and screen was set to receive this functions output. 
-  ### Display Shows a blue bar at the bottom of screen, layout is messed up in smaller screen sizes
+  ### Display Issues
+  The positioning is messed up in smaller screen sizes.
+  The full screen gadient is currently a background image which does not load on the  gitHub pages server.

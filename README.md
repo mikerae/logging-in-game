@@ -130,4 +130,10 @@ Event functions are:
   Solution: In the setScreen funtion the 'break' instruction was replaced with 'return screen', and screen was set to receive this functions output. 
   ### Display Issues
   The positioning is messed up in smaller screen sizes.
+  This is caused by incomplete understanding of flex and flexbox, and mixing an older layout technique using floats and clears.
+  More research is needed to gain a better understanding of these features.
   The full screen gadient is currently a background image which does not load on the  gitHub pages server.
+  The gradient image was replaced with "background: liniar-gradient" to solve the issue.
+  ### Functions only return one value : 
+  For the function sellLogs(stockProfit, SELLLOGS), I needed a fucntion which, when called by an event, would sell the current stock of logs for a profit,  increase the profit variable and decrease the logsInstock variable. This is not possible directly in JavaScript because a function can only return one value. The work-around was to combine the profit and logsInStock variables int one object "stockProfit".
+  The function applied its calculations to the stockprofit.profit and stockprofit.logsInStock and returned the stockProfit object.

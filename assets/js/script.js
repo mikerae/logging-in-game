@@ -42,7 +42,7 @@ function main() {
   const GAME = new Screens("game");
   const WIN = new Screens("win", "Congratulations! You Won!", "You reached your target profit. How will you spend it? Feel free to play again or quit", "assets/images/welcome-screen-and play-buttn.jpg", "Win image", "New Game");
 
-  nextScreen = "welcome"; // The Welcome Screen is the first screen to display
+  nextScreen = "game"; // Tempararily only the game screen will be shown....  //The Welcome Screen is the first screen to display
 
   selectScreen( // The top level screen flow function is called.
     screen, nextScreen, 
@@ -441,7 +441,7 @@ function loadGame(screen, nextScreen,
 function runGame(gameResult) {
   console.log("runGame() has been called")
 
-  gameResult = "win";
+  gameResult = "";
 
   return gameResult;
 }

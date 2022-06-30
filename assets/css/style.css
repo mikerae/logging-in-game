@@ -185,7 +185,8 @@ font-size: 2em;
 }
 
 #info-bar-wrapper {
-  display: flexbox;
+  display: flex;
+  flex-direction: row;
 }
 
 #time-left-wrapper * { /* hide time left feature for dev stage 1 */
@@ -197,13 +198,9 @@ font-size: 2em;
 }
 
 #info-bar {
-  display: inline-flex;
-  justify-content: flex-end;
-}
-
-#info-bar > div {
-  display:inline-flex;
-  align-items: baseline;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
 }
 
 #target-profit::before, #profit::before {
@@ -211,9 +208,10 @@ font-size: 2em;
 }
 
 .info-item {
-  width: fit-content;
-  margin-left: 5px;
-  padding: 10px;
+  min-width: fit-content;
+  display:inline-flex;
+  align-items: baseline;
+  margin-right: 2px;
 }
 
 #game-body-wrapper {

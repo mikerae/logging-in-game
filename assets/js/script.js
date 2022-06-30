@@ -482,25 +482,33 @@ function loadGame(screen, nextScreen,
   class LogCamp {
     constructor() {
       this.type = 'LogCamp';
-      this.src = "#";
+      this.src = "assets/images/log-camp-tile.jpg";
       this.actions = "Sell Logs";
       this.messages = "Sell your logs and make some profit";
     }
 
-  /**
-   * Sells logs in stock and generate profit = logsInStock * SELLLOGS
-   * LogsInStock is set to 0
-   * Profit is added to current profit
-   * @param {*} stockProfit 
-   * @param {*} SELLLOGS 
-   * @returns 
-   */
-  sellLogs(stockProfit, SELLLOGS) {
-    let saleProfit = stockProfit.logsInStock * SELLLOGS;
-    stockProfit.logsInStock = 0;
-    stockProfit.profit += saleProfit;
-    return stockProfit;
-  }
+    /**
+     * Sells logs in stock and generate profit = logsInStock * SELLLOGS
+     * LogsInStock is set to 0
+     * Profit is added to current profit
+     * @param {*} stockProfit 
+     * @param {*} SELLLOGS 
+     * @returns 
+     */
+    sellLogs(stockProfit, SELLLOGS) {
+      let saleProfit = stockProfit.logsInStock * SELLLOGS;
+      stockProfit.logsInStock = 0;
+      stockProfit.profit += saleProfit;
+      return stockProfit;
+    }
+  } 
+
+  class Overlays {
+    constructor(name, src, show) {
+      this.name = name;
+      this.src = src;
+      this.show = show;
+    }
   }
 
   

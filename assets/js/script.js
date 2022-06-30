@@ -444,8 +444,10 @@ function loadGame(screen, nextScreen,
     // Initilise Variables
   let gameResult = null; // resets the game result
   let stockProfit = {logsInStock: 0, profit: 0}; // this object contains the Game Info and is needed because JavaScript does not support functions returning multiple values.
-
+  let map = new Map();
   displayGameInfo(stockProfit, TARGETPROFIT); // display Game ino in the info bar
+
+  map = createMap (map);
 
   //Tempory code to allow game flow during development
   stockProfit.logsInStock = harvestForest(stockProfit, HARVESTFOREST); // A forest is harvested and the logs are added to logsInStock 
@@ -515,10 +517,14 @@ function sellLogs(stockProfit, SELLLOGS) {
  */
 function displayGameInfo(stockProfit, TARGETPROFIT) {
   console.log("displayGameInfo has been called")
-  console.log("profit is now: ", stockProfit.profit);
-  console.log("logsInStock is now: ", stockProfit.logsInStock);
 
   document.getElementById("logs").innerText = stockProfit.logsInStock;
   document.getElementById("profit").innerText = stockProfit.profit;
   document.getElementById("target-profit").innerText = TARGETPROFIT;
+}
+
+// Map Functions
+
+function createMap(map) {
+  console.log("createMap() has been called");
 }

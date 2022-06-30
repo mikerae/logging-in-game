@@ -186,10 +186,14 @@ aspect-ratio: 16 / 9;
 
 #info-bar > div {
   display:inline-flex;
+  align-items: baseline;
+}
+
+#target-profit::before, #profit::before {
+  content: "£";
 }
 
 .info-item {
-  border: solid 1px whitesmoke;
   width: fit-content;
   margin-left: 5px;
   padding: 10px;

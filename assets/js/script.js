@@ -97,7 +97,10 @@ function selectScreen(screen, nextScreen,
 
     displayScreen(screen, nextScreen,  // displays content on the screen or loads the game
       WELCOME, INTRO, GAME, WIN,
-      MONOLOGUEDISPLAY, GAMEDISPLAY, TARGETPROFIT, HARVESTFOREST, SELLLOGS);
+      MONOLOGUEDISPLAY, GAMEDISPLAY, 
+      TARGETPROFIT, HARVESTFOREST, SELLLOGS,
+      GRASSMAP, FORESTMAP, LUMBERCAMPMAP
+      );
 
     setEventListeners(screen, nextScreen, // sets event listeners and waits for user input
       WELCOME, INTRO, GAME, WIN, 
@@ -443,6 +446,9 @@ function loadGame(screen, nextScreen,
   let gameResult = null; // resets the game result
   let stockProfit = {logsInStock: 0, profit: 0}; // this object contains the Game Info and is needed because JavaScript does not support functions returning multiple values.
   let elMap = new Map();
+  let grassTiles = {};
+  let forestTiles = {};
+  let lumberCampTiles = {};
 
     // Tile Classes
     class Tile {
@@ -454,8 +460,11 @@ function loadGame(screen, nextScreen,
     }
 
     class InnerTile extends Tile {
-      constructor(position, movement, movementTxt) {
-        super(loc, currentTile, kind)
+      constructor(loc, currentTile, kind, position, movement, movementTxt) {
+        super();
+        super.loc = loc;
+        super.currentTile = currentTile;
+        super.kind = kind;
         this.position = position;
         this.edge = false;
         this.movement = movement;
@@ -464,15 +473,17 @@ function loadGame(screen, nextScreen,
     }
 
     class EdgeTile extends Tile {
-      constructor(position, movement, movementTxt) {
-        super(loc, currentTile, kind)
+      constructor(loc, currentTile, kind, position, movement, movementTxt) {
+        super();
+        super.loc = loc;
+        super.currentTile = currentTile;
+        super.kind = kind;
         this.position = position;
         this.edge = true;
         this.movement = movement;
         this.movementTxt = movementTxt;
       }
     }
-
 
     class Forest {
       constructor() {
@@ -482,73 +493,79 @@ function loadGame(screen, nextScreen,
         this.messages = `Harvest the Forest in the Actions Menu. You will make ${HARVESTFOREST}  logs`
       }
 
-    /**
-     * Adds harvested logs to LogsInStock when a Forest is harvested
-     * The amount of logs a forest yeilds is set by HARVESTFOREST
-     * @param {*} logsInStock 
-     * @param {*} HARVESTFOREST 
-     * @returns 
-     */
-    harvestForest(stockProfit, HARVESTFOREST) {
-      stockProfit.logsInStock = stockProfit.logsInStock + HARVESTFOREST;
-      return stockProfit.logsInStock;
-    }
-  }
-
-  class Grass {
-    constructor() {
-      this.type = 'grass';
-      this.src = "assets/images/grass-tile.jpg";
-      this.actions = "";
-      this.messages = "";
-    }
-  }
-
-  class LogCamp {
-    constructor() {
-      this.type = 'LogCamp';
-      this.src = "assets/images/log-camp-tile.jpg";
-      this.actions = "Sell Logs";
-      this.messages = "Sell your logs and make some profit";
+      /**
+       * Adds harvested logs to LogsInStock when a Forest is harvested
+       * The amount of logs a forest yeilds is set by HARVESTFOREST
+       * @param {*} logsInStock 
+       * @param {*} HARVESTFOREST 
+       * @returns 
+       */
+      harvestForest(stockProfit, HARVESTFOREST) {
+        stockProfit.logsInStock = stockProfit.logsInStock + HARVESTFOREST;
+        return stockProfit.logsInStock;
+      }
     }
 
-    /**
-     * Sells logs in stock and generate profit = logsInStock * SELLLOGS
-     * LogsInStock is set to 0
-     * Profit is added to current profit
-     * @param {*} stockProfit 
-     * @param {*} SELLLOGS 
-     * @returns 
-     */
-    sellLogs(stockProfit, SELLLOGS) {
-      let saleProfit = stockProfit.logsInStock * SELLLOGS;
-      stockProfit.logsInStock = 0;
-      stockProfit.profit += saleProfit;
-      return stockProfit;
+    class Grass extends Tile{
+      constructor(loc,) {
+        super();
+        super.loc = loc;
+        super.currentTile = currentTile;
+        this.kind = kind;
+        this.type = 'grass';
+        this.src = "assets/images/grass-tile.jpg";
+        this.actions = "";
+        this.messages = "";
+      }
     }
-  } 
 
-  class Overlays {
-    constructor(name, src, show) {
-      this.name = name;
-      this.src = src;
-      this.show = show;
+    class LogCamp {
+      constructor() {
+        this.type = 'LogCamp';
+        this.src = "assets/images/log-camp-tile.jpg";
+        this.actions = "Sell Logs";
+        this.messages = "Sell your logs and make some profit";
+      }
+
+      /**
+       * Sells logs in stock and generate profit = logsInStock * SELLLOGS
+       * LogsInStock is set to 0
+       * Profit is added to current profit
+       * @param {*} stockProfit 
+       * @param {*} SELLLOGS 
+       * @returns 
+       */
+      sellLogs(stockProfit, SELLLOGS) {
+        let saleProfit = stockProfit.logsInStock * SELLLOGS;
+        stockProfit.logsInStock = 0;
+        stockProfit.profit += saleProfit;
+        return stockProfit;
+      }
     }
-  }
+
+  // Create Corner Tile Objects
+    let h1Tile = new EdgeTile('h1', false, 'top left corner', {'up': false, 'right': true, 'down': true, 'left': false}, "You can go right and down from here.");
+    console.log(h1Tile);
+
+  /*grassTiles = new Grass();
+  console.log(grassTiles); */
+
+
 
   
   displayGameInfo(stockProfit, TARGETPROFIT); // display Game ino in the info bar
 
-  createMap(elMap);
+  createMap(elMap, GRASSMAP, FORESTMAP, LUMBERCAMPMAP,
+    grassTiles, forestTiles, lumberCampTiles);
   /*console.log("elMap is: ", elMap);*/
 
   //Tempory code to allow game flow during development
-  stockProfit.logsInStock = harvestForest(stockProfit, HARVESTFOREST); // A forest is harvested and the logs are added to logsInStock 
+  //stockProfit.logsInStock = harvestForest(stockProfit, HARVESTFOREST); // A forest is harvested and the logs are added to logsInStock 
 
   // Temporary code to allow game flow during development
-  stockProfit = sellLogs(stockProfit, SELLLOGS);
+  //stockProfit = sellLogs(stockProfit, SELLLOGS);
 
-  stockProfit.logsInStock = harvestForest(stockProfit, HARVESTFOREST);
+  //stockProfit.logsInStock = harvestForest(stockProfit, HARVESTFOREST);
 
   displayGameInfo(stockProfit, TARGETPROFIT); // display Game ino in the info bar
 
@@ -594,7 +611,7 @@ function displayGameInfo(stockProfit, TARGETPROFIT) {
 
 // Map Functions
 
-function createMap(elMap, GRASSMAP, FORESTMAP, LUMBERCAMPMAP) {
+function createMap(elMap, GRASSMAP, FORESTMAP, LUMBERCAMPMAP, grassTiles, forestTiles, lumberCampTiles) {
   console.log("createMap() has been called");
 
   // create map keys from Screen map ids
@@ -603,12 +620,12 @@ function createMap(elMap, GRASSMAP, FORESTMAP, LUMBERCAMPMAP) {
 
   while (node) { // itterates through all elMap divs and populates mapKeys with ids
     mapKeys.push(node.id);
-    console.log("mapKeys has the value: ", mapKeys);
     node = node.nextElementSibling;
   }
 
-    
+  /* for (let mapKey in mapKeys) {
+
+  } */
 
 
-  
 }

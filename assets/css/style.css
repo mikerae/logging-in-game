@@ -157,9 +157,10 @@ aspect-ratio: 16 / 9;
 /* Display Buttons */
 #display-buttons-wrapper {
   clear: both;
-  display: inline-flex;
+  display: flex;
+  flex-direction: row;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
 }
 
 .button {

@@ -527,4 +527,8 @@ function displayGameInfo(stockProfit, TARGETPROFIT) {
 
 function createMap(map) {
   console.log("createMap() has been called");
+
+  // create map keys from Screen map ids
+  let mapIds = document.getElementById("map").children;
+  console.log(mapIds);
 }

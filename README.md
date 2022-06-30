@@ -137,3 +137,15 @@ Event functions are:
   ### Functions only return one value : 
   For the function sellLogs(stockProfit, SELLLOGS), I needed a fucntion which, when called by an event, would sell the current stock of logs for a profit,  increase the profit variable and decrease the logsInstock variable. This is not possible directly in JavaScript because a function can only return one value. The work-around was to combine the profit and logsInStock variables int one object "stockProfit".
   The function applied its calculations to the stockprofit.profit and stockprofit.logsInStock and returned the stockProfit object.
+
+  ## Testing
+
+  ### Human Feedback
+  After consultation with Sarah Rae the following changes were made:
+    Fonts from Google Fonts were chosen:
+      "Press Start 2P"   for larger heading text
+      "Orbitron" for body text
+    the Welcome image was upgraded.
+    the Display Screen text was placed under the image
+    the Display Screen Header h1 element was removed
+    the quit button under the image was removed

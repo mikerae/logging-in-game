@@ -1,5 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron&family=Press+Start+2P&display=swap');
+
+
+
 body {
   color: whitesmoke;
+  font-family: "Orbitron", sans-serif;
+}
+
+h1, h2, h3 {
+  font-family: "Press Start 2P", sans-serif;
 }
 
 /* Set outer wrapper to height and width of screen */
@@ -89,6 +98,7 @@ body {
   background: linear-gradient(to top, rgb(235	108	74), rgb(227	93	144));
   border-radius: 0.5rem;
   margin-left: 1rem;
+  font-family: "Press Start 2P", sans-serif;
 }
 
 #nav-list li:hover {
@@ -150,6 +160,7 @@ aspect-ratio: 16 / 9;
 
 .button {
   color: whitesmoke;
+  font-family: "Press Start 2P", sans-serif;
   background: linear-gradient(to top, rgb(235	108	74), rgb(227	93	144));
   border:groove 0.5em rgb(238	141	185	);
   border-style: outset hidden hidden outset ;

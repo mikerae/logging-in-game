@@ -38,11 +38,11 @@ function main() {
   let nextScreen = ""; // nextScreen controls the screen flow of the game
 
   //Initialse Objects
-  const WELCOME = new Screens("welcome", "Welcome to Logging-In", "You may be a LumberJack or LumberJackie, but are you O.K.? Play Logging-In to find out!", "assets/images/welcome-screen-and play-buttn.jpg", "Welcome image", "New Game");
+  const WELCOME = new Screens("welcome", "Welcome to Logging-In", "You may be a LumberJack or LumberJackie, but are you O.K.? Play Logging-In to find out!", "assets/images/welcome-screen-background.png", "Welcome image", "New Game");
   const INTRO = new Screens("intro", "Harvest your logs!", `Are you ready to harvest your Forest, build up your stock of Logs and sell them at your Lumber-Camp?
-   If you make £${TARGETPROFIT} in profit you Win!. Happy Harvesting!`, "assets/images/welcome-screen-and play-buttn.jpg", "Game Introduction image", "Play Game");
+   If you make £${TARGETPROFIT} in profit you Win!. Happy Harvesting!`, "assets/images/welcome-screen-background.png", "Game Introduction image", "Play Game");
   const GAME = new Screens("game");
-  const WIN = new Screens("win", "Congratulations! You Won!", "You reached your target profit. How will you spend it? Feel free to play again or quit", "assets/images/welcome-screen-and play-buttn.jpg", "Win image", "New Game");
+  const WIN = new Screens("win", "Congratulations! You Won!", "You reached your target profit. How will you spend it? Feel free to play again or quit", "assets/images/welcome-screen-background.png", "Win image", "New Game");
 
   nextScreen = "game"; // Tempararily only the game screen will be shown....  //The Welcome Screen is the first screen to display
 
@@ -444,10 +444,11 @@ function loadGame(screen, nextScreen,
     // Initilise Variables
   let gameResult = null; // resets the game result
   let stockProfit = {logsInStock: 0, profit: 0}; // this object contains the Game Info and is needed because JavaScript does not support functions returning multiple values.
-  let map = new Map();
+  let elMap = new Map();
   displayGameInfo(stockProfit, TARGETPROFIT); // display Game ino in the info bar
 
-  map = createMap (map);
+  elMap = createMap (elMap);
+  console.log("elMap is: ",elMap);
 
   //Tempory code to allow game flow during development
   stockProfit.logsInStock = harvestForest(stockProfit, HARVESTFOREST); // A forest is harvested and the logs are added to logsInStock 
@@ -525,10 +526,20 @@ function displayGameInfo(stockProfit, TARGETPROFIT) {
 
 // Map Functions
 
-function createMap(map) {
+function createMap(elMap) {
   console.log("createMap() has been called");
 
   // create map keys from Screen map ids
-  let mapIds = document.getElementById("map").children;
-  console.log(mapIds);
+/*  let node = document.getElementById("map")[0].firstChild; // sets the first mapgrid element as a node
+  let mapKeys = []; // array to hold mapKeys
+  
+  while (node) { // iterates through all elMap divs
+    mapKeys += node.valueOf(id);
+    node = node.nextSibling;
+    console.log(mapKeys);
+  }
+    
+
+  console.log(elMapIds);
+  return elMap;*/
 }

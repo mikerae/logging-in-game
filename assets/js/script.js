@@ -439,24 +439,25 @@ function loadGame(screen, nextScreen,
   WELCOME, INTRO, GAME, WIN, 
   MONOLOGUEDISPLAY, GAMEDISPLAY, TARGETPROFIT, HARVESTFOREST, SELLLOGS) {
     console.log("loadGame() has been called");
-    console.log(TARGETPROFIT);
+    console.log("The Target profit needed is: ",TARGETPROFIT);
 
     // Initilise Variables
   let gameResult = null; // resets the game result
   let stockProfit = {logsInStock: 0, profit: 0}; // this object contains the Game Info and is needed because JavaScript does not support functions returning multiple values.
 
-  
-  stockProfit.logsInStock = harvestForest(stockProfit, HARVESTFOREST); // A forest is harvested and the logs are added to logsInStock 
-    console.log(stockProfit.logsInStock);
+  displayGameInfo(stockProfit); // display Game ino in the info bar
 
-  stockProfit = sellLogs(stockProfit, SELLLOGS);
-    console.log("profit is now: ", stockProfit.profit);
-    console.log("logsInStock is now: ", stockProfit.logsInStock);
+  // Tempory code to allow game flow during development
+  //stockProfit.logsInStock = harvestForest(stockProfit, HARVESTFOREST); // A forest is harvested and the logs are added to logsInStock 
 
+  // Temporary code to allow game flow during development
+  //stockProfit = sellLogs(stockProfit, SELLLOGS);
 
+// Get End Game Data
   gameResult = checkProfit(stockProfit, TARGETPROFIT); // Checks if the Target Profit has been made
   console.log("game Result is: ", gameResult)
 
+// End Game Test
   if (gameResult === "win") { // if the game is won.... which it is!
     console.log("You have won the Game!");
 
@@ -475,7 +476,6 @@ function loadGame(screen, nextScreen,
  */
 function checkProfit(stockProfit, TARGETPROFIT) {
   console.log("checkProfit() has been called")
-  console.log("profit is now: ", stockProfit.profit);
 
   return (stockProfit.profit >= TARGETPROFIT ? "win": null);
 }
@@ -505,4 +505,10 @@ function sellLogs(stockProfit, SELLLOGS) {
   stockProfit.logsInStock = 0;
   stockProfit.profit += saleProfit;
   return stockProfit;
+}
+
+function displayGameInfo(stockProfit) {
+  console.log("displayGameInfo has been called")
+  console.log("profit is now: ", stockProfit.profit);
+  console.log("logsInStock is now: ", stockProfit.logsInStock);
 }

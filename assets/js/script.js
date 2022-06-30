@@ -421,14 +421,16 @@ function loadGame(screen, nextScreen,
   let elMap = new Map();
   displayGameInfo(stockProfit, TARGETPROFIT); // display Game ino in the info bar
 
-  elMap = createMap (elMap);
-  console.log("elMap is: ",elMap);
+  createMap(elMap);
+  /*console.log("elMap is: ", elMap);*/
 
   //Tempory code to allow game flow during development
   stockProfit.logsInStock = harvestForest(stockProfit, HARVESTFOREST); // A forest is harvested and the logs are added to logsInStock 
 
   // Temporary code to allow game flow during development
   stockProfit = sellLogs(stockProfit, SELLLOGS);
+
+  stockProfit.logsInStock = harvestForest(stockProfit, HARVESTFOREST);
 
   displayGameInfo(stockProfit, TARGETPROFIT); // display Game ino in the info bar
 
@@ -504,16 +506,17 @@ function createMap(elMap) {
   console.log("createMap() has been called");
 
   // create map keys from Screen map ids
-/*  let node = document.getElementById("map")[0].firstChild; // sets the first mapgrid element as a node
+  let node = document.getElementById("map").firstElementChild; // sets the first mapgrid element as a node
   let mapKeys = []; // array to hold mapKeys
-  
-  while (node) { // iterates through all elMap divs
-    mapKeys += node.valueOf(id);
-    node = node.nextSibling;
-    console.log(mapKeys);
+
+  while (node) { // itterates through all elMap divs and populates mapKeys with ids
+    mapKeys.push(node.id);
+    console.log("mapKeys has the value: ", mapKeys);
+    node = node.nextElementSibling;
   }
+
     
 
-  console.log(elMapIds);
-  return elMap;*/
+
+  
 }

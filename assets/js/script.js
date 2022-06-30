@@ -19,8 +19,6 @@ function main() {
       this.imgalt = imgalt;
       this.btn1id = "btn-1";
       this.btn1txt = btn1txt;
-      this.btn2id = "btn-2"
-      this.btn2txt = "Quit";
       this.imgcontainer = "display-img-wrapper";
       this.imgid = "screen-image";
     }
@@ -179,7 +177,6 @@ function setEventListenersButtons(screen, nextScreen,
   MONOLOGUEDISPLAY, GAMEDISPLAY) {
 
   let button1 = document.getElementById(screen.btn1id);
-  let button2 = document.getElementById(screen.btn2id);
   
   if (nextScreen === "welcome") { // for welcome screen
       button1.addEventListener("click", function() { // when button1 is clicked , the intro event function is called
@@ -193,22 +190,12 @@ function setEventListenersButtons(screen, nextScreen,
         WELCOME, INTRO, GAME, WIN, 
         MONOLOGUEDISPLAY, GAMEDISPLAY);
       });
-      button2.addEventListener('click', function() {  // when button2 is clicked , the welcome event function is called
-        welcome(screen, nextScreen, 
-        WELCOME, INTRO, GAME, WIN, 
-        MONOLOGUEDISPLAY, GAMEDISPLAY);
-      });
   } else if (screen.name === "win") { // for win screen
         button1.addEventListener('click', function() { //when button1 is clicked , the game event function is called
           game(screen, nextScreen, 
           WELCOME, INTRO, GAME, WIN, 
           MONOLOGUEDISPLAY, GAMEDISPLAY);
         });
-        button2.addEventListener('click', function() {  // when button2 is clicked , the welcome event function is called
-          welcome(screen, nextScreen, 
-          WELCOME, INTRO, GAME, WIN, 
-          MONOLOGUEDISPLAY, GAMEDISPLAY);
-      });
   }
 }
 
@@ -301,28 +288,15 @@ function setEventListenersButtons(screen, nextScreen,
  */
  function populateScreenButtons(screen, nextScreen) {
   let button1 = document.getElementById(screen.btn1id);
-  let button2 = document.getElementById(screen.btn2id);
   
   if (nextScreen === "welcome") { // for welcome screen
       button1.innerText = screen.btn1txt; // set button1 text
-      if (button2.style.display) { // Is the button already hidden? If so, do nothing
-      } else {
-        button2.style.display = "none"; // otherwise, hide the button
-      }
+
     } else if (nextScreen === "intro") { // for intro screen
       button1.innerText = screen.btn1txt; // set button1 text
-      button2.innerText = screen.btn2txt; // set button2 text
-        if (button2.style.display) { //Is  button2 already hidden?
-          button2.style.removeProperty('display');  // If so, show button2
-        } else { // button2 is showing: do nothing
-        }
+
     }  else if (nextScreen === "win") { // for win screen
         button1.innerText = screen.btn1txt; // set button1 text
-        button2.innerText = screen.btn2txt; // set button2 text
-        if (button2.style.display) { //Is  button2 already hidden?
-          button2.style.removeProperty('display'); // If so, show button2
-        } else { // button2 is showing: do nothing
-        }
     }
 }
 

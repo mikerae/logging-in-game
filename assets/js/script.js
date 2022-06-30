@@ -28,7 +28,7 @@ function main() {
 
   // Initialise CONSTANTS
   const TARGETPROFIT = 10000; // The profit needed to win the game
-  const HARVESTFOREST = 700; // The amount of logs produced when a Forest tile is harvested
+  const HARVESTFOREST = 20; // The amount of logs produced when a Forest tile is harvested
   const SELLLOGS = 50; // The profit factor for selling logs ()
   const MONOLOGUEDISPLAY = document.getElementById("displayScreen-wrapper"); // The area of the screen used to display Monologe Screens eg welcome, intro, win etc.
   const GAMEDISPLAY = document.getElementById("displayGame-wrapper"); // The are if the screen displaying the main game area
@@ -445,13 +445,15 @@ function loadGame(screen, nextScreen,
   let gameResult = null; // resets the game result
   let stockProfit = {logsInStock: 0, profit: 0}; // this object contains the Game Info and is needed because JavaScript does not support functions returning multiple values.
 
-  displayGameInfo(stockProfit); // display Game ino in the info bar
+  displayGameInfo(stockProfit, TARGETPROFIT); // display Game ino in the info bar
 
-  // Tempory code to allow game flow during development
-  //stockProfit.logsInStock = harvestForest(stockProfit, HARVESTFOREST); // A forest is harvested and the logs are added to logsInStock 
+  //Tempory code to allow game flow during development
+  stockProfit.logsInStock = harvestForest(stockProfit, HARVESTFOREST); // A forest is harvested and the logs are added to logsInStock 
 
   // Temporary code to allow game flow during development
-  //stockProfit = sellLogs(stockProfit, SELLLOGS);
+  stockProfit = sellLogs(stockProfit, SELLLOGS);
+
+  displayGameInfo(stockProfit, TARGETPROFIT); // display Game ino in the info bar
 
 // Get End Game Data
   gameResult = checkProfit(stockProfit, TARGETPROFIT); // Checks if the Target Profit has been made
@@ -506,9 +508,17 @@ function sellLogs(stockProfit, SELLLOGS) {
   stockProfit.profit += saleProfit;
   return stockProfit;
 }
-
-function displayGameInfo(stockProfit) {
+/**
+ * Displays the profit, logs in stock and target profit to the screen
+ * @param {S} stockProfit 
+ * @param {*} TARGETPROFIT 
+ */
+function displayGameInfo(stockProfit, TARGETPROFIT) {
   console.log("displayGameInfo has been called")
   console.log("profit is now: ", stockProfit.profit);
   console.log("logsInStock is now: ", stockProfit.logsInStock);
+
+  document.getElementById("logs").innerText = stockProfit.logsInStock;
+  document.getElementById("profit").innerText = stockProfit.profit;
+  document.getElementById("target-profit").innerText = TARGETPROFIT;
 }

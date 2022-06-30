@@ -30,6 +30,22 @@ function main() {
   const SELLLOGS = 50; // The profit factor for selling logs ()
   const MONOLOGUEDISPLAY = document.getElementById("displayScreen-wrapper"); // The area of the screen used to display Monologe Screens eg welcome, intro, win etc.
   const GAMEDISPLAY = document.getElementById("displayGame-wrapper"); // The are if the screen displaying the main game area
+  const GRASSMAP = ['a2', 'a6',
+    'b1', 'b2', 'b3', 'b6', 'b7',
+    'c1', 'c2', 'c3', 'c4', 'c5', 'c6', 'c7', 'c8',
+    'd1', 'd4', 'd5', 'd6',
+    'e1', 'e2','e5', 'e6',
+    'f1', 'f4',
+    'g1', 'g3',
+    'h1', 'h2', 'h3'];
+  const FORESTMAP = ['a3', 'a4', 'a5', 'a7', 'a8',
+    'b4', 'b5', 'b8',
+    'd2', 'd3', 'd7', 'd8',
+    'e3', 'e6','e7', 'e8',
+    'f2', 'f3', 'f5', 'f6', 'f7', 'f8',
+    'g2', 'g4', 'g5', 'g6', 'g7', 'g8',
+    'h4', 'h5', 'h6', 'h7', 'h8'];
+  const LUMBERCAMPMAP = ['a1'];
 
   // Initialise block variables
   let Screen = null; // This object is of the class Screens
@@ -47,7 +63,8 @@ function main() {
   selectScreen( // The top level screen flow function is called.
     screen, nextScreen, 
     WELCOME, INTRO, GAME, WIN, 
-    MONOLOGUEDISPLAY, GAMEDISPLAY, TARGETPROFIT, HARVESTFOREST, SELLLOGS);
+    MONOLOGUEDISPLAY, GAMEDISPLAY, TARGETPROFIT, HARVESTFOREST, SELLLOGS,
+    GRASSMAP, FORESTMAP, LUMBERCAMPMAP);
 }
 
 /**
@@ -70,7 +87,9 @@ function main() {
  */
 function selectScreen(screen, nextScreen, 
   WELCOME, INTRO, GAME, WIN, 
-  MONOLOGUEDISPLAY, GAMEDISPLAY, TARGETPROFIT, HARVESTFOREST, SELLLOGS) {
+  MONOLOGUEDISPLAY, GAMEDISPLAY, TARGETPROFIT, 
+  HARVESTFOREST, SELLLOGS, 
+  GRASSMAP, FORESTMAP, LUMBERCAMPMAP) {
 
     screen = setScreen(screen, nextScreen, // sets the screen view to Monologue or Game, and sets the screen object
       WELCOME, INTRO, GAME, WIN, 
@@ -131,12 +150,16 @@ function setScreen(screen, nextScreen,
  */
 function displayScreen(screen, nextScreen, 
   WELCOME, INTRO, GAME, WIN,
-  MONOLOGUEDISPLAY, GAMEDISPLAY, TARGETPROFIT, HARVESTFOREST, SELLLOGS) {
+  MONOLOGUEDISPLAY, GAMEDISPLAY, 
+  TARGETPROFIT, HARVESTFOREST, SELLLOGS,
+  GRASSMAP, FORESTMAP, LUMBERCAMPMAP) {
 
     if (nextScreen === "game") { 
       loadGame(screen, nextScreen, // Load the Game and run the main game loop
         WELCOME, INTRO, GAME, WIN, 
-        MONOLOGUEDISPLAY, GAMEDISPLAY, TARGETPROFIT, HARVESTFOREST, SELLLOGS);
+        MONOLOGUEDISPLAY, GAMEDISPLAY, 
+        TARGETPROFIT, HARVESTFOREST, SELLLOGS, 
+        GRASSMAP, FORESTMAP, LUMBERCAMPMAP);
     } else {
 
       populateScreen(screen, nextScreen); // enter screen flow 
@@ -411,7 +434,9 @@ function game(screen, nextScreen,
  */
 function loadGame(screen, nextScreen, 
   WELCOME, INTRO, GAME, WIN, 
-  MONOLOGUEDISPLAY, GAMEDISPLAY, TARGETPROFIT, HARVESTFOREST, SELLLOGS) {
+  MONOLOGUEDISPLAY, GAMEDISPLAY, 
+  TARGETPROFIT, HARVESTFOREST, SELLLOGS, 
+  GRASSMAP, FORESTMAP, LUMBERCAMPMAP) {
     console.log("loadGame() has been called");
 
     // Initilise Variables
@@ -569,7 +594,7 @@ function displayGameInfo(stockProfit, TARGETPROFIT) {
 
 // Map Functions
 
-function createMap(elMap) {
+function createMap(elMap, GRASSMAP, FORESTMAP, LUMBERCAMPMAP) {
   console.log("createMap() has been called");
 
   // create map keys from Screen map ids

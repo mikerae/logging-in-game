@@ -170,6 +170,7 @@ aspect-ratio: 16 / 9;
   border:groove 0.5em rgb(238	141	185	);
   border-style: outset hidden hidden outset ;
   border-radius: 0.5rem;
+font-size: 2em;
 }
 
 .button:hover {

@@ -1,5 +1,5 @@
 # Logging-In
-## A Game for LumberJacks and LumberJackies: You may be a LumberJack , but are you O.K. ?
+## A Game for LumberJacks and LumberJackies using JavaScript
 You can play Logging-In [here.](https://mikerae.github.io/logging-in-game/)
 
 ## Development Stage 1: Minimum Viable Product

@@ -129,7 +129,7 @@ header {
 /* Display Image and Text */
 #inner-display-wrapper {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   max-width: 100vw;

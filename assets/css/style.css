@@ -78,13 +78,26 @@ h1, h2, h3 {
   background: linear-gradient( rgb(33,	89,	160) 60%	, rgb(109,	224,	159));
 }
 
+/* Display Screen Header */
+header {
+  text-align: center;
+  display: flex;
+  background: rgb(33,	89,	160);
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#screen-title{
+  margin: 0;
+}
+
 #displayGame-wrapper {
   height: 90vh;
 }
 
 /* Nav Styling */
 #nav {
-  background: rgb(33,	89,	160);
   display:flex;
 }
 
@@ -111,15 +124,6 @@ h1, h2, h3 {
 
 #help {
   display: none; /* not implemented in dev stage 1 */
-}
-
-
-/* Display Screen Header */
-header {
-  text-align: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 /* Display Image and Text */

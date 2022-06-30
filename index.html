@@ -14,20 +14,22 @@
     and forms the foundation to the sites responsiveness.
   -->
   <div class="outer-wrapper">
-
+    <header class="lgcol-12 container" aria-label="Logging-In Header">
     <!-- 
-      The Nav Element is an ARIA element. It contains the sites navigation elements and 
-      is visible at all times. 
-    -->
-    <nav id="nav" class="lgcol-12 smcol-3 container">
-      <ul id="nav-list" class="lgcol-5 smcol-3 mdcol-8 container">
-        <li id="nav-quit" nav-type="nav-quit" class="nav-elements">Quit</li>
-        <li id="nav-newgame" nav-type="nav-newgame"class="nav-elements">New Game</li>
-        <!-- Not implemented in dev stage 1: The Help Menu is a dropdown menu activated from the span tag -->
-        <li id="help" class="nav-elements" ><span>Help</span></li>
-      </ul>
-    </nav>
-
+        The Nav Element is an ARIA element. It contains the sites navigation elements and 
+        is visible at all times. 
+      -->
+      <nav id="nav" class="lgcol-12 smcol-3 container">
+        <ul id="nav-list" class="lgcol-5 smcol-3 mdcol-8 container">
+          <li id="nav-quit" nav-type="nav-quit" class="nav-elements">Quit</li>
+          <li id="nav-newgame" nav-type="nav-newgame"class="nav-elements">New Game</li>
+          <!-- Not implemented in dev stage 1: The Help Menu is a dropdown menu activated from the span tag -->
+          <li id="help" class="nav-elements" ><span>Help</span></li>
+        </ul>
+      </nav>
+      <h1 id="screen-title"></h1>
+    </header>
+  
     <!-- 
       This section diplays all the game monologues which ocurr before and after the main game display.
       The content changes as the game flow progresses.
@@ -36,9 +38,6 @@
       screen size, and enable the site to be responsive.
     -->
     <section id="displayScreen-wrapper" class="lgcol-12 screen">
-      <header class="lgcol-12 container" aria-label="Logging-In Header">
-        <h1 id="screen-title"></h1>
-      </header>
       <div id="inner-display-wrapper" class="lgcol-12">
         <div id="display-img-wrapper" class="lgcol-6 mdcol-12 smcol-3 smrow">
         </div>

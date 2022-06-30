@@ -413,12 +413,97 @@ function loadGame(screen, nextScreen,
   WELCOME, INTRO, GAME, WIN, 
   MONOLOGUEDISPLAY, GAMEDISPLAY, TARGETPROFIT, HARVESTFOREST, SELLLOGS) {
     console.log("loadGame() has been called");
-    console.log("The Target profit needed is: ",TARGETPROFIT);
 
     // Initilise Variables
   let gameResult = null; // resets the game result
   let stockProfit = {logsInStock: 0, profit: 0}; // this object contains the Game Info and is needed because JavaScript does not support functions returning multiple values.
   let elMap = new Map();
+
+    // Tile Classes
+    class Tile {
+      constructor(loc, currentTile, kind) {
+        this.loc = loc;
+        this.currentTile = currentTile;
+        this.kind = kind;
+      }
+    }
+
+    class InnerTile extends Tile {
+      constructor(position, movement, movementTxt) {
+        super(loc, currentTile, kind)
+        this.position = position;
+        this.edge = false;
+        this.movement = movement;
+        this.movementTxt = movementTxt;
+      }
+    }
+
+    class EdgeTile extends Tile {
+      constructor(position, movement, movementTxt) {
+        super(loc, currentTile, kind)
+        this.position = position;
+        this.edge = true;
+        this.movement = movement;
+        this.movementTxt = movementTxt;
+      }
+    }
+
+
+    class Forest {
+      constructor() {
+        this.type = 'forest';
+        this.src = "assets/images/forest-tile.jpg";
+        this.actions = "Harvest Forest";
+        this.messages = `Harvest the Forest in the Actions Menu. You will make ${HARVESTFOREST}  logs`
+      }
+
+    /**
+     * Adds harvested logs to LogsInStock when a Forest is harvested
+     * The amount of logs a forest yeilds is set by HARVESTFOREST
+     * @param {*} logsInStock 
+     * @param {*} HARVESTFOREST 
+     * @returns 
+     */
+    harvestForest(stockProfit, HARVESTFOREST) {
+      stockProfit.logsInStock = stockProfit.logsInStock + HARVESTFOREST;
+      return stockProfit.logsInStock;
+    }
+  }
+
+  class Grass {
+    constructor() {
+      this.type = 'grass';
+      this.src = "assets/images/grass-tile.jpg";
+      this.actions = "";
+      this.messages = "";
+    }
+  }
+
+  class LogCamp {
+    constructor() {
+      this.type = 'LogCamp';
+      this.src = "#";
+      this.actions = "Sell Logs";
+      this.messages = "Sell your logs and make some profit";
+    }
+
+  /**
+   * Sells logs in stock and generate profit = logsInStock * SELLLOGS
+   * LogsInStock is set to 0
+   * Profit is added to current profit
+   * @param {*} stockProfit 
+   * @param {*} SELLLOGS 
+   * @returns 
+   */
+  sellLogs(stockProfit, SELLLOGS) {
+    let saleProfit = stockProfit.logsInStock * SELLLOGS;
+    stockProfit.logsInStock = 0;
+    stockProfit.profit += saleProfit;
+    return stockProfit;
+  }
+  }
+
+  
   displayGameInfo(stockProfit, TARGETPROFIT); // display Game ino in the info bar
 
   createMap(elMap);
@@ -461,32 +546,6 @@ function checkProfit(stockProfit, TARGETPROFIT) {
   return (stockProfit.profit >= TARGETPROFIT ? "win": null);
 }
 
-/**
- * Adds harvested logs to LogsInStock when a Forest is harvested
- * The amount of logs a forest yeilds is set by HARVESTFOREST
- * @param {*} logsInStock 
- * @param {*} HARVESTFOREST 
- * @returns 
- */
-function harvestForest(stockProfit, HARVESTFOREST) {
-  stockProfit.logsInStock = stockProfit.logsInStock + HARVESTFOREST;
-  return stockProfit.logsInStock;
-}
-
-/**
- * Sells logs in stock and generate profit = logsInStock * SELLLOGS
- * LogsInStock is set to 0
- * Profit is added to current profit
- * @param {*} stockProfit 
- * @param {*} SELLLOGS 
- * @returns 
- */
-function sellLogs(stockProfit, SELLLOGS) {
-  let saleProfit = stockProfit.logsInStock * SELLLOGS;
-  stockProfit.logsInStock = 0;
-  stockProfit.profit += saleProfit;
-  return stockProfit;
-}
 /**
  * Displays the profit, logs in stock and target profit to the screen
  * @param {S} stockProfit 

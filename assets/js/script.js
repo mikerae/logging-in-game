@@ -581,8 +581,15 @@ function createMap(elMap, GRASSMAP, FORESTMAP, LUMBERCAMPMAP,
   }
 
   tiles = createRawTiles(mapKeys, tiles);
+  console.log("Tiles is returned from createRawTiles()",tiles);
 }
 
+/**
+ * Creates a collection of raw tiles (tiles which have yet to be given a kind eg Forest, Grass or Lumbercamp)
+ * @param {*} mapKeys 
+ * @param {*} tiles 
+ * @returns 
+ */
 function createRawTiles(mapKeys, tiles) {
   console.log("createRawTiles has been called");
   // Tiles Class
@@ -605,8 +612,8 @@ function createRawTiles(mapKeys, tiles) {
       tile = new Tiles("h1", false, "", "top-left-corner", true, {"up": false, "right": true, "down": true, "left": false}, ["Move Right","Move Down"]);
     } else if (element === "h8") { //top right corner tile
       tile = new Tiles("h8", false, "", "top-right-corner", true, {"up": false, "right": false, "down": true, "left": true}, ["Move Down", "Move Left"]);
-    } else if (element === "a1") { // bottom left corner tile
-      tile = new Tiles("a1", false, "", "bottom-left-corner", true, {"up": true, "right": true, "down": false, "left": false}, ["Move Up", "Move Right"]);
+    } else if (element === "a1") { // bottom left corner tile. This is the current tile at the start of the game
+      tile = new Tiles("a1", true, "", "bottom-left-corner", true, {"up": true, "right": true, "down": false, "left": false}, ["Move Up", "Move Right"]);
     } else if (element === "a8") { //bottom right corner tile
       tile = new Tiles("a8", false, "", "bottom-right-corner", true, {"up": true, "right": false, "down": false, "left": true}, ["Move up", "Move Left"]);
     } else if (element.charAt(0) === "h") { //top edge tiles
@@ -615,13 +622,12 @@ function createRawTiles(mapKeys, tiles) {
       tile = new Tiles(element, false, "", "right-edge", true, {"up": true, "right": false, "down": true, "left": true}, ["Move up", "Move down", "Move Left"]);
     } else if (element.charAt(0) === "a") { //bottom edge tiles
       tile = new Tiles(element, false, "", "bottom-edge", true, {"up": true, "right": true, "down": false, "left": true}, ["Move up", "Move right", "Move Left"]);
-      console.log(tile); 
-    }
-
-    console.log(tile);  
-    //tiles.push(tile);
-    
+    } else if (element.charAt(1) === "1") { //bottom edge tiles
+      tile = new Tiles(element, false, "", "bottom-edge", true, {"up": true, "right": true, "down": false, "left": true}, ["Move up", "Move right", "Move Left"]);
+    } else { // inner tiles
+      tile = new Tiles(element, false, "", "inner", false, {"up": true, "right": true, "down": true, "left": true}, ["Move up", "Move right", "Move down", "Move Left"]);
+    }; 
+    tiles.push(tile); //add each tile object to tiles array
   });
-  console.log("tiles is: ", tiles)
   return tiles;
 }

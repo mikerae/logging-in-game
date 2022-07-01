@@ -450,38 +450,16 @@ function loadGame(screen, nextScreen,
   let forestTiles = {};
   let lumberCampTiles = {};
 
-    // Tile Classes
+    // Tile Class
     class Tile {
-      constructor(loc, currentTile, kind) {
-        this.loc = loc;
-        this.currentTile = currentTile;
-        this.kind = kind;
-      }
-    }
-
-    class InnerTile extends Tile {
-      constructor(loc, currentTile, kind, position, movement, movementTxt) {
-        super();
-        super.loc = loc;
-        super.currentTile = currentTile;
-        super.kind = kind;
-        this.position = position;
-        this.edge = false;
-        this.movement = movement;
-        this.movementTxt = movementTxt;
-      }
-    }
-
-    class EdgeTile extends Tile {
-      constructor(loc, currentTile, kind, position, movement, movementTxt) {
-        super();
-        super.loc = loc;
-        super.currentTile = currentTile;
-        super.kind = kind;
-        this.position = position;
-        this.edge = true;
-        this.movement = movement;
-        this.movementTxt = movementTxt;
+      constructor(loc, currentTile, kind, position, edge, movement, movementTxt) {
+        this.loc = loc; // map ref
+        this.currentTile = currentTile; //boolean
+        this.kind = kind; // forest, grass or lumberCamp
+        this.position = position; //'top edge' etc
+        this.edge = edge; // boolean
+        this.movement = movement; // Available movement {move-up: boolean, move-right: boolean etc}
+        this.movementTxt = movementTxt; // {"Move Up", "Move Right"} etc
       }
     }
 

@@ -445,30 +445,20 @@ function loadGame(screen, nextScreen,
     // Initilise Variables
   let gameResult = null; // resets the game result
   let stockProfit = {logsInStock: 0, profit: 0}; // this object contains the Game Info and is needed because JavaScript does not support functions returning multiple values.
-  let elMap = new Map();
-  let grassTiles = {};
+  let elMap = new Map(); // Map object containing all game tiles maped to DOM grid
+  let grassTiles = {}; //
   let forestTiles = {};
   let lumberCampTiles = {};
+  let tiles = []; // Array of  map tiles "kind" specified
 
-    // Tile Class
-    class Tile {
-      constructor(loc, currentTile, kind, position, edge, movement, movementTxt) {
-        this.loc = loc; // map ref
-        this.currentTile = currentTile; //boolean
-        this.kind = kind; // forest, grass or lumberCamp
-        this.position = position; //'top edge' etc
-        this.edge = edge; // boolean
-        this.movement = movement; // Available movement {move-up: boolean, move-right: boolean etc}
-        this.movementTxt = movementTxt; // {"Move Up", "Move Right"} etc
-      }
-    }
+
 
     class Forest {
       constructor() {
         this.type = 'forest';
         this.src = "assets/images/forest-tile.jpg";
         this.actions = "Harvest Forest";
-        this.messages = `Harvest the Forest in the Actions Menu. You will make ${HARVESTFOREST}  logs`
+        this.messages = `Harvest the Forest in the Actions Menu. You will make ${HARVESTFOREST}  logs.`
       }
 
       /**
@@ -484,12 +474,8 @@ function loadGame(screen, nextScreen,
       }
     }
 
-    class Grass extends Tile{
-      constructor(loc,) {
-        super();
-        super.loc = loc;
-        super.currentTile = currentTile;
-        this.kind = kind;
+    class Grass {
+      constructor() {
         this.type = 'grass';
         this.src = "assets/images/grass-tile.jpg";
         this.actions = "";
@@ -521,20 +507,10 @@ function loadGame(screen, nextScreen,
       }
     }
 
-  // Create Corner Tile Objects
-    let h1Tile = new EdgeTile('h1', false, 'top left corner', {'up': false, 'right': true, 'down': true, 'left': false}, "You can go right and down from here.");
-    console.log(h1Tile);
-
-  /*grassTiles = new Grass();
-  console.log(grassTiles); */
-
-
-
-  
   displayGameInfo(stockProfit, TARGETPROFIT); // display Game ino in the info bar
 
   createMap(elMap, GRASSMAP, FORESTMAP, LUMBERCAMPMAP,
-    grassTiles, forestTiles, lumberCampTiles);
+    grassTiles, forestTiles, lumberCampTiles, tiles);
   /*console.log("elMap is: ", elMap);*/
 
   //Tempory code to allow game flow during development
@@ -546,6 +522,8 @@ function loadGame(screen, nextScreen,
   //stockProfit.logsInStock = harvestForest(stockProfit, HARVESTFOREST);
 
   displayGameInfo(stockProfit, TARGETPROFIT); // display Game ino in the info bar
+
+
 
 // Get End Game Data
   gameResult = checkProfit(stockProfit, TARGETPROFIT); // Checks if the Target Profit has been made
@@ -589,7 +567,8 @@ function displayGameInfo(stockProfit, TARGETPROFIT) {
 
 // Map Functions
 
-function createMap(elMap, GRASSMAP, FORESTMAP, LUMBERCAMPMAP, grassTiles, forestTiles, lumberCampTiles) {
+function createMap(elMap, GRASSMAP, FORESTMAP, LUMBERCAMPMAP, 
+  grassTiles, forestTiles, lumberCampTiles, tiles) {
   console.log("createMap() has been called");
 
   // create map keys from Screen map ids
@@ -601,9 +580,42 @@ function createMap(elMap, GRASSMAP, FORESTMAP, LUMBERCAMPMAP, grassTiles, forest
     node = node.nextElementSibling;
   }
 
-  /* for (let mapKey in mapKeys) {
+  tiles = createRawTiles(mapKeys, tiles);
+}
 
-  } */
+function createRawTiles(mapKeys, tiles) {
+  console.log("createRawTiles has been called");
+  // Tiles Class
+  class Tiles {
+    constructor(loc, currentTile, kind, position, edge, movement, movementTxt) {
+      this.loc = loc; // map ref
+      this.currentTile = currentTile; //boolean
+      this.kind = kind; // forest, grass or lumberCamp
+      this.position = position; //'top edge' etc
+      this.edge = edge; // boolean
+      this.movement = movement; // Available movement {move-up: boolean, move-right: boolean etc}
+      this.movementTxt = movementTxt; // {"Move Up", "Move Right"} etc
+    }
+  }
 
+  let tile = {};
+  // Create Array of  Tile Objects
+  mapKeys.forEach(function(element) {
+    if (element === "h1") { // top left corner tile
+      tile = new Tiles("h1", false, "", "top-left-corner", true, {"up": false, "right": true, "down": true, "left": false}, ["Move Right","Move Down"]);
+    } else if (element === "h8") { //top right corner tile
+      tile = new Tiles("h8", false, "", "top-right-corner", true, {"up": false, "right": false, "down": true, "left": true}, ["Move Down", "Move Left"]);
+    } else if (element === "a1") { // bottom left corner tile
+      tile = new Tiles("a1", false, "", "bottom-left-corner", true, {"up": true, "right": true, "down": false, "left": false}, ["Move Up", "Move Right"]);
+    } else if (element === "a8") { //bottom right corner tile
+      tile = new Tiles("a8", false, "", "bottom-right-corner", true, {"up": true, "right": false, "down": false, "left": true}, ["Move up", "Move Left"]);
+    }
 
+        
+    tiles.push(tile);
+    tile = {};
+    
+  });
+  console.log("tiles is: ", tiles)
+  return tiles;
 }

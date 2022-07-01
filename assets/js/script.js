@@ -451,28 +451,8 @@ function loadGame(screen, nextScreen,
   let lumberCampTiles = {};
   let tiles = []; // Array of  map tiles "kind" specified
 
+  console.log("tiles is: ",tiles);
 
-
-    class Forest {
-      constructor() {
-        this.type = 'forest';
-        this.src = "assets/images/forest-tile.jpg";
-        this.actions = "Harvest Forest";
-        this.messages = `Harvest the Forest in the Actions Menu. You will make ${HARVESTFOREST}  logs.`
-      }
-
-      /**
-       * Adds harvested logs to LogsInStock when a Forest is harvested
-       * The amount of logs a forest yeilds is set by HARVESTFOREST
-       * @param {*} logsInStock 
-       * @param {*} HARVESTFOREST 
-       * @returns 
-       */
-      harvestForest(stockProfit, HARVESTFOREST) {
-        stockProfit.logsInStock = stockProfit.logsInStock + HARVESTFOREST;
-        return stockProfit.logsInStock;
-      }
-    }
 
     class Grass {
       constructor() {
@@ -508,6 +488,7 @@ function loadGame(screen, nextScreen,
     }
 
   displayGameInfo(stockProfit, TARGETPROFIT); // display Game ino in the info bar
+  console.log("tiles is: ",tiles);
 
   createMap(elMap, GRASSMAP, FORESTMAP, LUMBERCAMPMAP,
     grassTiles, forestTiles, lumberCampTiles, tiles);
@@ -567,9 +548,12 @@ function displayGameInfo(stockProfit, TARGETPROFIT) {
 
 // Map Functions
 
-function createMap(elMap, GRASSMAP, FORESTMAP, LUMBERCAMPMAP, 
-  grassTiles, forestTiles, lumberCampTiles, tiles) {
+function createMap(elMap, GRASSMAP, FORESTMAP, LUMBERCAMPMAP, HARVESTFOREST,
+  grassTiles, forestTiles, lumberCampTiles) {
   console.log("createMap() has been called");
+  
+
+  console.log("tiles is: ",tiles);
 
   // create map keys from Screen map ids
   let node = document.getElementById("map").firstElementChild; // sets the first mapgrid element as a node
@@ -580,8 +564,10 @@ function createMap(elMap, GRASSMAP, FORESTMAP, LUMBERCAMPMAP,
     node = node.nextElementSibling;
   }
 
-  tiles = createRawTiles(mapKeys, tiles);
-  console.log("Tiles is returned from createRawTiles()",tiles);
+  tiles = createRawTiles(mapKeys, tiles); // an array of tile objects is created
+  console.log("tiles is: ",tiles);
+  //setForest(tiles, "b1", HARVESTFOREST);
+
 }
 
 /**
@@ -592,6 +578,7 @@ function createMap(elMap, GRASSMAP, FORESTMAP, LUMBERCAMPMAP,
  */
 function createRawTiles(mapKeys, tiles) {
   console.log("createRawTiles has been called");
+  console.log("tiles is: ",tiles);
   // Tiles Class
   class Tiles {
     constructor(loc, currentTile, kind, position, edge, movement, movementTxt) {
@@ -627,7 +614,41 @@ function createRawTiles(mapKeys, tiles) {
     } else { // inner tiles
       tile = new Tiles(element, false, "", "inner", false, {"up": true, "right": true, "down": true, "left": true}, ["Move up", "Move right", "Move down", "Move Left"]);
     }; 
+  
     tiles.push(tile); //add each tile object to tiles array
+    console.log(tilea);
   });
+  console.log("tiles is: ", tiles);
   return tiles;
+}
+
+function setForest(tiles, tileId, HARVESTFOREST, stockProfit) {
+  console.log("setForest is called");
+
+  class Forest {
+    constructor() {
+      this.type = 'forest';
+      this.src = "assets/images/forest-tile.jpg";
+      this.actions = "Harvest Forest";
+      this.messages = `Harvest the Forest in the Actions Menu. You will make ${HARVESTFOREST}  logs.`
+    }
+
+    /**
+     * Adds harvested logs to LogsInStock when a Forest is harvested
+     * The amount of logs a forest yeilds is set by HARVESTFOREST
+     * @param {*} logsInStock 
+     * @param {*} HARVESTFOREST 
+     * @returns 
+     */
+    harvestForest(stockProfit, HARVESTFOREST) {
+      stockProfit.logsInStock = stockProfit.logsInStock + HARVESTFOREST;
+      return stockProfit.logsInStock;
+    }
+  }
+  /*console.log(tiles);
+  let forestTile = tiles.find(item => item.loc === tileId);
+  //let forest = new Forest();
+  console.log("forestTile is:", forestTile);
+  console.log("forest is:", forest);*/
+
 }

@@ -609,11 +609,17 @@ function createRawTiles(mapKeys, tiles) {
       tile = new Tiles("a1", false, "", "bottom-left-corner", true, {"up": true, "right": true, "down": false, "left": false}, ["Move Up", "Move Right"]);
     } else if (element === "a8") { //bottom right corner tile
       tile = new Tiles("a8", false, "", "bottom-right-corner", true, {"up": true, "right": false, "down": false, "left": true}, ["Move up", "Move Left"]);
+    } else if (element.charAt(0) === "h") { //top edge tiles
+      tile = new Tiles(element, false, "", "top-edge", true, {"up": false, "right": true, "down": true, "left": true}, ["Move right", "Move down", "Move Left"]);
+    } else if (element.charAt(1) === "8") { //right edge tiles
+      tile = new Tiles(element, false, "", "right-edge", true, {"up": true, "right": false, "down": true, "left": true}, ["Move up", "Move down", "Move Left"]);
+    } else if (element.charAt(0) === "a") { //bottom edge tiles
+      tile = new Tiles(element, false, "", "bottom-edge", true, {"up": true, "right": true, "down": false, "left": true}, ["Move up", "Move right", "Move Left"]);
+      console.log(tile); 
     }
 
-        
-    tiles.push(tile);
-    tile = {};
+    console.log(tile);  
+    //tiles.push(tile);
     
   });
   console.log("tiles is: ", tiles)

@@ -8,9 +8,10 @@ After the initial consultation with my mentor, it was decided to plan  developme
 The first stage aims to fullfill all pass critera for the Code-Institue Portfolio Project 2, and presents the game in its simplest form.  
 ### Use of Libraries
 It was advised, given the ambitious scope of the various develpment stages, and limited time resouce to make full use of libries, eg Bootstrap and JQuery etc.
-After consideration it was decided not to use libraries for stage 1. The rationale is after feedback from the assesment of Portfolio Project 1 there was room for improvement in UXD, HTML and CSS. It is hoped that this improvement can be made through stage 1 without resorting to the use of libraries. This use of raw HTML CSS and JavaScript can be demonstrated and assesed up to the final commit for Stage 1.
+After consideration it was decided not to significantly use libraries for stage 1. The rationale is after feedback from the assesment of Portfolio Project 1 there was room for improvement in UXD, HTML and CSS. It is hoped that this improvement can be made through stage 1 without resorting to the use of libraries. This use of raw HTML CSS and JavaScript can be demonstrated and assesed up to the final commit for Stage 1.
 
-The one exception was the use of a dropdown help menu via bootstrap.
+However the following Libraries are used in stage 1:
+  Lodash <script src="lodash.js"></script> for Array manipulation. (inRange method).
 
 ### UXD Resposnive Design
 Guidence on building a responsive Grid View was obtained from [W3 Schools](https://www.w3schools.com/css/css_rwd_grid.asp).

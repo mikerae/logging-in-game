@@ -572,6 +572,7 @@ function createMap(elMap, GRASSMAP, FORESTMAP, LOGCAMP, HARVESTFOREST,
   tiles = createRawTiles(mapKeys, tiles); // an array of tile objects is created
   tiles = setTiles(tiles, GRASSMAP, FORESTMAP, LOGCAMP); // sets all tiles with obects according to given object maps
   elMap = setElMap(elMap,tiles,mapKeys);
+  dipslayMapTile(mapKeys, elMap);
   console.log(elMap);
 
 
@@ -774,4 +775,15 @@ function setElMap(elMap, tiles, mapKeys) {
     elMap.set (mapKey, tile);
   }
   return elMap;
+}
+
+function dipslayMapTile(mapKey, elMap) {
+  console.log("displayMapTile is called");
+  mapKey = "a1";
+
+  console.log("kindSRC is: ",elMap.get(mapKey).kind.src);
+  let image = document.createElement('img');
+  image.setAttribute("src", elMap.get(mapKey).kind.src); // set image src path
+  image.setAttribute("class", "tile-img");
+  document.getElementById(mapKey).appendChild(image); // put image in wrapper in the DOM
 }

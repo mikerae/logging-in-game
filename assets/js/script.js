@@ -604,7 +604,8 @@ function createMap(elMap, GRASSMAP, FORESTMAP, LUMBERCAMPMAP, HARVESTFOREST,
 
   tiles = createRawTiles(mapKeys, tiles); // an array of tile objects is created
 
-  setForest(tiles, "b1", HARVESTFOREST); // use this function to set a forest to a particular tile
+  let tile = setForest(tiles, "b1", HARVESTFOREST); // use this function to set a forest to a particular tile
+  console.log("new forest tile is: ",tile);
 
 }
 
@@ -682,8 +683,6 @@ function setForest(tiles, tileId, HARVESTFOREST, stockProfit) {
   }
   let forestTile = tiles.find(item => item.loc === tileId);
   let forest = new Forest();
-  console.log("forestTile is:", forestTile);
-  console.log("forest is:", forest);
-  console.log("forestTile.kind is:", forestTile.kind);
-
+  forestTile.kind = forest;
+  return forestTile;
 }

@@ -572,6 +572,7 @@ function createMap(elMap, GRASSMAP, FORESTMAP, LOGCAMP, HARVESTFOREST,
   tiles = createRawTiles(mapKeys, tiles); // an array of tile objects is created
   tiles = setTiles(tiles, GRASSMAP, FORESTMAP, LOGCAMP); // sets all tiles with obects according to given object maps
   elMap = setElMap(elMap,tiles,mapKeys);
+  console.log(elMap);
 
 
 
@@ -757,6 +758,20 @@ function setTiles(tiles, GRASSMAP, FORESTMAP, LOGCAMP) {
   return tiles;
 }
 
+/**
+ * creates a map object elMap with
+ * keys: the DOM mapgrid ids
+ * values: the game tiles
+ * @param {*} elMap 
+ * @param {*} tiles 
+ * @param {*} mapKeys 
+ * @returns 
+ */
 function setElMap(elMap, tiles, mapKeys) {
   console.log("setElMap is called");
+  for (let mapKey of mapKeys) {
+    let tile = tiles.find(item => item.loc === mapKey);
+    elMap.set (mapKey, tile);
+  }
+  return elMap;
 }

@@ -488,7 +488,7 @@ function loadGame(screen, nextScreen,
     }
 
   displayGameInfo(stockProfit, TARGETPROFIT); // display Game ino in the info bar
-  console.log("tiles is: ",tiles);
+  console.log("tiles is: ", tiles);
 
   createMap(elMap, GRASSMAP, FORESTMAP, LUMBERCAMPMAP,
     grassTiles, forestTiles, lumberCampTiles, tiles);
@@ -549,11 +549,11 @@ function displayGameInfo(stockProfit, TARGETPROFIT) {
 // Map Functions
 
 function createMap(elMap, GRASSMAP, FORESTMAP, LUMBERCAMPMAP, HARVESTFOREST,
-  grassTiles, forestTiles, lumberCampTiles) {
+  grassTiles, forestTiles, lumberCampTiles, tiles) {
   console.log("createMap() has been called");
   
 
-  console.log("tiles is: ",tiles);
+  console.log("tiles is: ", tiles);
 
   // create map keys from Screen map ids
   let node = document.getElementById("map").firstElementChild; // sets the first mapgrid element as a node
@@ -565,7 +565,7 @@ function createMap(elMap, GRASSMAP, FORESTMAP, LUMBERCAMPMAP, HARVESTFOREST,
   }
 
   tiles = createRawTiles(mapKeys, tiles); // an array of tile objects is created
-  console.log("tiles is: ",tiles);
+  console.log("tiles is: ", tiles);
   //setForest(tiles, "b1", HARVESTFOREST);
 
 }

@@ -34,7 +34,7 @@ function main() {
     'b1', 'b2', 'b3', 'b6', 'b7',
     'c1', 'c2', 'c3', 'c4', 'c5', 'c6', 'c7', 'c8',
     'd1', 'd4', 'd5', 'd6',
-    'e1', 'e2','e5', 'e6',
+    'e1', 'e2','e4','e5', 'e6',
     'f1', 'f4',
     'g1', 'g3',
     'h1', 'h2', 'h3'];
@@ -570,10 +570,9 @@ function createMap(elMap, GRASSMAP, FORESTMAP, LOGCAMP, HARVESTFOREST,
   }
 
   tiles = createRawTiles(mapKeys, tiles); // an array of tile objects is created
+  tiles = setTiles(tiles, GRASSMAP, FORESTMAP, LOGCAMP); // sets all tiles with obects according to given object maps
+  elMap = setElMap(elMap,tiles,mapKeys);
 
-  // let tile = setForest(tiles, "b1", HARVESTFOREST); // use this function to set a forest to a particular tile
-  let tile = setLogCamp(tiles, "a1");
-  console.log("tile is now: ",tile);
 
 
 }
@@ -627,6 +626,14 @@ function createRawTiles(mapKeys, tiles) {
   return tiles;
 }
 
+/**
+ * Sets a forest object to a given tile
+ * @param {*} tiles 
+ * @param {*} tileId 
+ * @param {*} HARVESTFOREST 
+ * @param {*} stockProfit 
+ * @returns 
+ */
 function setForest(tiles, tileId, HARVESTFOREST, stockProfit) {
   console.log("setForest is called");
 
@@ -656,6 +663,12 @@ function setForest(tiles, tileId, HARVESTFOREST, stockProfit) {
   return forestTile;
 }
 
+/**
+ * Sets a grass object to a given tile
+ * @param {*} tiles 
+ * @param {*} tileId 
+ * @returns 
+ */
 function setGrass(tiles, tileId) {
   console.log("setGrass is called");
 
@@ -673,6 +686,12 @@ function setGrass(tiles, tileId) {
   return grassTile;
 }
 
+/**
+ * Sets a lofCamp object to a given tile
+ * @param {*} tiles 
+ * @param {*} tileId 
+ * @returns 
+ */
 function setLogCamp(tiles, tileId) {
   console.log("setLogCamp is called");
 
@@ -703,4 +722,41 @@ function setLogCamp(tiles, tileId) {
   let logCamp = new LogCamp();
   logCampTile.kind = logCamp;
   return logCampTile;
+}
+
+/**
+ * sets each tile in tiles with an object according to the map arrays given
+ * @param {*} tiles 
+ * @param {*} GRASSMAP 
+ * @param {*} FORESTMAP 
+ * @param {*} LOGCAMP 
+ * @returns 
+ */
+function setTiles(tiles, GRASSMAP, FORESTMAP, LOGCAMP) {
+  console.log("setTiles is called");
+  let map = [];
+  map.push(GRASSMAP);
+  map.push(FORESTMAP);
+  map.push(LOGCAMP);
+  
+  for (let m of map) {
+    if (m === GRASSMAP) {
+      for (let g of GRASSMAP) {
+        setGrass(tiles, g);
+      }
+    } else if (m === FORESTMAP) {
+      for (let f of FORESTMAP) {
+        setForest(tiles, f);
+      }
+    } else if (m === LOGCAMP) {
+      for (let l of LOGCAMP) {
+        setLogCamp(tiles, l);
+      }
+    }
+  }
+  return tiles;
+}
+
+function setElMap(elMap, tiles, mapKeys) {
+  console.log("setElMap is called");
 }

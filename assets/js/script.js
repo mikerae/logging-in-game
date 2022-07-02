@@ -571,9 +571,9 @@ function createMap(elMap, GRASSMAP, FORESTMAP, LOGCAMP, HARVESTFOREST,
 
   tiles = createRawTiles(mapKeys, tiles); // an array of tile objects is created
   tiles = setTiles(tiles, GRASSMAP, FORESTMAP, LOGCAMP); // sets all tiles with obects according to given object maps
-  elMap = setElMap(elMap,tiles,mapKeys);
-  dipslayMapTile(mapKeys, elMap);
-  console.log(elMap);
+  elMap = setElMap(elMap,tiles,mapKeys); // creates a map object elMap 
+  elMap.forEach(displayMapTile); // displays all the tile images in the DOM map
+
 
 
 
@@ -777,13 +777,20 @@ function setElMap(elMap, tiles, mapKeys) {
   return elMap;
 }
 
-function dipslayMapTile(mapKey, elMap) {
+/**
+ * displays tile object image in given tile
+ * @param {*} tile 
+ * @param {*} mapKey 
+ * @param {*} elMap 
+ */
+function displayMapTile(tile, mapKey, elMap) {
   console.log("displayMapTile is called");
-  mapKey = "a1";
 
-  console.log("kindSRC is: ",elMap.get(mapKey).kind.src);
-  let image = document.createElement('img');
+  let image = document.createElement('img'); // crreate an image element in the DOM
+  image.setAttribute("class", "tile-img"); // set its class to "title-img"
+  if (document.getElementById(mapKey).children !== null) { // if there is already an image element present, remove it
+    document.getElementById(mapKey).removeChild;
+  }
   image.setAttribute("src", elMap.get(mapKey).kind.src); // set image src path
-  image.setAttribute("class", "tile-img");
   document.getElementById(mapKey).appendChild(image); // put image in wrapper in the DOM
 }

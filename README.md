@@ -190,6 +190,11 @@ Inconsistencies were found. Once corrected, the issue was resolved.
 The order of function arguments was checked for when the functions were defined and when they were called.
 Inconsistencies were found. Once corrected, the issue was resolved.
 ### Map overpoulates with tile images when multiple New Games are started
+Each time a new game is called, the map populates in addaition to the tiles already created.
+### Maptile images dont populate after Welecome/Intro buttons are pressed but do populate when New game is selected in the nav bar
+There were inconsistencies in the args passed to one function, causing some constants to be undefined. These were corrected.
+### Map Grid shows horizontal gaps between rows
+When the grid sizes are turned on, for a particular screen size, columns show 61.09px and rows show 65.09 px. They should be equal.
 
 ## Testing
 Testing took place constantly throughout devenlopment as functions were built and deployed.

@@ -102,7 +102,7 @@ function selectScreen(screen, nextScreen,
       WELCOME, INTRO, GAME, WIN, 
       MONOLOGUEDISPLAY, GAMEDISPLAY);
 
-    displayScreen(screen, nextScreen, // displays the next screen
+    displayScreen(screen, nextScreen, 
       WELCOME, INTRO, GAME, WIN, 
       MONOLOGUEDISPLAY, GAMEDISPLAY, TARGETPROFIT, 
       HARVESTFOREST, SELLLOGS, 
@@ -407,7 +407,9 @@ function intro(screen, nextScreen,
     nextScreen = "intro";
     selectScreen(screen, nextScreen, 
       WELCOME, INTRO, GAME, WIN, 
-      MONOLOGUEDISPLAY, GAMEDISPLAY, TARGETPROFIT);
+      MONOLOGUEDISPLAY, GAMEDISPLAY, TARGETPROFIT, 
+      HARVESTFOREST, SELLLOGS, 
+      GRASSMAP, FORESTMAP, LOGCAMP);
 }
 
 /** displays the Game Screen by setting nextScreen to "game"
@@ -559,6 +561,9 @@ function displayGameInfo(stockProfit, TARGETPROFIT) {
 function createMap(elMap, GRASSMAP, FORESTMAP, LOGCAMP, HARVESTFOREST,
   grassTiles, forestTiles, lumberCampTiles, tiles) {
   console.log("createMap() has been called");
+  console.log( GRASSMAP, FORESTMAP, LOGCAMP);
+
+  elMap.clear(); // removes all elements from the map
 
   // create map keys from Screen map ids
   let node = document.getElementById("map").firstElementChild; // sets the first mapgrid element as a node
@@ -573,10 +578,6 @@ function createMap(elMap, GRASSMAP, FORESTMAP, LOGCAMP, HARVESTFOREST,
   tiles = setTiles(tiles, GRASSMAP, FORESTMAP, LOGCAMP); // sets all tiles with obects according to given object maps
   elMap = setElMap(elMap,tiles,mapKeys); // creates a map object elMap 
   elMap.forEach(displayMapTile); // displays all the tile images in the DOM map
-
-
-
-
 }
 
 /**

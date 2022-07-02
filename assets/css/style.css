@@ -448,8 +448,10 @@ font-size: 2em;
 }
 
 .tile {
-  border: solid whitesmoke 1px;
+  height: 100%;
+  border: 1px solid whitesmoke;
 }
+
 
 .tile-img {
   object-fit: fill;

@@ -488,7 +488,6 @@ function loadGame(screen, nextScreen,
     }
 
   displayGameInfo(stockProfit, TARGETPROFIT); // display Game ino in the info bar
-  console.log("tiles is: ", tiles);
 
   createMap(elMap, GRASSMAP, FORESTMAP, LUMBERCAMPMAP,
     grassTiles, forestTiles, lumberCampTiles, tiles);

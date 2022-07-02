@@ -603,7 +603,8 @@ function createMap(elMap, GRASSMAP, FORESTMAP, LUMBERCAMPMAP, HARVESTFOREST,
   }
 
   tiles = createRawTiles(mapKeys, tiles); // an array of tile objects is created
-  //setForest(tiles, "b1", HARVESTFOREST);
+
+  setForest(tiles, "b1", HARVESTFOREST); // use this function to set a forest to a particular tile
 
 }
 
@@ -632,23 +633,23 @@ function createRawTiles(mapKeys, tiles) {
   // Create Array of  Tile Objects
   mapKeys.forEach(function(element) {
     if (element === "h1") { // top left corner tile
-      tile = new Tiles("h1", false, "", "top-left-corner", true, {"up": false, "right": true, "down": true, "left": false}, ["Move Right","Move Down"]);
+      tile = new Tiles("h1", false, {}, "top-left-corner", true, {"up": false, "right": true, "down": true, "left": false}, ["Move Right","Move Down"]);
     } else if (element === "h8") { //top right corner tile
-      tile = new Tiles("h8", false, "", "top-right-corner", true, {"up": false, "right": false, "down": true, "left": true}, ["Move Down", "Move Left"]);
+      tile = new Tiles("h8", false, {}, "top-right-corner", true, {"up": false, "right": false, "down": true, "left": true}, ["Move Down", "Move Left"]);
     } else if (element === "a1") { // bottom left corner tile. This is the current tile at the start of the game
-      tile = new Tiles("a1", true, "", "bottom-left-corner", true, {"up": true, "right": true, "down": false, "left": false}, ["Move Up", "Move Right"]);
+      tile = new Tiles("a1", true, {}, "bottom-left-corner", true, {"up": true, "right": true, "down": false, "left": false}, ["Move Up", "Move Right"]);
     } else if (element === "a8") { //bottom right corner tile
-      tile = new Tiles("a8", false, "", "bottom-right-corner", true, {"up": true, "right": false, "down": false, "left": true}, ["Move up", "Move Left"]);
+      tile = new Tiles("a8", false, {}, "bottom-right-corner", true, {"up": true, "right": false, "down": false, "left": true}, ["Move up", "Move Left"]);
     } else if (element.charAt(0) === "h") { //top edge tiles
-      tile = new Tiles(element, false, "", "top-edge", true, {"up": false, "right": true, "down": true, "left": true}, ["Move right", "Move down", "Move Left"]);
+      tile = new Tiles(element, false, {}, "top-edge", true, {"up": false, "right": true, "down": true, "left": true}, ["Move right", "Move down", "Move Left"]);
     } else if (element.charAt(1) === "8") { //right edge tiles
-      tile = new Tiles(element, false, "", "right-edge", true, {"up": true, "right": false, "down": true, "left": true}, ["Move up", "Move down", "Move Left"]);
+      tile = new Tiles(element, false, {}, "right-edge", true, {"up": true, "right": false, "down": true, "left": true}, ["Move up", "Move down", "Move Left"]);
     } else if (element.charAt(0) === "a") { //bottom edge tiles
-      tile = new Tiles(element, false, "", "bottom-edge", true, {"up": true, "right": true, "down": false, "left": true}, ["Move up", "Move right", "Move Left"]);
+      tile = new Tiles(element, false, {}, "bottom-edge", true, {"up": true, "right": true, "down": false, "left": true}, ["Move up", "Move right", "Move Left"]);
     } else if (element.charAt(1) === "1") { //bottom edge tiles
-      tile = new Tiles(element, false, "", "bottom-edge", true, {"up": true, "right": true, "down": false, "left": true}, ["Move up", "Move right", "Move Left"]);
+      tile = new Tiles(element, false, {}, "bottom-edge", true, {"up": true, "right": true, "down": false, "left": true}, ["Move up", "Move right", "Move Left"]);
     } else { // inner tiles
-      tile = new Tiles(element, false, "", "inner", false, {"up": true, "right": true, "down": true, "left": true}, ["Move up", "Move right", "Move down", "Move Left"]);
+      tile = new Tiles(element, false, {}, "inner", false, {"up": true, "right": true, "down": true, "left": true}, ["Move up", "Move right", "Move down", "Move Left"]);
     }; 
   
     tiles.push(tile); //add each tile object to tiles array
@@ -679,10 +680,10 @@ function setForest(tiles, tileId, HARVESTFOREST, stockProfit) {
       return stockProfit.logsInStock;
     }
   }
-  /*console.log(tiles);
   let forestTile = tiles.find(item => item.loc === tileId);
-  //let forest = new Forest();
+  let forest = new Forest();
   console.log("forestTile is:", forestTile);
-  console.log("forest is:", forest);*/
+  console.log("forest is:", forest);
+  console.log("forestTile.kind is:", forestTile.kind);
 
 }

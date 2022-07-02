@@ -46,9 +46,9 @@ You can play Logging-In [here.](https://mikerae.github.io/logging-in-game/)
 ![UXD Surface Screen Element Concepts](assets/images/uxd-surface-4.png)
 ![UXD Surface Screen Display Images](assets/images/uxd-surface-5.png)
 ![UXD Surface Fonts](assets/images/uxd-surface-6.png)
-## Game Logic
-![Game Logic 1](assets/images/game-logic-1.png)
-![Game Logic 2](assets/images/game-logic-2.png)
+## Screen Flow Logic
+![Screen Flow Logic 1](assets/images/screen-flow-logic-1.png)
+![Screen Flow Logic 2](assets/images/screen-flow-logic-2.png)
 ## Development Stage 1: Minimum Viable Product
 ### Scope
 After the initial consultation with my mentor, it was decided to plan  development in stages.

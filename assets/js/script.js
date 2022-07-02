@@ -56,9 +56,9 @@ function main() {
   const INTRO = new Screens("intro", "", `Are you ready to harvest your Forest, build up your stock of Logs and sell them at your Lumber-Camp? \n
    If you make £${TARGETPROFIT} in profit you Win!`, "assets/images/welcome-screen-background.png", "Game Introduction image", "Play Game");
   const GAME = new Screens("game");
-  const WIN = new Screens("win", "Congratulations! You Won!", "You reached your target profit. How will you spend it? Feel free to play again or quit", "assets/images/welcome-screen-background.png", "Win image", "New Game");
+  const WIN = new Screens("win", "Congratulations! You Won!", "You reached your target profit. How will you spend it? Feel free to play again or quit", "assets/images/win-screen.png", "Win image", "New Game");
 
-  nextScreen = "welcome"; //The Welcome Screen is the first screen to display
+  nextScreen = "win"; //The Welcome Screen is the first screen to display
 
   selectScreen( // The top level screen flow function is called.
   screen, nextScreen, 

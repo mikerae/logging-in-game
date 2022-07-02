@@ -58,7 +58,7 @@ function main() {
   const GAME = new Screens("game");
   const WIN = new Screens("win", "Congratulations! You Won!", "You reached your target profit. How will you spend it? Feel free to play again or quit", "assets/images/win-screen.png", "Win image", "New Game");
 
-  nextScreen = "win"; //The Welcome Screen is the first screen to display
+  nextScreen = "welcome"; //The Welcome Screen is the first screen to display
 
   selectScreen( // The top level screen flow function is called.
   screen, nextScreen, 
@@ -97,7 +97,6 @@ function selectScreen(screen, nextScreen,
   MONOLOGUEDISPLAY, GAMEDISPLAY, TARGETPROFIT, 
   HARVESTFOREST, SELLLOGS, 
   GRASSMAP, FORESTMAP, LUMBERCAMPMAP) {
-    console.log("TARGETPROFIT is :",TARGETPROFIT);
 
     screen = setScreen(screen, nextScreen, // sets the screen view to Monologue or Game, and sets the screen object
       WELCOME, INTRO, GAME, WIN, 
@@ -167,7 +166,6 @@ function displayScreen(screen, nextScreen,
   HARVESTFOREST, SELLLOGS, 
   GRASSMAP, FORESTMAP, LUMBERCAMPMAP) {
     console.log("displayScreen has been called");
-    console.log("Target profit is: ",TARGETPROFIT);
 
     if (nextScreen === "game") { // Load the Game and run the main game loop
       loadGame(screen, nextScreen, 
@@ -486,7 +484,6 @@ function loadGame(screen, nextScreen,
   HARVESTFOREST, SELLLOGS, 
   GRASSMAP, FORESTMAP, LUMBERCAMPMAP) {
     console.log("loadGame() has been called");
-    console.log("Target Profit is: ",TARGETPROFIT);
 
     // Initilise Variables
   let gameResult = null; // resets the game result
@@ -496,9 +493,6 @@ function loadGame(screen, nextScreen,
   let forestTiles = {};
   let lumberCampTiles = {};
   let tiles = []; // Array of  map tiles: "kind" to be specified
-
-  console.log("tiles is: ",tiles);
-
 
   class Grass {
     constructor() {
@@ -535,7 +529,7 @@ function loadGame(screen, nextScreen,
 
   displayGameInfo(stockProfit, TARGETPROFIT); // display Game ino in the info bar
 
-  createMap(elMap, GRASSMAP, FORESTMAP, LUMBERCAMPMAP,
+  createMap(elMap, GRASSMAP, FORESTMAP, LUMBERCAMPMAP, HARVESTFOREST,
     grassTiles, forestTiles, lumberCampTiles, tiles);
   /*console.log("elMap is: ", elMap);*/
 
@@ -587,7 +581,6 @@ function checkProfit(stockProfit, TARGETPROFIT) {
  */
 function displayGameInfo(stockProfit, TARGETPROFIT) {
   console.log("displayGameInfo has been called");
-  console.log("TARGETPROFIT is: ",TARGETPROFIT);
 
   document.getElementById("logs").innerText = stockProfit.logsInStock;
   document.getElementById("profit").innerText = stockProfit.profit;
@@ -599,9 +592,6 @@ function displayGameInfo(stockProfit, TARGETPROFIT) {
 function createMap(elMap, GRASSMAP, FORESTMAP, LUMBERCAMPMAP, HARVESTFOREST,
   grassTiles, forestTiles, lumberCampTiles, tiles) {
   console.log("createMap() has been called");
-  
-
-  console.log("tiles is: ", tiles);
 
   // create map keys from Screen map ids
   let node = document.getElementById("map").firstElementChild; // sets the first mapgrid element as a node
@@ -625,7 +615,6 @@ function createMap(elMap, GRASSMAP, FORESTMAP, LUMBERCAMPMAP, HARVESTFOREST,
  */
 function createRawTiles(mapKeys, tiles) {
   console.log("createRawTiles has been called");
-  console.log("tiles is: ",tiles);
   // Tiles Class
   class Tiles {
     constructor(loc, currentTile, kind, position, edge, movement, movementTxt) {
@@ -663,9 +652,7 @@ function createRawTiles(mapKeys, tiles) {
     }; 
   
     tiles.push(tile); //add each tile object to tiles array
-    console.log(tiles);
   });
-  console.log("tiles is: ", tiles);
   return tiles;
 }
 

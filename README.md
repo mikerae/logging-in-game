@@ -185,11 +185,16 @@ For the function sellLogs(stockProfit, SELLLOGS), I needed a fucntion which, whe
 The function applied its calculations to the stockprofit.profit and stockprofit.logsInStock and returned the stockProfit object.
 ### TARTGETPROFIT  became 'undefined'
 The order of function arguments was checked for when the functions were defined and when they were called.
-This solved the issue for TARGETPROFIT
+Inconsistencies were found. Once corrected, the issue was resolved.
 ### tiles became 'undefined'
 The order of function arguments was checked for when the functions were defined and when they were called.
+Inconsistencies were found. Once corrected, the issue was resolved.
 
 ## Testing
+Testing took place constantly throughout devenlopment as functions were built and deployed.
+Console.log() was used to check the condition of variables.
+The Chrome Develpoer tools debugger was used to identifie errors.
+Break points wee used to inspect the progression of the script.
 
 ### Human Feedback
 After consultation with Sarah Rae the following changes were made:

@@ -3,6 +3,20 @@
   // Hover to view descriptions of existing attributes.
   "version": "0.2.0",
   "configurations": [
+    {
+      "name": "Attach to Chrome",
+      "port": 9222,
+      "request": "attach",
+      "type": "chrome",
+      "webRoot": "${workspaceFolder}"
+    },
+  {
+    "name": "Attach to Chrome",
+    "port": 9222,
+    "request": "attach",
+    "type": "chrome",
+    "webRoot": "${workspaceFolder}"
+  },
       {
             "name": "Python: Current File (Integrated Terminal)",
             "type": "python",

@@ -2,6 +2,50 @@
 ## A Game for LumberJacks and LumberJackies using JavaScript
 You can play Logging-In [here.](https://mikerae.github.io/logging-in-game/)
 
+## UXD
+### Strategy
+![UXD Strategy](assets/images/uxd-strategy.png)
+### Scope: Development Stage 1
+![UXD Scope Development Stage: 1/1](assets/images/uxd-scope-dev1-1.png)
+![UXD Scope Development Stage: 1/2](assets/images/uxd-scope-dev1-2.png)
+### Scope: Development Stage 2
+![UXD Scope Development Stage: 2](assets/images/uxd-scope-dev2.png)
+### Scope: Development Stage 3
+![UXD Scope Development Stage: 3](assets/images/uxd-scope-dev3.png)
+### Scope: Development Stage 4
+![UXD Scope Development Stage: 4](assets/images/uxd-scope-dev4.png)
+### Scope: Development Stage 5
+![UXD Scope Development Stage: 5](assets/images/uxd-scope-dev5.png)
+### Scope: Development Stage 6
+![UXD Scope Development Stage: 6](assets/images/uxd-scope-dev6.png)
+### Scope: Development Stage 7
+![UXD Scope Development Stage: 7](assets/images/uxd-scope-dev7.png)
+### Scope: Development Stage 8
+![UXD Scope Development Stage: 8/1](assets/images/uxd-scope-dev8-1.png)
+![UXD Scope Development Stage: 8/1](assets/images/uxd-scope-dev8-2.png)
+### Scope: Development Stage 9
+![UXD Scope Development Stage: 9/1](assets/images/uxd-scope-dev9-1.png)
+![UXD Scope Development Stage: 9/1](assets/images/uxd-scope-dev9-2.png)
+### Scope: Development Stage 10
+![UXD Scope Development Stage: 10](assets/images/uxd-scope-dev10.png)
+### Scope: Development Stage 11
+![UXD Scope Development Stage: 11](assets/images/uxd-scope-dev11.png)
+### Structure
+![UXD Structure](assets/images/uxd-structure.png)
+### Skeleton
+![UXD Skeleton Home Screen](assets/images/uxd-skeleton-home.png)
+![UXD Skeleton Intro Screen](assets/images/uxd-skeleton-intro.png)
+![UXD Skeleton Game Screen](assets/images/uxd-skeleton-home.png)
+![UXD Skeleton Win Screen](assets/images/uxd-skeleton-intro.png)
+![UXD Skeleton Loose: Time Out Screen](assets/images/uxd-skeleton-lose-time.png)
+![UXD Skeleton Loose: Burn Screen](assets/images/uxd-skeleton-lose-burn.pmg.png)
+### Surface
+![UXD Surface Design Reference](assets/images/uxd-surface-1.png)
+![UXD Surface Game Map Tiles: Dev Stage 1](assets/images/uxd-surface-2.png)
+![UXD Surface Overlays](assets/images/uxd-surface-3.png)
+![UXD Surface Screen Element Concepts](assets/images/uxd-surface-4.png)
+![UXD Surface Screen Display Images](assets/images/uxd-surface-5.png)
+![UXD Surface Fonts](assets/images/uxd-surface-6.png)
 ## Development Stage 1: Minimum Viable Product
 ### Scope
 After the initial consultation with my mentor, it was decided to plan  development in stages.

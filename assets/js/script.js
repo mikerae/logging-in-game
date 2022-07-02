@@ -494,15 +494,6 @@ function loadGame(screen, nextScreen,
   let lumberCampTiles = {};
   let tiles = []; // Array of  map tiles: "kind" to be specified
 
-  class Grass {
-    constructor() {
-      this.type = 'grass';
-      this.src = "assets/images/grass-tile.jpg";
-      this.actions = "";
-      this.messages = "";
-    }
-  }
-
   class LogCamp {
     constructor() {
       this.type = 'LogCamp';
@@ -604,8 +595,10 @@ function createMap(elMap, GRASSMAP, FORESTMAP, LUMBERCAMPMAP, HARVESTFOREST,
 
   tiles = createRawTiles(mapKeys, tiles); // an array of tile objects is created
 
-  let tile = setForest(tiles, "b1", HARVESTFOREST); // use this function to set a forest to a particular tile
-  console.log("new forest tile is: ",tile);
+  // let tile = setForest(tiles, "b1", HARVESTFOREST); // use this function to set a forest to a particular tile
+  let tile = setGrass(tiles, "g8");
+  console.log("tile is now: ",tile);
+
 
 }
 
@@ -685,4 +678,21 @@ function setForest(tiles, tileId, HARVESTFOREST, stockProfit) {
   let forest = new Forest();
   forestTile.kind = forest;
   return forestTile;
+}
+
+function setGrass(tiles, tileId) {
+  console.log("setGrass is called");
+
+  class Grass {
+    constructor() {
+      this.type = 'grass';
+      this.src = "assets/images/grass-tile.jpg";
+      this.actions = "";
+      this.messages = "";
+    }
+  }
+  let grassTile = tiles.find(item => item.loc === tileId);
+  let grass = new Grass();
+  grassTile.kind = grass;
+  return grassTile;
 }

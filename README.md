@@ -171,27 +171,32 @@ Event functions are:
   within displayScreen() when nextscreen = "game" and selectScreen() is
   called.
   ```
-  ### Screen Flow rebuild bug 1
-  The rebuild progressed well untill the screen display utilities (except button content and event listeners) were copied and ammended. The screen object was  undefined.
-  Solution: In the setScreen funtion the 'break' instruction was replaced with 'return screen', and screen was set to receive this functions output. 
-  ### Display Issues
-  The positioning is messed up in smaller screen sizes.
-  This is caused by incomplete understanding of flex and flexbox, and mixing an older layout technique using floats and clears.
-  More research is needed to gain a better understanding of these features.
-  The full screen gadient is currently a background image which does not load on the  gitHub pages server.
-  The gradient image was replaced with "background: liniar-gradient" to solve the issue.
-  ### Functions only return one value : 
-  For the function sellLogs(stockProfit, SELLLOGS), I needed a fucntion which, when called by an event, would sell the current stock of logs for a profit,  increase the profit variable and decrease the logsInstock variable. This is not possible directly in JavaScript because a function can only return one value. The work-around was to combine the profit and logsInStock variables int one object "stockProfit".
-  The function applied its calculations to the stockprofit.profit and stockprofit.logsInStock and returned the stockProfit object.
+### Screen Flow rebuild bug 1
+The rebuild progressed well untill the screen display utilities (except button content and event listeners) were copied and ammended. The screen object was  undefined.
+Solution: In the setScreen funtion the 'break' instruction was replaced with 'return screen', and screen was set to receive this functions output. 
+### Display Issues
+The positioning is messed up in smaller screen sizes.
+This is caused by incomplete understanding of flex and flexbox, and mixing an older layout technique using floats and clears.
+More research is needed to gain a better understanding of these features.
+The full screen gadient is currently a background image which does not load on the  gitHub pages server.
+The gradient image was replaced with "background: liniar-gradient" to solve the issue.
+### Functions only return one value : 
+For the function sellLogs(stockProfit, SELLLOGS), I needed a fucntion which, when called by an event, would sell the current stock of logs for a profit,  increase the profit variable and decrease the logsInstock variable. This is not possible directly in JavaScript because a function can only return one value. The work-around was to combine the profit and logsInStock variables int one object "stockProfit".
+The function applied its calculations to the stockprofit.profit and stockprofit.logsInStock and returned the stockProfit object.
+### TARTGETPROFIT  became 'undefined'
+The order of function arguments was checked for when the functions were defined and when they were called.
+This solved the issue for TARGETPROFIT
+### tiles became 'undefined'
+The order of function arguments was checked for when the functions were defined and when they were called.
 
-  ## Testing
+## Testing
 
-  ### Human Feedback
-  After consultation with Sarah Rae the following changes were made:
-    Fonts from Google Fonts were chosen:
-      "Press Start 2P"   for larger heading text
-      "Orbitron" for body text
-    the Welcome image was upgraded.
-    the Display Screen text was placed under the image
-    the Display Screen Header h1 element was removed
-    the quit button under the image was removed
+### Human Feedback
+After consultation with Sarah Rae the following changes were made:
+  Fonts from Google Fonts were chosen:
+    "Press Start 2P"   for larger heading text
+    "Orbitron" for body text
+  the Welcome image was upgraded.
+  the Display Screen text was placed under the image
+  the Display Screen Header h1 element was removed
+  the quit button under the image was removed

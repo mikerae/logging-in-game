@@ -449,14 +449,11 @@ font-size: 2em;
 
 .tile {
   border: solid whitesmoke 1px;
-  height: 100%;
-  aspect-ratio: 16/9;
 }
 
 .tile-img {
   object-fit: fill;
   width: 100%;
-  aspect-ratio: 1/1;
 }
 
 /* Small device screens (phones, 640px and down) in portrate */

@@ -189,6 +189,7 @@ Inconsistencies were found. Once corrected, the issue was resolved.
 ### tiles became 'undefined'
 The order of function arguments was checked for when the functions were defined and when they were called.
 Inconsistencies were found. Once corrected, the issue was resolved.
+### Map overpoulates with tile images when multiple New Games are started
 
 ## Testing
 Testing took place constantly throughout devenlopment as functions were built and deployed.

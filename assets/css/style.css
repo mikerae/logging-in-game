@@ -227,9 +227,9 @@ font-size: 2em;
 
 
 #actions-menu {
-  background-color: coral;
-  min-height: 10rem;
+  max-height: 5rem;
 }
+
 
 .game-windows {
   border: solid 1px whitesmoke;

@@ -450,12 +450,24 @@ font-size: 2em;
 .tile {
   height: 100%;
   border: 1px solid whitesmoke;
+  position: relative;
 }
 
 
 .tile-img {
-  object-fit: fill;
+  object-fit: fit;
   width: 100%;
+  z-index: 0;
+}
+
+#lumber-jackie {
+  z-index: 5;
+  object-fit: cover;
+  height: 60%;
+  aspect-ratio: 1/1;
+  position:absolute;
+  left: 18%;;
+  bottom: 20%;
 }
 
 /* Small device screens (phones, 640px and down) in portrate */

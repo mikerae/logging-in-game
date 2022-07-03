@@ -547,9 +547,9 @@ function displayGameInfo(stockProfit, TARGETPROFIT) {
 
 function createMap(elMap, GRASSMAP, FORESTMAP, LOGCAMP, HARVESTFOREST,tiles) {
   console.log("createMap() has been called");
-  console.log( GRASSMAP, FORESTMAP, LOGCAMP);
 
   elMap.clear(); // removes all elements from the map
+  console.log(elMap);
 
   // create map keys from Screen map ids
   let node = document.getElementById("map").firstElementChild; // sets the first mapgrid element as a node
@@ -564,6 +564,8 @@ function createMap(elMap, GRASSMAP, FORESTMAP, LOGCAMP, HARVESTFOREST,tiles) {
   tiles = setTiles(tiles, GRASSMAP, FORESTMAP, LOGCAMP); // sets all tiles with obects according to given object maps
   elMap = setElMap(elMap,tiles,mapKeys); // creates a map object elMap 
   elMap.forEach(displayMapTile); // displays all the tile images in the DOM map
+  elMap.forEach(displayLumberJackie);
+  
 }
 
 /**
@@ -780,4 +782,17 @@ function displayMapTile(tile, mapKey, elMap) {
   }
   image.setAttribute("src", elMap.get(mapKey).kind.src); // set image src path
   document.getElementById(mapKey).appendChild(image); // put image in wrapper in the DOM
+}
+
+function displayLumberJackie(_tile, _mapKey, _elMap) {
+  if (_tile.currentTile) {
+    let image = document.createElement('img'); // crreate an image element in the DOM
+  image.setAttribute("id", "lumber-jackie"); // set its id to "lumber-jackie"
+  if (document.getElementById("lumber-jackie") !== null) { // if there is already an image element present, remove it
+    document.getElementById("lumber-jackie").remove();
+  }
+  image.setAttribute("src", "assets/images/lumberjackie.png"); // set image src path
+  document.getElementById(_tile.loc).appendChild(image); // put image in wrapper in the DOM
+  console.log(`Jackie is in ${_tile.loc}`);
+  }
 }

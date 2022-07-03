@@ -492,11 +492,11 @@ function loadGame(screen, nextScreen,
   let stockProfit = {logsInStock: 0, profit: 0}; // this object contains the Game Info and is needed because JavaScript does not support functions returning multiple values.
   let elMap = new Map(); // Map object containing all game tiles maped to DOM grid
   let tiles = []; // Array of  map tiles: "kind" to be specified
+  let currentTile = "a1";
 
-  displayGameInfo(stockProfit, TARGETPROFIT); // display Game ino in the info bar
-
-  createMap(elMap, GRASSMAP, FORESTMAP, LOGCAMP, HARVESTFOREST,tiles);
+  elMap = createMap(elMap, GRASSMAP, FORESTMAP, LOGCAMP, HARVESTFOREST,tiles); // generates and displays game map
   console.log("elMap is: ", elMap);
+  displayCurrentTileActions(currentTile); // displays crurrent tile actions in the Actions Window
 
   displayGameInfo(stockProfit, TARGETPROFIT); // display Game ino in the info bar
 
@@ -548,9 +548,6 @@ function displayGameInfo(stockProfit, TARGETPROFIT) {
 function createMap(elMap, GRASSMAP, FORESTMAP, LOGCAMP, HARVESTFOREST,tiles) {
   console.log("createMap() has been called");
 
-  elMap.clear(); // removes all elements from the map
-  console.log(elMap);
-
   // create map keys from Screen map ids
   let node = document.getElementById("map").firstElementChild; // sets the first mapgrid element as a node
   let mapKeys = []; // array to hold mapKeys
@@ -565,6 +562,7 @@ function createMap(elMap, GRASSMAP, FORESTMAP, LOGCAMP, HARVESTFOREST,tiles) {
   elMap = setElMap(elMap,tiles,mapKeys); // creates a map object elMap 
   elMap.forEach(displayMapTile); // displays all the tile images in the DOM map
   elMap.forEach(displayLumberJackie); // displays LumberJackie overlay in current tile
+  return elMap;
 }
 
 /**
@@ -802,4 +800,8 @@ function displayLumberJackie(_tile, _mapKey, _elMap) {
       document.getElementById(_tile.loc).appendChild(image); // put image in wrapper in the DOM
     }
   }
+}
+
+function displayCurrentTileActions(currentTile, elMap) {
+  console.log("displayCurrentTileActions is called: ");
 }

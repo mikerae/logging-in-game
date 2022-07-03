@@ -802,24 +802,22 @@ function displayLumberJackie(_tile, _mapKey, _elMap) {
   }
 }
 
+/**
+ * Adds Actions for the current tile to the Actions Menu
+ * @param {*} currentTile 
+ * @param {*} elMap 
+ */
 function displayCurrentTileActions(currentTile, elMap) {
-  console.log("displayCurrentTileActions is called: ");
-  console.log("the current tile is: ", currentTile);
-  console.log("elMap is: ", elMap);
-
   if (document.getElementById("actions-menu-list").children.length !== 0) { // if there are already any list elements present, remove them
     document.getElementById("actions-menu-list").innerHTML = "";
   } else { 
     let elActionsMenuList = document.getElementById("actions-menu-list"); // gets Actions Menu unordered list element from the DOM
-    let actionsMenuList = [];
-    actionsMenuList.push(elMap.get(currentTile).kind.actions);
-    console.log("actionsMenuList is: ",actionsMenuList);
-    console.log("elActionsMenuList is: ",elActionsMenuList);
-    for (let action of actionsMenuList){
-      let listItem = document.createElement("li");
-      listItem.innerText = action;
-      console.log("list item is: ", listItem);
-      elActionsMenuList.appendChild(listItem); // Add Action Items to the DOM
+    let actionsMenuList = []; // creates avariable to store current tile actions
+    actionsMenuList.push(elMap.get(currentTile).kind.actions); // gets actions list from the current tile and stores them in actionsMenuList
+    for (let action of actionsMenuList){ // itterates through the actionsMenuList
+      let listItem = document.createElement("li"); // creates a list element in the DOM
+      listItem.innerText = action; // adds the action item to the inner text of the list element
+      elActionsMenuList.appendChild(listItem); // Adds Action List Element to the DOM
     }
   }
 }

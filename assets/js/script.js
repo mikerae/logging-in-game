@@ -812,7 +812,7 @@ function displayCurrentTileActions(currentTile, elMap) {
     document.getElementById("actions-menu-list").innerHTML = "";
   } else { 
     let elActionsMenuList = document.getElementById("actions-menu-list"); // gets Actions Menu unordered list element from the DOM
-    let actionsMenuList = []; // creates avariable to store current tile actions
+    let actionsMenuList = []; // creates a variable to store current tile actions
     actionsMenuList.push(elMap.get(currentTile).kind.actions); // gets actions list from the current tile and stores them in actionsMenuList
     for (let action of actionsMenuList){ // itterates through the actionsMenuList
       let listItem = document.createElement("li"); // creates a list element in the DOM
@@ -822,8 +822,19 @@ function displayCurrentTileActions(currentTile, elMap) {
   }
 }
 
-function   displayCurrentTileMessages(currentTile, elMap) {
-  console.log("displayCurrentTileMessages is called: ");
-  console.log("the current tile is: ", currentTile);
-  console.log("elMap is: ", elMap);
+/**
+ * Add Messages for the current tile to the Messages Window
+ * @param {*} currentTile 
+ * @param {*} elMap 
+ */
+function displayCurrentTileMessages(currentTile, elMap) {
+  if (document.getElementById("messages").innerText !== "") { // if there are already any messages present, remove them
+    document.getElementById("messages").innerHTML = "";
+  } else { 
+    let elMessages = document.getElementById("messages"); // gets Messages <p></p> element from the DOM
+    let messages = ""; // creates a variable to store current tile messages
+    messages = (elMap.get(currentTile).kind.messages); // gets messages  from the current tile and stores them in messages
+    elMessages.innerText = messages; // adds the messages  to the inner text of the elMessages <p></p> element
+    elMessages.append; // Adds Action List Element to the DOM
+  }
 }

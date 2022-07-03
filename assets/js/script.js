@@ -559,13 +559,16 @@ function createMap(elMap, GRASSMAP, FORESTMAP, LOGCAMP, HARVESTFOREST,tiles) {
     mapKeys.push(node.id);
     node = node.nextElementSibling;
   }
+  console.log("tiles is : ",tiles);
 
-  tiles = createRawTiles(mapKeys, tiles); // an array of tile objects is created
-  tiles = setTiles(tiles, GRASSMAP, FORESTMAP, LOGCAMP); // sets all tiles with obects according to given object maps
-  elMap = setElMap(elMap,tiles,mapKeys); // creates a map object elMap 
-  elMap.forEach(displayMapTile); // displays all the tile images in the DOM map
-  elMap.forEach(displayLumberJackie);
-  
+    console.log("tiles is : ",tiles);
+    tiles = createRawTiles(mapKeys, tiles); // an array of tile objects is created
+    console.log("tiles is : ",tiles);
+    tiles = setTiles(tiles, GRASSMAP, FORESTMAP, LOGCAMP); // sets all tiles with obects according to given object maps
+    console.log("tiles is : ",tiles);
+    elMap = setElMap(elMap,tiles,mapKeys); // creates a map object elMap 
+    elMap.forEach(displayMapTile); // displays all the tile images in the DOM map
+    elMap.forEach(displayLumberJackie);
 }
 
 /**
@@ -588,7 +591,6 @@ function createRawTiles(mapKeys, tiles) {
       this.movementTxt = movementTxt; // {"Move Up", "Move Right"} etc
     }
   }
-
   let tile = {};
   // Create Array of  Tile Objects
   mapKeys.forEach(function(element) {
@@ -772,27 +774,27 @@ function setElMap(elMap, tiles, mapKeys) {
  * @param {*} mapKey 
  * @param {*} elMap 
  */
-function displayMapTile(tile, mapKey, elMap) {
-  console.log("displayMapTile is called");
-
+function displayMapTile(_tile, _mapKey, _elMap) {
+  if (document.getElementById(_mapKey).children.length !== 0) { // if there is already an image element present, remove it
+    document.getElementById(_mapKey).removeChild;
+  } else {
   let image = document.createElement('img'); // crreate an image element in the DOM
   image.setAttribute("class", "tile-img"); // set its class to "title-img"
-  if (document.getElementById(mapKey).children !== null) { // if there is already an image element present, remove it
-    document.getElementById(mapKey).removeChild;
+  image.setAttribute("src", _elMap.get(_mapKey).kind.src); // set image src path
+  document.getElementById(_mapKey).appendChild(image);/// put image in wrapper in the DOM
   }
-  image.setAttribute("src", elMap.get(mapKey).kind.src); // set image src path
-  document.getElementById(mapKey).appendChild(image); // put image in wrapper in the DOM
 }
 
 function displayLumberJackie(_tile, _mapKey, _elMap) {
   if (_tile.currentTile) {
-    let image = document.createElement('img'); // crreate an image element in the DOM
-  image.setAttribute("id", "lumber-jackie"); // set its id to "lumber-jackie"
-  if (document.getElementById("lumber-jackie") !== null) { // if there is already an image element present, remove it
-    document.getElementById("lumber-jackie").remove();
-  }
-  image.setAttribute("src", "assets/images/lumberjackie.png"); // set image src path
-  document.getElementById(_tile.loc).appendChild(image); // put image in wrapper in the DOM
-  console.log(`Jackie is in ${_tile.loc}`);
+    if (document.getElementById(_mapKey).children.length !== 0) { // if there is already an image element present, remove it
+      document.getElementById("lumber-jackie").remove();
+    } else {
+      let image = document.createElement('img'); // crreate an image element in the DOM
+      image.setAttribute("id", "lumber-jackie"); // set its id to "lumber-jackie"
+      image.setAttribute("src", "assets/images/lumberjackie.png"); // set image src path
+      document.getElementById(_tile.loc).appendChild(image); // put image in wrapper in the DOM
+      console.log(`Jackie is in ${_tile.loc}`);
+    }
   }
 }

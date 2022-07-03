@@ -493,13 +493,16 @@ function loadGame(screen, nextScreen,
   let stockProfit = {logsInStock: 0, profit: 0}; // this object contains the Game Info and is needed because JavaScript does not support functions returning multiple values.
   let elMap = new Map(); // Map object containing all game tiles maped to DOM grid
   let tiles = []; // Array of  map tiles: "kind" to be specified
-  let currentTile = "a1";
+  let currentTileId = "a1";
 
   // Display Initialised Game
   elMap = createMap(elMap, GRASSMAP, FORESTMAP, LOGCAMP, HARVESTFOREST,tiles); // generates and displays game map
-  displayCurrentTileActions(currentTile, elMap); // displays current tile actions in the Actions Window
-  displayCurrentTileMessages(currentTile, elMap); // displays current tile messages in the Messages Window
+  displayCurrentTileActions(currentTileId, elMap); // displays current tile actions in the Actions Window
+  displayCurrentTileMessages(currentTileId, elMap); // displays current tile messages in the Messages Window
   displayGameInfo(stockProfit, TARGETPROFIT); // display Game ino in the info bar
+
+  // Event Listeners
+    //move(currentTileId);
 
   // Get End Game Data
   gameResult = checkProfit(stockProfit, TARGETPROFIT); // Checks if the Target Profit has been made
@@ -575,9 +578,9 @@ function createRawTiles(mapKeys, tiles) {
   console.log("createRawTiles has been called");
   // Tiles Class
   class Tiles {
-    constructor(loc, currentTile, kind, position, edge, movement, movementTxt) {
+    constructor(loc, currentTileId, kind, position, edge, movement, movementTxt) {
       this.loc = loc; // map ref
-      this.currentTile = currentTile; //boolean
+      this.currentTileId = currentTileId; //boolean
       this.kind = kind; // forest, grass or lumberCamp
       this.position = position; //'top edge' etc
       this.edge = edge; // boolean
@@ -790,7 +793,7 @@ function displayMapTile(_tile, _mapKey, _elMap) {
  * @param {*} _elMap 
  */
 function displayLumberJackie(_tile, _mapKey, _elMap) {
-  if (_tile.currentTile) {
+  if (_tile.currentTileId) {
     if (document.getElementById("lumber-jackie")) { // if there is already an image element present, remove it
       document.getElementById("lumber-jackie").remove();
     } else {
@@ -804,16 +807,16 @@ function displayLumberJackie(_tile, _mapKey, _elMap) {
 
 /**
  * Adds Actions for the current tile to the Actions Menu
- * @param {*} currentTile 
+ * @param {*} currentTileId 
  * @param {*} elMap 
  */
-function displayCurrentTileActions(currentTile, elMap) {
+function displayCurrentTileActions(currentTileId, elMap) {
   if (document.getElementById("actions-menu-list").children.length !== 0) { // if there are already any list elements present, remove them
     document.getElementById("actions-menu-list").innerHTML = "";
   } else { 
     let elActionsMenuList = document.getElementById("actions-menu-list"); // gets Actions Menu unordered list element from the DOM
     let actionsMenuList = []; // creates a variable to store current tile actions
-    actionsMenuList.push(elMap.get(currentTile).kind.actions); // gets actions list from the current tile and stores them in actionsMenuList
+    actionsMenuList.push(elMap.get(currentTileId).kind.actions); // gets actions list from the current tile and stores them in actionsMenuList
     for (let action of actionsMenuList){ // itterates through the actionsMenuList
       let listItem = document.createElement("li"); // creates a list element in the DOM
       listItem.innerText = action; // adds the action item to the inner text of the list element
@@ -824,16 +827,16 @@ function displayCurrentTileActions(currentTile, elMap) {
 
 /**
  * Add Messages for the current tile to the Messages Window
- * @param {*} currentTile 
+ * @param {*} currentTileId 
  * @param {*} elMap 
  */
-function displayCurrentTileMessages(currentTile, elMap) {
+function displayCurrentTileMessages(currentTileId, elMap) {
   if (document.getElementById("messages").innerText !== "") { // if there are already any messages present, remove them
     document.getElementById("messages").innerHTML = "";
   } else { 
     let elMessages = document.getElementById("messages"); // gets Messages <p></p> element from the DOM
     let messages = ""; // creates a variable to store current tile messages
-    messages = (elMap.get(currentTile).kind.messages); // gets messages  from the current tile and stores them in messages
+    messages = (elMap.get(currentTileId).kind.messages); // gets messages  from the current tile and stores them in messages
     elMessages.innerText = messages; // adds the messages  to the inner text of the elMessages <p></p> element
     elMessages.append; // Adds Action List Element to the DOM
   }
@@ -846,7 +849,7 @@ function displayCurrentTileMessages(currentTile, elMap) {
  * @returns 
  */
 function isAdjacent(currentTileId, newTileId) {
-  console.log("isAdjacent is called");
+  //console.log("isAdjacent is called");
   let x = newTileId[0].charCodeAt(); // converts newTile-1st charater to an ASCII number
   let y = newTileId[1].charCodeAt(); // converts newTile-2nd charater to an ASCII number
   let a = currentTileId[0].charCodeAt(); // converts currentTile-1st character to an ASCII number
@@ -855,3 +858,17 @@ function isAdjacent(currentTileId, newTileId) {
   let yAxis = ((y >= (b-1)) && (y <= (b+1))); //compares allowed 2nd characters
   return xAxis && yAxis; // If both 1st and 2nd characters are allowed, the newTile is adjacent and function retuen True
 }
+
+/*function move(currentTileId, _elMap) {
+console.log("setAdJacentTileMouseOver is called")
+
+let tiles = document.getElementsByClassName("tile");
+for (let tile of tiles) {
+    tile.addEventListener("click", function (event) {
+      if (isAdjacent(currentTileId, event.target.getAttribute("id"))) {
+        _elMap.
+        currentTileId =
+      }
+    });
+  }
+}*/

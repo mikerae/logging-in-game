@@ -630,6 +630,7 @@ function setForest(tiles, tileId, HARVESTFOREST, stockProfit) {
     constructor() {
       this.type = 'forest';
       this.src = "assets/images/forest-tile.jpg";
+      this.alt = "Forest Tile. Harvest your forest to make logs here";
       this.actions = "Harvest Forest";
       this.messages = `Harvest the Forest in the Actions Menu. You will make ${HARVESTFOREST}  logs.`
     }
@@ -665,6 +666,7 @@ function setGrass(tiles, tileId) {
     constructor() {
       this.type = 'grass';
       this.src = "assets/images/grass-tile.jpg";
+      this.alt = "Grass Tile";
       this.actions = "";
       this.messages = "";
     }
@@ -688,6 +690,7 @@ function setLogCamp(tiles, tileId) {
     constructor() {
       this.type = 'LogCamp';
       this.src = "assets/images/log-camp-tile.jpg";
+      this.alt = "Log Camp Tile: Sell your logs for profit here";
       this.actions = "Sell Logs";
       this.messages = "Sell your logs and make some profit";
     }
@@ -777,6 +780,7 @@ function displayMapTile(_tile, _mapKey, _elMap) {
   let image = document.createElement('img'); // crreate an image element in the DOM
   image.setAttribute("class", "tile-img"); // set its class to "title-img"
   image.setAttribute("src", _elMap.get(_mapKey).kind.src); // set image src path
+  image.setAttribute("alt", _elMap.get(_mapKey).kind.alt); // set image alt
   document.getElementById(_mapKey).appendChild(image);/// put image in wrapper in the DOM
   }
 }

@@ -57,7 +57,6 @@ The first stage aims to fullfill all pass critera for the Code-Institue Portfoli
 It was advised, given the ambitious scope of the various develpment stages, and limited time resouce to make full use of libries, eg Bootstrap and JQuery etc.
 After consideration it was decided not to significantly use libraries for stage 1. The rationale is after feedback from the assesment of Portfolio Project 1 there was room for improvement in UXD, HTML and CSS. It is hoped that this improvement can be made through stage 1 without resorting to the use of libraries. This use of raw HTML CSS and JavaScript can be demonstrated and assesed up to the final commit for Stage 1.
 
-
 ### UXD Resposnive Design
 Guidence on building a responsive Grid View was obtained from [W3 Schools](https://www.w3schools.com/css/css_rwd_grid.asp).
 
@@ -100,6 +99,15 @@ box-sizing: boarder-box was used to ensure all grid boxes as sized to include pa
 12 classes were created for elements with widths of 1/12 of the screen width i.e. 100%/12 = 8.33%.
 Each column floats left, has padding of 15px and for layout puropses initially has a border. The css attribute selector "[attribute*=value]" was used to target all classes (attribute) with value "col-" in order to apply this styling.
 Column classes were applied to the html Nav and DisplayScreen sections.
+### External Resources
+The following refference sites were used extensivly throughout development:
+- ![Mozila MDN website](https://developer.mozilla.org/en-US/)
+- ![StackOverflow](https://stackoverflow.com/)
+- ![W3Schools](https://www.w3schools.com/)
+Other sites were used via goole searches as required.
+
+
+
 
 ## Deployment
 At the appropriate stage in development, the GitHub repository was deployed to GitHub Pages for public viewing via the GitHub server. The main repository was selected and an http link was generated and displaed in the repository Readme.md.
@@ -113,7 +121,7 @@ Next, the <img> element was deleated in the html file. The image did not load =>
 Next, the object: WELCOME was tested.
 Resolution: The css identifyer was incorrectly applied to object Screens. A class identifer was used in the css file and the setAttribute, but an id identifyer was needed. The Screens key was changed to cssid for clarification, the identifyer in the css file was changed from .screen-image to #screen-image and the function line in loadImage(Screens) was changed to image.setAttribute("id", Screens.cssid)
 ### Multiple images display in the welcome screen when Nav item 'Quit' is clicked
-Outcome: Resolved
+#### Outcome: Resolved
 The loadImage() function was ammended to check for the presence of a live <img> in the HTMLcollections list for the image container. If found, it was removed until hHTMLcollection was empty. Then the required image was loaded using values from the Screens object.
 This funcionality will become signifcant during the main game loop.
 ### Buttons not populating with text or event - Bug 1
@@ -190,7 +198,7 @@ The gradient image was replaced with "background: liniar-gradient" to solve the 
 #### Outcome: Resolved
 For the function sellLogs(stockProfit, SELLLOGS), I needed a fucntion which, when called by an event, would sell the current stock of logs for a profit,  increase the profit variable and decrease the logsInstock variable. This is not possible directly in JavaScript because a function can only return one value. The work-around was to combine the profit and logsInStock variables int one object "stockProfit".
 The function applied its calculations to the stockprofit.profit and stockprofit.logsInStock and returned the stockProfit object.
-### TARTGETPROFIT  became 'undefined'
+### TARGETPROFIT  became 'undefined'
 #### Outcome: Resolved
 The order of function arguments was checked for when the functions were defined and when they were called.
 Inconsistencies were found. Once corrected, the issue was resolved.
@@ -215,9 +223,14 @@ if (document.getElementById(_mapKey).children.length !== 0) { // if there is alr
   }
 ```
 ### LumberJackie not displaying
-#### Outcome: Unresolved
-Transfering this fix to displayLumberJackie() caused LumberJackie to not be displayed.
+#### Outcome: Resolved
+Transfering the above fix to displayLumberJackie() caused LumberJackie to not be displayed.
 Using Dev Tools it was established that a LumberJackie was not in the DOM in tile a1 => it had not been created.
+This function did not need the above conditional test for image existence. It only needed to test for id "lumberJackie" in the DOM:
+```
+if (document.getElementById("lumber-jackie")) 
+```
+Once this was in place, and the code to create the image was encapsulated in an else statement, the image displayed.
 ### Maptile images dont populate after Welecome/Intro buttons are pressed but do populate when New game is selected in the nav bar
 #### Outcome: Resolved
 There were inconsistencies in the args passed to one function, causing some constants to be undefined. These were corrected.
@@ -232,7 +245,7 @@ Console.log() was used to check the condition of variables.
 The Chrome Develpoer tools debugger was used to identifie errors.
 Break points wee used to inspect the progression of the script.
 
-### Human Feedback
+### Human Testing and Development Feedback
 After consultation with Sarah Rae the following changes were made:
   Fonts from Google Fonts were chosen:
     "Press Start 2P"   for larger heading text

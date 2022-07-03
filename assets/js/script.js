@@ -554,21 +554,17 @@ function createMap(elMap, GRASSMAP, FORESTMAP, LOGCAMP, HARVESTFOREST,tiles) {
   // create map keys from Screen map ids
   let node = document.getElementById("map").firstElementChild; // sets the first mapgrid element as a node
   let mapKeys = []; // array to hold mapKeys
-
-  while (node) { // itterates through all elMap divs and populates mapKeys with ids
+  while (node) { // itterates through all DOM Map tile divs and populates mapKeys tile divs with ids
     mapKeys.push(node.id);
     node = node.nextElementSibling;
   }
-  console.log("tiles is : ",tiles);
-
-    console.log("tiles is : ",tiles);
-    tiles = createRawTiles(mapKeys, tiles); // an array of tile objects is created
-    console.log("tiles is : ",tiles);
-    tiles = setTiles(tiles, GRASSMAP, FORESTMAP, LOGCAMP); // sets all tiles with obects according to given object maps
-    console.log("tiles is : ",tiles);
-    elMap = setElMap(elMap,tiles,mapKeys); // creates a map object elMap 
-    elMap.forEach(displayMapTile); // displays all the tile images in the DOM map
-    elMap.forEach(displayLumberJackie);
+  // Generate tile objects
+  tiles = createRawTiles(mapKeys, tiles); // an array of tile objects is created
+  tiles = setTiles(tiles, GRASSMAP, FORESTMAP, LOGCAMP); // sets all tiles with obects according to given object maps
+  // set tile and overlay objects in game map object
+  elMap = setElMap(elMap,tiles,mapKeys); // creates a map object elMap 
+  elMap.forEach(displayMapTile); // displays all the tile images in the DOM map
+  elMap.forEach(displayLumberJackie); // displays LumberJackie overlay in current tile
 }
 
 /**
@@ -770,9 +766,9 @@ function setElMap(elMap, tiles, mapKeys) {
 
 /**
  * displays tile object image in given tile
- * @param {*} tile 
- * @param {*} mapKey 
- * @param {*} elMap 
+ * @param {*} _tile 
+ * @param {*} _mapKey 
+ * @param {*} _elMap 
  */
 function displayMapTile(_tile, _mapKey, _elMap) {
   if (document.getElementById(_mapKey).children.length !== 0) { // if there is already an image element present, remove it
@@ -785,16 +781,21 @@ function displayMapTile(_tile, _mapKey, _elMap) {
   }
 }
 
+/**
+ * Displays LumberJackie in the current tile
+ * @param {*} _tile 
+ * @param {*} _mapKey 
+ * @param {*} _elMap 
+ */
 function displayLumberJackie(_tile, _mapKey, _elMap) {
   if (_tile.currentTile) {
-    if (document.getElementById(_mapKey).children.length !== 0) { // if there is already an image element present, remove it
+    if (document.getElementById("lumber-jackie")) { // if there is already an image element present, remove it
       document.getElementById("lumber-jackie").remove();
     } else {
       let image = document.createElement('img'); // crreate an image element in the DOM
       image.setAttribute("id", "lumber-jackie"); // set its id to "lumber-jackie"
       image.setAttribute("src", "assets/images/lumberjackie.png"); // set image src path
       document.getElementById(_tile.loc).appendChild(image); // put image in wrapper in the DOM
-      console.log(`Jackie is in ${_tile.loc}`);
     }
   }
 }

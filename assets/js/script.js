@@ -329,6 +329,7 @@ function setEventListenersButtons(screen, nextScreen,
   image = document.createElement('img'); // create image element 
   image.src = screen.imgsrc; // set image src path
   image.setAttribute("id", screen.imgid); // set image id
+  image.setAttribute("alt", screen.imgalt);
   document.getElementById(screen.imgcontainer).appendChild(image); // put image in wrapper in the DOM
 }
 

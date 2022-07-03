@@ -501,7 +501,6 @@ function loadGame(screen, nextScreen,
   displayCurrentTileMessages(currentTile, elMap); // displays current tile messages in the Messages Window
   displayGameInfo(stockProfit, TARGETPROFIT); // display Game ino in the info bar
 
-
   // Get End Game Data
   gameResult = checkProfit(stockProfit, TARGETPROFIT); // Checks if the Target Profit has been made
   console.log("game Result is: ", gameResult)
@@ -838,4 +837,21 @@ function displayCurrentTileMessages(currentTile, elMap) {
     elMessages.innerText = messages; // adds the messages  to the inner text of the elMessages <p></p> element
     elMessages.append; // Adds Action List Element to the DOM
   }
+}
+
+/**
+ * Tests newTileId to see if it is adjecent to the currentTileId
+ * @param {*} currentTileId 
+ * @param {*} newTileId 
+ * @returns 
+ */
+function isAdjacent(currentTileId, newTileId) {
+  console.log("isAdjacent is called");
+  let x = newTileId[0].charCodeAt(); // converts newTile-1st charater to an ASCII number
+  let y = newTileId[1].charCodeAt(); // converts newTile-2nd charater to an ASCII number
+  let a = currentTileId[0].charCodeAt(); // converts currentTile-1st character to an ASCII number
+  let b = currentTileId[1].charCodeAt(); // converts currentTile-2nd character to an ASCII number
+  let xAxis = ((x >= (a-1)) && (x <= (a+1))); //compares allowed 1st characters
+  let yAxis = ((y >= (b-1)) && (y <= (b+1))); //compares allowed 2nd characters
+  return xAxis && yAxis; // If both 1st and 2nd characters are allowed, the newTile is adjacent and function retuen True
 }

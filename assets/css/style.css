@@ -234,14 +234,13 @@ font-size: 2em;
 }
 
 #actions-menu-list li {
-  opacity: 60%;
   font-size: 2em;
   text-align: left;
   margin-bottom: 2rem;
 }
 
 #actions-menu-list li:hover {
-  opacity: 100%;
+  background-color: rgb(133	212	163	);
 }
 
 #messages {

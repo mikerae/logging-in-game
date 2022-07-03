@@ -494,10 +494,10 @@ function loadGame(screen, nextScreen,
   let tiles = []; // Array of  map tiles: "kind" to be specified
   let currentTile = "a1";
 
+  // Display Initialised Game
   elMap = createMap(elMap, GRASSMAP, FORESTMAP, LOGCAMP, HARVESTFOREST,tiles); // generates and displays game map
-  console.log("elMap is: ", elMap);
-  displayCurrentTileActions(currentTile); // displays crurrent tile actions in the Actions Window
-
+  displayCurrentTileActions(currentTile, elMap); // displays current tile actions in the Actions Window
+  displayCurrentTileMessages(currentTile, elMap); // displays current tile messages in the Messages Window
   displayGameInfo(stockProfit, TARGETPROFIT); // display Game ino in the info bar
 
 
@@ -776,7 +776,7 @@ function displayMapTile(_tile, _mapKey, _elMap) {
     document.getElementById(_mapKey).removeChild;
   } else {
   let image = document.createElement('img'); // crreate an image element in the DOM
-  image.setAttribute("class", "tile-img"); // set its class to "title-img"
+  image.setAttribute("class", "tile-img"); // set its class to "tile-img"
   image.setAttribute("src", _elMap.get(_mapKey).kind.src); // set image src path
   image.setAttribute("alt", _elMap.get(_mapKey).kind.alt); // set image alt
   document.getElementById(_mapKey).appendChild(image);/// put image in wrapper in the DOM
@@ -804,4 +804,28 @@ function displayLumberJackie(_tile, _mapKey, _elMap) {
 
 function displayCurrentTileActions(currentTile, elMap) {
   console.log("displayCurrentTileActions is called: ");
+  console.log("the current tile is: ", currentTile);
+  console.log("elMap is: ", elMap);
+
+  if (document.getElementById("actions-menu-list").children.length !== 0) { // if there are already any list elements present, remove them
+    document.getElementById("actions-menu-list").innerHTML = "";
+  } else { 
+    let elActionsMenuList = document.getElementById("actions-menu-list"); // gets Actions Menu unordered list element from the DOM
+    let actionsMenuList = [];
+    actionsMenuList.push(elMap.get(currentTile).kind.actions);
+    console.log("actionsMenuList is: ",actionsMenuList);
+    console.log("elActionsMenuList is: ",elActionsMenuList);
+    for (let action of actionsMenuList){
+      let listItem = document.createElement("li");
+      listItem.innerText = action;
+      console.log("list item is: ", listItem);
+      elActionsMenuList.appendChild(listItem); // Add Action Items to the DOM
+    }
+  }
+}
+
+function   displayCurrentTileMessages(currentTile, elMap) {
+  console.log("displayCurrentTileMessages is called: ");
+  console.log("the current tile is: ", currentTile);
+  console.log("elMap is: ", elMap);
 }

@@ -225,6 +225,12 @@ font-size: 2em;
   height: 100%;
 }
 
+
+#actions-menu {
+  background-color: coral;
+  min-height: 10rem;
+}
+
 .game-windows {
   border: solid 1px whitesmoke;
   height:fit-content;

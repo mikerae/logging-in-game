@@ -1,7 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Orbitron&family=Press+Start+2P&display=swap');
-
-
-
+/* Set Fonts from Google Fonts */
 body {
   color: whitesmoke;
   font-family: "Orbitron", sans-serif;
@@ -240,7 +238,6 @@ font-size: 2em;
   margin: 2rem;
   border: solid whitesmoke 2px;
   display: grid;
-  aspect-ratio: 1/1;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   grid-template-areas: 
@@ -448,15 +445,18 @@ font-size: 2em;
 }
 
 .tile {
-  height: 100%;
-  border: 1px solid whitesmoke;
+  width: 100%;
   position: relative;
+  aspect-ratio: 1/1;
+  background-color: darkgreen;
+  display: flex;
 }
 
 
 .tile-img {
   object-fit: fit;
   width: 100%;
+  aspect-ratio: 1/1;
   z-index: 0;
 }
 

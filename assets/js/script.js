@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", main());
  * Reset the game when called.
  */
 function main() {
-  // Initialsie Classes of Objects
+  // Initialsie Class of Screen Objects
   class Screens { // This class of objects will contain data for screen maniplulation
     constructor(name, title, msg, imgsrc, imgalt, btn1txt) {
       this.name = name;
@@ -491,27 +491,14 @@ function loadGame(screen, nextScreen,
   let gameResult = null; // resets the game result
   let stockProfit = {logsInStock: 0, profit: 0}; // this object contains the Game Info and is needed because JavaScript does not support functions returning multiple values.
   let elMap = new Map(); // Map object containing all game tiles maped to DOM grid
-  let grassTiles = {}; //
-  let forestTiles = {};
-  let lumberCampTiles = {};
   let tiles = []; // Array of  map tiles: "kind" to be specified
 
   displayGameInfo(stockProfit, TARGETPROFIT); // display Game ino in the info bar
 
-  createMap(elMap, GRASSMAP, FORESTMAP, LOGCAMP, HARVESTFOREST,
-    grassTiles, forestTiles, lumberCampTiles, tiles);
-  /*console.log("elMap is: ", elMap);*/
-
-  //Tempory code to allow game flow during development
-  //stockProfit.logsInStock = harvestForest(stockProfit, HARVESTFOREST); // A forest is harvested and the logs are added to logsInStock 
-
-  // Temporary code to allow game flow during development
-  //stockProfit = sellLogs(stockProfit, SELLLOGS);
-
-  //stockProfit.logsInStock = harvestForest(stockProfit, HARVESTFOREST);
+  createMap(elMap, GRASSMAP, FORESTMAP, LOGCAMP, HARVESTFOREST,tiles);
+  console.log("elMap is: ", elMap);
 
   displayGameInfo(stockProfit, TARGETPROFIT); // display Game ino in the info bar
-
 
 
   // Get End Game Data
@@ -558,8 +545,7 @@ function displayGameInfo(stockProfit, TARGETPROFIT) {
 
 // Map Functions
 
-function createMap(elMap, GRASSMAP, FORESTMAP, LOGCAMP, HARVESTFOREST,
-  grassTiles, forestTiles, lumberCampTiles, tiles) {
+function createMap(elMap, GRASSMAP, FORESTMAP, LOGCAMP, HARVESTFOREST,tiles) {
   console.log("createMap() has been called");
   console.log( GRASSMAP, FORESTMAP, LOGCAMP);
 

@@ -506,7 +506,7 @@ function loadGame(screen, nextScreen,
   adjacentTiles = makeAdjacentTilesSet(currentTileId, elMap);
 
   // Event Listeners
-  setActionEventListners(currentTileId, elMap);
+  setActionEventListners(currentTileId, elMap, stockProfit, SELLLOGS);
 
   // Get End Game Data
   gameResult = checkProfit(stockProfit, TARGETPROFIT); // Checks if the Target Profit has been made
@@ -722,6 +722,7 @@ function setLogCamp(tiles, tileId, stockProfit, SELLLOGS) {
      * @returns 
      */
     sellLogs(stockProfit, SELLLOGS) {
+      console.log("sellLogs has been called");
       let saleProfit = stockProfit.logsInStock * SELLLOGS;
       stockProfit.logsInStock = 0;
       stockProfit.profit += saleProfit;
@@ -914,8 +915,20 @@ function makeAdjacentTilesSet(currentTileId, elMap) {
   return adjacentTiles;
 }
 
-function setActionEventListners(currentTileId, elMap) {
-  console.log("setActionEventListners is called")
+function setActionEventListners(currentTileId, elMap, stockProfit, SELLLOGS) {
+  console.log("setActionEventListners is called");
+
+  let currentTile = elMap.get(currentTileId); // get current tile
+  console.log("currentTile is: ",currentTile);
+  let actionsList = currentTile.kind.actions; // get actions from currentTile object
+  console.log("actionsList is: ",actionsList);
+  elActionsMenuList = document.getElementById("actions-menu-list"); // get DOM Actions Menu list
+  console.log("elActionsMenuList is: ",elActionsMenuList);
+  console.log("elActionsMenuList.firstElementChild is: ",elActionsMenuList.firstElementChild);
+  elActionsMenuList.firstElementChild.addEventListener("click", function() {
+    console.log("Your Action Menu Event Listner works!")
+    currentTile.kind.sellLogs(stockProfit, SELLLOGS);
+  });
 }
 
 

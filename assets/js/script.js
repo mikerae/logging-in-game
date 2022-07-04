@@ -506,6 +506,7 @@ function loadGame(screen, nextScreen,
   adjacentTiles = makeAdjacentTilesSet(currentTileId, elMap);
 
   // Event Listeners
+  setActionEventListners(currentTileId, elMap);
 
   // Get End Game Data
   gameResult = checkProfit(stockProfit, TARGETPROFIT); // Checks if the Target Profit has been made
@@ -648,7 +649,7 @@ function setForest(tiles, tileId, HARVESTFOREST, stockProfit) {
       this.type = 'forest';
       this.src = "assets/images/forest-tile.jpg";
       this.alt = "Forest Tile. Harvest your forest to make logs here";
-      this.actions = "Harvest Forest";
+      this.actions =["Harvest Forest"];
       this.messages = `Harvest the Forest in the Actions Menu. You will make ${HARVESTFOREST}  logs.`
     }
 
@@ -684,8 +685,8 @@ function setGrass(tiles, tileId) {
       this.type = 'grass';
       this.src = "assets/images/grass-tile.jpg";
       this.alt = "Grass Tile";
-      this.actions = "";
-      this.messages = "";
+      this.actions = [];
+      this.messages = [];
     }
   }
   let grassTile = tiles.find(item => item.loc === tileId);
@@ -700,7 +701,7 @@ function setGrass(tiles, tileId) {
  * @param {*} tileId 
  * @returns 
  */
-function setLogCamp(tiles, tileId) {
+function setLogCamp(tiles, tileId, stockProfit, SELLLOGS) {
   console.log("setLogCamp is called");
 
   class LogCamp {
@@ -708,8 +709,8 @@ function setLogCamp(tiles, tileId) {
       this.type = 'LogCamp';
       this.src = "assets/images/log-camp-tile.jpg";
       this.alt = "Log Camp Tile: Sell your logs for profit here";
-      this.actions = "Sell Logs";
-      this.messages = "Sell your logs and make some profit";
+      this.actions = ["Sell Logs"];
+      this.messages = ["Sell your logs and make some profit"];
     }
 
     /**
@@ -913,5 +914,8 @@ function makeAdjacentTilesSet(currentTileId, elMap) {
   return adjacentTiles;
 }
 
-  
+function setActionEventListners(currentTileId, elMap) {
+  console.log("setActionEventListners is called")
+}
+
 

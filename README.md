@@ -115,18 +115,18 @@ At the appropriate stage in development, the GitHub repository was deployed to G
 
 ## Bugs and Resolutions
 ### Image does not display in #display-img-wrapper in js
-#### Outcome: Resolved
+#### Status: Resolved
 The path was tested by hard coding an img element withing the wrapper div. The image loaded.
 Next, the css stlye link was tested by hard coding it into the <img> element. It wqas found that a class identifiyer was used instead of an id identifyer. When corrected the style was applied correctly.
 Next, the <img> element was deleated in the html file. The image did not load => the bug is in function: populateScreen() or the object: WELCOME.
 Next, the object: WELCOME was tested.
 Resolution: The css identifyer was incorrectly applied to object Screens. A class identifer was used in the css file and the setAttribute, but an id identifyer was needed. The Screens key was changed to cssid for clarification, the identifyer in the css file was changed from .screen-image to #screen-image and the function line in loadImage(Screens) was changed to image.setAttribute("id", Screens.cssid)
 ### Multiple images display in the welcome screen when Nav item 'Quit' is clicked
-#### Outcome: Resolved
+#### Status: Resolved
 The loadImage() function was ammended to check for the presence of a live <img> in the HTMLcollections list for the image container. If found, it was removed until hHTMLcollection was empty. Then the required image was loaded using values from the Screens object.
 This funcionality will become signifcant during the main game loop.
 ### Buttons not populating with text or event - Bug 1
-#### Outcome: Resolved
+#### Status: Resolved
 Console error shows: Uncaught ReferenceError: WELCOME is not defined
     at populateButtons (script.js:144)
     at populateScreen (script.js:117)
@@ -137,7 +137,7 @@ WELCOME was tested be defined using console.log(Screens) at the start of the fun
 WELCOME is corerectly passed into populateButtons().
 It became clear that the condition (Screens === WELCOME) needed to be repaced by (Screens.name === "welcome"). This corrected the first level of error so that text loaded into the botton. The other similar conditions in the function were ammended accordingly.
 ### Buttons not populating with text or event - Bug 2
-#### Outcome: Resolved
+#### Status: Resolved
 The eventListener to load the next screen when button 1 was clicked did not work. Console.log(Event) was undifined.
 ```Button1.addEventListener("onclick", function()...```
 After checking the syntax of th onclick was changed to:
@@ -185,30 +185,30 @@ Event functions are:
   called.
   ```
 ### Screen Flow rebuild bug 1
-#### Outcome: Resolved
+#### Status: Resolved
 The rebuild progressed well untill the screen display utilities (except button content and event listeners) were copied and ammended. The screen object was  undefined.
 Solution: In the setScreen funtion the 'break' instruction was replaced with 'return screen', and screen was set to receive this functions output. 
 ### Display Issues
-#### Outcome: Resolved
+#### Status: Currently Unresolved: Fix before submission
 The positioning is messed up in smaller screen sizes.
 This is caused by incomplete understanding of flex and flexbox, and mixing an older layout technique using floats and clears.
 More research is needed to gain a better understanding of these features.
 The full screen gadient is currently a background image which does not load on the  gitHub pages server.
 The gradient image was replaced with "background: liniar-gradient" to solve the issue.
 ### Functions only return one value
-#### Outcome: Resolved
+#### Status: Resolved
 For the function sellLogs(stockProfit, SELLLOGS), I needed a fucntion which, when called by an event, would sell the current stock of logs for a profit,  increase the profit variable and decrease the logsInstock variable. This is not possible directly in JavaScript because a function can only return one value. The work-around was to combine the profit and logsInStock variables int one object "stockProfit".
 The function applied its calculations to the stockprofit.profit and stockprofit.logsInStock and returned the stockProfit object.
 ### TARGETPROFIT  became 'undefined'
-#### Outcome: Resolved
+#### Status: Resolved
 The order of function arguments was checked for when the functions were defined and when they were called.
 Inconsistencies were found. Once corrected, the issue was resolved.
 ### tiles became 'undefined'
-#### Outcome: Resolved
+#### Status: Resolved
 The order of function arguments was checked for when the functions were defined and when they were called.
 Inconsistencies were found. Once corrected, the issue was resolved.
 ### Map overpoulates with tile images when multiple New Games are started
-#### Outcome:Resolved
+#### Status:Resolved
 Each time a new game is called, the map populates in addaition to the tiles already created.
 When the DOM is inspected, the tile divs show multiple tile images.
 The conditional test for presence of a tile image in the container div was faulty. The position of the setting code was included inside
@@ -224,7 +224,7 @@ if (document.getElementById(_mapKey).children.length !== 0) { // if there is alr
   }
 ```
 ### LumberJackie not displaying
-#### Outcome: Resolved
+#### Status: Resolved
 Transfering the above fix to displayLumberJackie() caused LumberJackie to not be displayed.
 Using Dev Tools it was established that a LumberJackie was not in the DOM in tile a1 => it had not been created.
 This function did not need the above conditional test for image existence. It only needed to test for id "lumberJackie" in the DOM:
@@ -233,12 +233,16 @@ if (document.getElementById("lumber-jackie"))
 ```
 Once this was in place, and the code to create the image was encapsulated in an else statement, the image displayed.
 ### Maptile images dont populate after Welecome/Intro buttons are pressed but do populate when New game is selected in the nav bar
-#### Outcome: Resolved
+#### Status: Resolved
 There were inconsistencies in the args passed to one function, causing some constants to be undefined. These were corrected.
 ### Map Grid shows horizontal gaps between rows
-#### Outcome: Resolved
+#### Status: Resolved
 When the grid sizes are turned on, for a particular screen size, columns show 61.09px and rows show 65.09 px. They should be equal.
 The attribute display:flex was added to the class 'tile' which ficked the issue.
+### Tile Response to event Listeners is unacceptably slow
+#### Status: Unresolved
+Currently, event listners are attached to all tiles: but listeners are only needed for the current tile and adjacent tiles.
+A set of adjacent tiles will be generated and this will be used to set relavant event listners.
 
 ## Testing
 Testing took place constantly throughout devenlopment as functions were built and deployed.

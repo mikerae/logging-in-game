@@ -496,13 +496,12 @@ function loadGame(screen, nextScreen,
   let currentTileId = "a1";
 
   // Display Initialised Game
-  elMap = createMap(elMap, GRASSMAP, FORESTMAP, LOGCAMP, HARVESTFOREST,tiles); // generates and displays game map
+  elMap = createMap(elMap, GRASSMAP, FORESTMAP, LOGCAMP, HARVESTFOREST,tiles, currentTileId); // generates and displays game map
   displayCurrentTileActions(currentTileId, elMap); // displays current tile actions in the Actions Window
   displayCurrentTileMessages(currentTileId, elMap); // displays current tile messages in the Messages Window
   displayGameInfo(stockProfit, TARGETPROFIT); // display Game ino in the info bar
 
   // Event Listeners
-    //move(currentTileId);
 
   // Get End Game Data
   gameResult = checkProfit(stockProfit, TARGETPROFIT); // Checks if the Target Profit has been made
@@ -548,7 +547,20 @@ function displayGameInfo(stockProfit, TARGETPROFIT) {
 
 // Map Functions
 
-function createMap(elMap, GRASSMAP, FORESTMAP, LOGCAMP, HARVESTFOREST,tiles) {
+/**
+ * Creates An initial Map poulated with tile objects
+ * Displays initial map images to DOM
+ * Displays LumberJackie overlay to current tile in DOM
+ * @param {*} elMap 
+ * @param {*} GRASSMAP 
+ * @param {*} FORESTMAP 
+ * @param {*} LOGCAMP 
+ * @param {*} HARVESTFOREST 
+ * @param {*} tiles 
+ * @param {*} currentTileId 
+ * @returns 
+ */
+function createMap(elMap, GRASSMAP, FORESTMAP, LOGCAMP, HARVESTFOREST,tiles, currentTileId) {
   console.log("createMap() has been called");
 
   // create map keys from Screen map ids
@@ -564,7 +576,7 @@ function createMap(elMap, GRASSMAP, FORESTMAP, LOGCAMP, HARVESTFOREST,tiles) {
   // set tile and overlay objects in game map object
   elMap = setElMap(elMap,tiles,mapKeys); // creates a map object elMap 
   elMap.forEach(displayMapTile); // displays all the tile images in the DOM map
-  elMap.forEach(displayLumberJackie); // displays LumberJackie overlay in current tile
+  displayLumberJackie(currentTileId, elMap); // displays LumberJackie overlay in current tile
   return elMap;
 }
 
@@ -788,19 +800,24 @@ function displayMapTile(_tile, _mapKey, _elMap) {
 
 /**
  * Displays LumberJackie in the current tile
- * @param {*} _tile 
- * @param {*} _mapKey 
- * @param {*} _elMap 
+ * @param {*} currentTileId 
+ * @param {*} elMap 
  */
-function displayLumberJackie(_tile, _mapKey, _elMap) {
-  if (_tile.currentTileId) {
+function displayLumberJackie(currentTileId, elMap) {
+  console.log("displayLumberJackie is called");
+  console.log("elMap is: ", elMap);
+
+  let currentTile = elMap.get(currentTileId);
+  console.log("The current tile is: ",currentTile);
+
+  if (currentTile.currentTileId) {
     if (document.getElementById("lumber-jackie")) { // if there is already an image element present, remove it
       document.getElementById("lumber-jackie").remove();
     } else {
       let image = document.createElement('img'); // crreate an image element in the DOM
       image.setAttribute("id", "lumber-jackie"); // set its id to "lumber-jackie"
       image.setAttribute("src", "assets/images/lumberjackie.png"); // set image src path
-      document.getElementById(_tile.loc).appendChild(image); // put image in wrapper in the DOM
+      document.getElementById(currentTile.loc).appendChild(image); // put image in wrapper in the DOM
     }
   }
 }
@@ -859,16 +876,3 @@ function isAdjacent(currentTileId, newTileId) {
   return xAxis && yAxis; // If both 1st and 2nd characters are allowed, the newTile is adjacent and function retuen True
 }
 
-/*function move(currentTileId, _elMap) {
-console.log("setAdJacentTileMouseOver is called")
-
-let tiles = document.getElementsByClassName("tile");
-for (let tile of tiles) {
-    tile.addEventListener("click", function (event) {
-      if (isAdjacent(currentTileId, event.target.getAttribute("id"))) {
-        _elMap.
-        currentTileId =
-      }
-    });
-  }
-}*/

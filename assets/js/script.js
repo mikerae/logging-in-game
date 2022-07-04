@@ -493,13 +493,17 @@ function loadGame(screen, nextScreen,
   let stockProfit = {logsInStock: 0, profit: 0}; // this object contains the Game Info and is needed because JavaScript does not support functions returning multiple values.
   let elMap = new Map(); // Map object containing all game tiles maped to DOM grid
   let tiles = []; // Array of  map tiles: "kind" to be specified
-  let currentTileId = "a1";
+  let currentTileId = "a1"; // This is the current tile when the game is initialised
+  let adjacentTiles = new Set();
 
   // Display Initialised Game
   elMap = createMap(elMap, GRASSMAP, FORESTMAP, LOGCAMP, HARVESTFOREST,tiles, currentTileId); // generates and displays game map
   displayCurrentTileActions(currentTileId, elMap); // displays current tile actions in the Actions Window
   displayCurrentTileMessages(currentTileId, elMap); // displays current tile messages in the Messages Window
   displayGameInfo(stockProfit, TARGETPROFIT); // display Game ino in the info bar
+
+  // Create a set of current and adjacent tiles
+  adjacentTiles = makeAdjacentTilesSet(currentTileId, elMap);
 
   // Event Listeners
 
@@ -566,7 +570,7 @@ function createMap(elMap, GRASSMAP, FORESTMAP, LOGCAMP, HARVESTFOREST,tiles, cur
   // create map keys from Screen map ids
   let node = document.getElementById("map").firstElementChild; // sets the first mapgrid element as a node
   let mapKeys = []; // array to hold mapKeys
-  while (node) { // itterates through all DOM Map tile divs and populates mapKeys tile divs with ids
+  while (node) { // iterates through all DOM Map tile divs and populates mapKeys tile divs with ids
     mapKeys.push(node.id);
     node = node.nextElementSibling;
   }
@@ -804,12 +808,7 @@ function displayMapTile(_tile, _mapKey, _elMap) {
  * @param {*} elMap 
  */
 function displayLumberJackie(currentTileId, elMap) {
-  console.log("displayLumberJackie is called");
-  console.log("elMap is: ", elMap);
-
   let currentTile = elMap.get(currentTileId);
-  console.log("The current tile is: ",currentTile);
-
   if (currentTile.currentTileId) {
     if (document.getElementById("lumber-jackie")) { // if there is already an image element present, remove it
       document.getElementById("lumber-jackie").remove();
@@ -834,7 +833,7 @@ function displayCurrentTileActions(currentTileId, elMap) {
     let elActionsMenuList = document.getElementById("actions-menu-list"); // gets Actions Menu unordered list element from the DOM
     let actionsMenuList = []; // creates a variable to store current tile actions
     actionsMenuList.push(elMap.get(currentTileId).kind.actions); // gets actions list from the current tile and stores them in actionsMenuList
-    for (let action of actionsMenuList){ // itterates through the actionsMenuList
+    for (let action of actionsMenuList){ // iterates through the actionsMenuList
       let listItem = document.createElement("li"); // creates a list element in the DOM
       listItem.innerText = action; // adds the action item to the inner text of the list element
       elActionsMenuList.appendChild(listItem); // Adds Action List Element to the DOM
@@ -875,4 +874,44 @@ function isAdjacent(currentTileId, newTileId) {
   let yAxis = ((y >= (b-1)) && (y <= (b+1))); //compares allowed 2nd characters
   return xAxis && yAxis; // If both 1st and 2nd characters are allowed, the newTile is adjacent and function retuen True
 }
+
+/**
+ * Make a Set for given tile id. Initially this would be the current tile, but it will also function
+ * for use with a movement instruction
+ * @param {*} currentTileId 
+ * @param {*} elMap 
+ * @returns 
+ */
+function makeAdjacentTilesSet(currentTileId, elMap) {
+  let adjacentTiles = new Set(); // creates an empty set to hold adjacent tile ( to be used with currentID and onmouseclick for movement)
+  let a = currentTileId[0].charCodeAt(); // converts currentTile-1st character to an ASCII number
+  let b = currentTileId[1].charCodeAt(); // converts currentTile-2nd character to an ASCII number
+  let adjacentTileIds ={};
+  let currentTile = elMap.get(currentTileId);
+  adjacentTiles.add(currentTile); // add current tile to adjacentTiles Set
+  let upperTile = String.fromCharCode((a+1),b); //construce a string for upper tile id
+  let rightTile = String.fromCharCode(a,(b+1)); //construce a string for right tile id
+  let lowerTile = String.fromCharCode((a-1),b); //construce a string for lower tile id
+  let leftTile = String.fromCharCode(a,(b-1)); //construce a string for left tile id
+  adjacentTileIds = {"upperTile":upperTile, "rightTile":rightTile, "lowerTile":lowerTile, "leftTile":leftTile}; // populates adjacentTileIds with all possible adjecent tile ids
+  for (let [key,value] of Object.entries(currentTile.movement)) { // iterates through the curret tile movement object
+    if (value === false) { // is there a movement set to false? If so, delete it from adjacentTileIds
+      if (key === "up") {
+        delete adjacentTileIds["upperTile"];
+      } else if (key === "right") {
+        delete adjacentTileIds["rightTile"];
+      } else if (key === "down") {
+        delete adjacentTileIds["lowerTile"];
+      } else if (key === "left")  {
+        delete adjacentTileIds["leftTile"];
+      }
+    }
+  }
+  for (let [key,value] of Object.entries(adjacentTileIds)) {
+    adjacentTiles.add(elMap.get(value));
+  }
+  return adjacentTiles;
+}
+
+  
 

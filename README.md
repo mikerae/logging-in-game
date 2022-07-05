@@ -240,9 +240,11 @@ There were inconsistencies in the args passed to one function, causing some cons
 When the grid sizes are turned on, for a particular screen size, columns show 61.09px and rows show 65.09 px. They should be equal.
 The attribute display:flex was added to the class 'tile' which fixed the issue.
 ### Tile Response to event Listeners is unacceptably slow
-#### Status: Unresolved
+#### Status: Resolved
 Currently, event listeners are attached to all tiles: but listeners are only needed for the current tile and adjacent tiles.
-A set of adjacent tiles will be generated and this will be used to set relevant event listeners.
+A set of adjacent tiles was generated and this will be used to set relevant event listeners. This improved performance.
+### Next Tile Eventlistners In Actions Menu are not yet corresponding to new current tile
+#### Status: Unresolved
 
 ## Testing
 Testing took place constantly throughout development as functions were built and deployed.

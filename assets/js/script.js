@@ -1,3 +1,54 @@
+// Initialise Global CONSTANTS. These are set as global inorder for the game mechanics to be easily editable.
+
+// Game Performance
+const TARGETPROFIT = 10000; // The profit needed to win the game
+const HARVESTFOREST = 20; // The amount of logs produced when a Forest tile is harvested
+const SELLLOGS = 50; // The profit factor for selling logs ()
+
+// Screen objects
+const MONOLOGUEDISPLAY = document.getElementById("displayScreen-wrapper"); // The area of the screen used to display Monologe Screens eg welcome, intro, win etc.
+const GAMEDISPLAY = document.getElementById("displayGame-wrapper"); // The are if the screen displaying the main game area
+
+// Tile Collections
+const GRASSMAP = ['a2', 'a6',
+  'b1', 'b2', 'b3', 'b6', 'b7',
+  'c1', 'c2', 'c3', 'c4', 'c5', 'c6', 'c7', 'c8',
+  'd1', 'd4', 'd5', 'd6',
+  'e1', 'e2','e4','e5', 'e6',
+  'f1', 'f4',
+  'g1', 'g3',
+  'h1', 'h2', 'h3'];
+const FORESTMAP = ['a3', 'a4', 'a5', 'a7', 'a8',
+  'b4', 'b5', 'b8',
+  'd2', 'd3', 'd7', 'd8',
+  'e3', 'e6','e7', 'e8',
+  'f2', 'f3', 'f5', 'f6', 'f7', 'f8',
+  'g2', 'g4', 'g5', 'g6', 'g7', 'g8',
+  'h4', 'h5', 'h6', 'h7', 'h8'];
+const LOGCAMP = ['a1'];
+
+// Initialsie Class of Screen Objects
+class Screens { // This class of objects will contain data for screen maniplulation
+  constructor(name, title, msg, imgsrc, imgalt, btn1txt) {
+    this.name = name;
+    this.title = title;
+    this.msg = msg;
+    this.imgsrc = imgsrc;
+    this.imgalt = imgalt;
+    this.btn1id = "btn-1";
+    this.btn1txt = btn1txt;
+    this.imgcontainer = "display-img-wrapper";
+    this.imgid = "screen-image";
+  }
+}
+
+const WELCOME = new Screens("welcome", "", "", "assets/images/welcome-screen-background.png", "Welcome image", "New Game");
+const INTRO = new Screens("intro", "", `Are you ready to harvest your Forest, build up your stock of Logs and sell them at your Lumber-Camp? \n
+ If you make £${TARGETPROFIT} in profit you Win!`, "assets/images/welcome-screen-background.png", "Game Introduction image", "Play Game");
+const GAME = new Screens("game");
+const WIN = new Screens("win", "Congratulations! You Won!", "You reached your target profit. How will you spend it? Feel free to play again or quit", "assets/images/win-screen.png", "Win image", "New Game");
+
+
 // Wait for the DOM to finish loading before running the Main  wrapper function
 document.addEventListener("DOMContentLoaded", main());
 
@@ -9,67 +60,17 @@ document.addEventListener("DOMContentLoaded", main());
  * Reset the game when called.
  */
 function main() {
-  // Initialsie Class of Screen Objects
-  class Screens { // This class of objects will contain data for screen maniplulation
-    constructor(name, title, msg, imgsrc, imgalt, btn1txt) {
-      this.name = name;
-      this.title = title;
-      this.msg = msg;
-      this.imgsrc = imgsrc;
-      this.imgalt = imgalt;
-      this.btn1id = "btn-1";
-      this.btn1txt = btn1txt;
-      this.imgcontainer = "display-img-wrapper";
-      this.imgid = "screen-image";
-    }
-  }
-
-  // Initialise CONSTANTS
-  const TARGETPROFIT = 10000; // The profit needed to win the game
-  const HARVESTFOREST = 20; // The amount of logs produced when a Forest tile is harvested
-  const SELLLOGS = 50; // The profit factor for selling logs ()
-  const MONOLOGUEDISPLAY = document.getElementById("displayScreen-wrapper"); // The area of the screen used to display Monologe Screens eg welcome, intro, win etc.
-  const GAMEDISPLAY = document.getElementById("displayGame-wrapper"); // The are if the screen displaying the main game area
-  const GRASSMAP = ['a2', 'a6',
-    'b1', 'b2', 'b3', 'b6', 'b7',
-    'c1', 'c2', 'c3', 'c4', 'c5', 'c6', 'c7', 'c8',
-    'd1', 'd4', 'd5', 'd6',
-    'e1', 'e2','e4','e5', 'e6',
-    'f1', 'f4',
-    'g1', 'g3',
-    'h1', 'h2', 'h3'];
-  const FORESTMAP = ['a3', 'a4', 'a5', 'a7', 'a8',
-    'b4', 'b5', 'b8',
-    'd2', 'd3', 'd7', 'd8',
-    'e3', 'e6','e7', 'e8',
-    'f2', 'f3', 'f5', 'f6', 'f7', 'f8',
-    'g2', 'g4', 'g5', 'g6', 'g7', 'g8',
-    'h4', 'h5', 'h6', 'h7', 'h8'];
-  const LOGCAMP = ['a1'];
-
   // Initialise block variables
   let Screen = null; // This object is of the class Screens
   let nextScreen = ""; // nextScreen controls the screen flow of the game
 
-  //Initialse Objects
-  const WELCOME = new Screens("welcome", "", "", "assets/images/welcome-screen-background.png", "Welcome image", "New Game");
-  const INTRO = new Screens("intro", "", `Are you ready to harvest your Forest, build up your stock of Logs and sell them at your Lumber-Camp? \n
-   If you make £${TARGETPROFIT} in profit you Win!`, "assets/images/welcome-screen-background.png", "Game Introduction image", "Play Game");
-  const GAME = new Screens("game");
-  const WIN = new Screens("win", "Congratulations! You Won!", "You reached your target profit. How will you spend it? Feel free to play again or quit", "assets/images/win-screen.png", "Win image", "New Game");
-
   nextScreen = "welcome"; //The Welcome Screen is the first screen to display
 
-  selectScreen( // The top level screen flow function is called.
-  screen, nextScreen, 
-  WELCOME, INTRO, GAME, WIN, 
-  MONOLOGUEDISPLAY, GAMEDISPLAY, TARGETPROFIT, 
-  HARVESTFOREST, SELLLOGS, 
-  GRASSMAP, FORESTMAP, LOGCAMP);
+  selectScreen(screen, nextScreen); // The top level screen flow function is called.
 }
 
 /**
- *  * This top level function controls the screen flow of the game 
+ * *  * This top level function controls the screen flow of the game 
  * according to the value of nextScreen.
  * It calls the following 
  * setScreen() sets screen object varriable to the next screen object
@@ -79,42 +80,12 @@ function main() {
  * The game flow is then controled by the event functions called by these evnts.
  * @param {*} screen 
  * @param {*} nextScreen 
- * @param {*} WELCOME 
- * @param {*} INTRO 
- * @param {*} GAME 
- * @param {*} WIN 
- * @param {*} MONOLOGUEDISPLAY 
- * @param {*} GAMEDISPLAY 
- * @param {*} TARGETPROFIT 
- * @param {*} HARVESTFOREST 
- * @param {*} SELLLOGS 
- * @param {*} GRASSMAP 
- * @param {*} FORESTMAP 
- * @param {*} LOGCAMP 
  */
-function selectScreen(screen, nextScreen, 
-  WELCOME, INTRO, GAME, WIN, 
-  MONOLOGUEDISPLAY, GAMEDISPLAY, TARGETPROFIT, 
-  HARVESTFOREST, SELLLOGS, 
-  GRASSMAP, FORESTMAP, LOGCAMP) {
-
-    screen = setScreen(screen, nextScreen, // sets the screen view to Monologue or Game, and sets the screen object
-      WELCOME, INTRO, GAME, WIN, 
-      MONOLOGUEDISPLAY, GAMEDISPLAY);
-
-    displayScreen(screen, nextScreen, 
-      WELCOME, INTRO, GAME, WIN, 
-      MONOLOGUEDISPLAY, GAMEDISPLAY, TARGETPROFIT, 
-      HARVESTFOREST, SELLLOGS, 
-      GRASSMAP, FORESTMAP, LOGCAMP);
-
-    // sets event listeners and waits for user input
-      setEventListeners(screen, nextScreen, 
-        WELCOME, INTRO, GAME, WIN, 
-        MONOLOGUEDISPLAY, GAMEDISPLAY, TARGETPROFIT, 
-        HARVESTFOREST, SELLLOGS, 
-        GRASSMAP, FORESTMAP, LOGCAMP);
-  }
+function selectScreen(screen, nextScreen) {
+  screen = setScreen(screen, nextScreen); // sets the screen view to Monologue or Game, and sets the screen object
+  displayScreen(screen, nextScreen); // displays the screen view
+  setEventListeners(screen, nextScreen); // sets event listeners and waits for user input
+}
 
 // Main Screen Functions
 
@@ -124,9 +95,7 @@ function selectScreen(screen, nextScreen,
  * @param {*} screen 
  * @param {*} nextScreen 
  */
-function setScreen(screen, nextScreen, 
-  WELCOME, INTRO, GAME, WIN, 
-  MONOLOGUEDISPLAY, GAMEDISPLAY) {
+function setScreen(screen, nextScreen, ) {
 
   switch(nextScreen) {
     case 'game':
@@ -160,21 +129,12 @@ function setScreen(screen, nextScreen,
  * @param {*} screen 
  * @param {*} nextScreen 
  */
-function displayScreen(screen, nextScreen, 
-  WELCOME, INTRO, GAME, WIN, 
-  MONOLOGUEDISPLAY, GAMEDISPLAY, TARGETPROFIT, 
-  HARVESTFOREST, SELLLOGS, 
-  GRASSMAP, FORESTMAP, LOGCAMP) {
+function displayScreen(screen, nextScreen) {
     console.log("displayScreen has been called");
 
     if (nextScreen === "game") { // Load the Game and run the main game loop
-      loadGame(screen, nextScreen, 
-        WELCOME, INTRO, GAME, WIN, 
-        MONOLOGUEDISPLAY, GAMEDISPLAY, TARGETPROFIT, 
-        HARVESTFOREST, SELLLOGS, 
-        GRASSMAP, FORESTMAP, LOGCAMP);
+      loadGame(screen, nextScreen);
     } else {
-
       populateScreen(screen, nextScreen); // enter screen flow 
     }
 }
@@ -182,104 +142,50 @@ function displayScreen(screen, nextScreen,
 // Event Listener Functions
 
 /**
- * Calls event listener functions for  buttons and nav elements
+ *  * Calls event listener functions for  buttons and nav elements
+ * @param {*} screen 
  * @param {*} nextScreen 
  */
-function setEventListeners(screen, nextScreen, 
-  WELCOME, INTRO, GAME, WIN, 
-  MONOLOGUEDISPLAY, GAMEDISPLAY, TARGETPROFIT, 
-  HARVESTFOREST, SELLLOGS, 
-  GRASSMAP, FORESTMAP, LOGCAMP) {
-
-  setEventListenersButtons(screen, nextScreen, 
-    WELCOME, INTRO, GAME, WIN, 
-    MONOLOGUEDISPLAY, GAMEDISPLAY, TARGETPROFIT, 
-    HARVESTFOREST, SELLLOGS, 
-    GRASSMAP, FORESTMAP, LOGCAMP); // calls function which adds event listners to buttons
-  setEventListenersNav(screen, nextScreen, 
-    WELCOME, INTRO, GAME, WIN, 
-    MONOLOGUEDISPLAY, GAMEDISPLAY, TARGETPROFIT, 
-    HARVESTFOREST, SELLLOGS, 
-    GRASSMAP, FORESTMAP, LOGCAMP); // calls function which adds event listners to nav elements
+function setEventListeners(screen, nextScreen) {
+  setEventListenersButtons(screen, nextScreen); // calls function which adds event listners to buttons
+  setEventListenersNav(screen, nextScreen); // calls function which adds event listners to nav elements
 }
 
 /**
- * Sets event listeners to buttons according to the value of nextScreen
+ *  * Sets event listeners to buttons according to the value of nextScreen
  * @param {*} screen 
  * @param {*} nextScreen 
- * @param {*} WELCOME 
- * @param {*} INTRO 
- * @param {*} GAME 
- * @param {*} WIN 
- * @param {*} MONOLOGUEDISPLAY 
- * @param {*} GAMEDISPLAY 
  */
-function setEventListenersButtons(screen, nextScreen, 
-  WELCOME, INTRO, GAME, WIN, 
-  MONOLOGUEDISPLAY, GAMEDISPLAY, TARGETPROFIT, 
-  HARVESTFOREST, SELLLOGS, 
-  GRASSMAP, FORESTMAP, LOGCAMP) {
-
+function setEventListenersButtons(screen, nextScreen) {
   let button1 = document.getElementById(screen.btn1id);
-  
   if (nextScreen === "welcome") { // for welcome screen
       button1.addEventListener("click", function() { // when button1 is clicked , the intro event function is called
-        intro(screen, nextScreen, 
-          WELCOME, INTRO, GAME, WIN, 
-          MONOLOGUEDISPLAY, GAMEDISPLAY, TARGETPROFIT, 
-          HARVESTFOREST, SELLLOGS, 
-          GRASSMAP, FORESTMAP, LOGCAMP);
+        intro(screen, nextScreen);
       });
   } else if (screen.name === "intro") { // for intro screen
       button1.addEventListener('click', function() { // when button1 is clicked , the game event function is called
-        game(screen, nextScreen, 
-          WELCOME, INTRO, GAME, WIN, 
-          MONOLOGUEDISPLAY, GAMEDISPLAY, TARGETPROFIT, 
-          HARVESTFOREST, SELLLOGS, 
-          GRASSMAP, FORESTMAP, LOGCAMP);
+        game(screen, nextScreen);
       });
   } else if (screen.name === "win") { // for win screen
         button1.addEventListener('click', function() { //when button1 is clicked , the game event function is called
-          game(screen, nextScreen, 
-            WELCOME, INTRO, GAME, WIN, 
-            MONOLOGUEDISPLAY, GAMEDISPLAY, TARGETPROFIT, 
-            HARVESTFOREST, SELLLOGS, 
-            GRASSMAP, FORESTMAP, LOGCAMP);
+          game(screen, nextScreen);
         });
   }
 }
 
 /**
- * Sets event listeners to nav elements
+ * * Sets event listeners to nav elements
  * @param {*} screen 
  * @param {*} nextScreen 
- * @param {*} WELCOME 
- * @param {*} INTRO 
- * @param {*} GAME 
- * @param {*} WIN 
- * @param {*} MONOLOGUEDISPLAY 
- * @param {*} GAMEDISPLAY 
  */
- function setEventListenersNav(screen, nextScreen, 
-  WELCOME, INTRO, GAME, WIN, 
-  MONOLOGUEDISPLAY, GAMEDISPLAY, TARGETPROFIT, 
-  HARVESTFOREST, SELLLOGS, 
-  GRASSMAP, FORESTMAP, LOGCAMP) {
+ function setEventListenersNav(screen, nextScreen) {
   let navElements = document.getElementsByClassName("nav-elements"); // the nav elements are stored in the htmlCollection navElements
   for (let navElement of navElements) { // The nav elements collection are iterated through
     navElement.addEventListener("click", function() {
       if (this.getAttribute("nav-type") === "nav-quit") { //If Quit is clicked in the welcome() is called and the Welcome Screen is displayed
-        welcome(screen, nextScreen, 
-          WELCOME, INTRO, GAME, WIN, 
-          MONOLOGUEDISPLAY, GAMEDISPLAY, TARGETPROFIT, 
-          HARVESTFOREST, SELLLOGS, 
-          GRASSMAP, FORESTMAP, LOGCAMP);
+        welcome(screen, nextScreen);
       } else if (this.getAttribute("nav-type") === "nav-newgame") { //If New Game is clicked in the welcome() is called and the Welcome Screen is displayed
-        game(screen, nextScreen, 
-          WELCOME, INTRO, GAME, WIN, 
-          MONOLOGUEDISPLAY, GAMEDISPLAY, TARGETPROFIT, 
-          HARVESTFOREST, SELLLOGS, 
-          GRASSMAP, FORESTMAP, LOGCAMP);
+        game(screen, nextScreen);
       };
     });
   };
@@ -360,110 +266,47 @@ function setEventListenersButtons(screen, nextScreen,
 // Event Functions
 
 /**
-  * displays the Welcome Screen by
-  * setting nextScreen to "welcome"
-  * calling 
-  * 
-  * @param {*} screen 
-  * @param {*} nextScreen 
-  * @param {*} WELCOME 
-  * @param {*} INTRO 
-  * @param {*} GAME 
-  * @param {*} WIN 
-  * @param {*} MONOLOGUEDISPLAY 
-  * @param {*} GAMEDISPLAY 
-*/
-function welcome(screen, nextScreen, 
-  WELCOME, INTRO, GAME, WIN, 
-  MONOLOGUEDISPLAY, GAMEDISPLAY, TARGETPROFIT, 
-  HARVESTFOREST, SELLLOGS, 
-  GRASSMAP, FORESTMAP, LOGCAMP) {
-
+ * displays the Welcome Screen by setting nextScreen to "welcome"
+ * and calling selectScreen()
+ * @param {*} screen 
+ * @param {*} nextScreen 
+ */
+function welcome(screen, nextScreen) {
     nextScreen = "welcome";
-    selectScreen(screen, nextScreen, 
-      WELCOME, INTRO, GAME, WIN, 
-      MONOLOGUEDISPLAY, GAMEDISPLAY, TARGETPROFIT, 
-      HARVESTFOREST, SELLLOGS, 
-      GRASSMAP, FORESTMAP, LOGCAMP);
+    selectScreen(screen, nextScreen);
 }
 
-/** displays the Intro Screen by setting nextScreen to "intro"
+/**
+ * displays the Intro Screen by setting nextScreen to "intro"
  * and calling selectScreen()
- * 
  * @param {*} screen 
  * @param {*} nextScreen 
- * @param {*} WELCOME 
- * @param {*} INTRO 
- * @param {*} GAME 
- * @param {*} WIN 
- * @param {*} MONOLOGUEDISPLAY 
- * @param {*} GAMEDISPLAY 
  */
-function intro(screen, nextScreen, 
-  WELCOME, INTRO, GAME, WIN, 
-  MONOLOGUEDISPLAY, GAMEDISPLAY, TARGETPROFIT, 
-  HARVESTFOREST, SELLLOGS, 
-  GRASSMAP, FORESTMAP, LOGCAMP) {
-
+function intro(screen, nextScreen) {
     nextScreen = "intro";
-    selectScreen(screen, nextScreen, 
-      WELCOME, INTRO, GAME, WIN, 
-      MONOLOGUEDISPLAY, GAMEDISPLAY, TARGETPROFIT, 
-      HARVESTFOREST, SELLLOGS, 
-      GRASSMAP, FORESTMAP, LOGCAMP);
+    selectScreen(screen, nextScreen);
 }
 
-/** displays the Game Screen by setting nextScreen to "game"
+/**
+ * displays the Game Screen by setting nextScreen to "game"
  * and calling selectScreen()
- * 
  * @param {*} screen 
  * @param {*} nextScreen 
- * @param {*} WELCOME 
- * @param {*} INTRO 
- * @param {*} GAME 
- * @param {*} WIN 
- * @param {*} MONOLOGUEDISPLAY 
- * @param {*} GAMEDISPLAY 
  */
-function game(screen, nextScreen, 
-  WELCOME, INTRO, GAME, WIN, 
-  MONOLOGUEDISPLAY, GAMEDISPLAY, TARGETPROFIT, 
-  HARVESTFOREST, SELLLOGS, 
-  GRASSMAP, FORESTMAP, LOGCAMP) {
-
+function game(screen, nextScreen) {
   nextScreen = "game";
-  selectScreen(screen, nextScreen, 
-    WELCOME, INTRO, GAME, WIN, 
-    MONOLOGUEDISPLAY, GAMEDISPLAY, TARGETPROFIT, 
-    HARVESTFOREST, SELLLOGS, 
-    GRASSMAP, FORESTMAP, LOGCAMP);
+  selectScreen(screen, nextScreen);
 }
 
-/** displays the Win Screen by setting nextScreen to "win"
+/**
+ * displays the Win Screen by setting nextScreen to "win"
  * and calling selectScreen()
- * 
  * @param {*} screen 
  * @param {*} nextScreen 
- * @param {*} WELCOME 
- * @param {*} INTRO 
- * @param {*} GAME 
- * @param {*} WIN 
- * @param {*} MONOLOGUEDISPLAY 
- * @param {*} GAMEDISPLAY 
  */
- function win(screen, nextScreen, 
-  WELCOME, INTRO, GAME, WIN, 
-  MONOLOGUEDISPLAY, GAMEDISPLAY, TARGETPROFIT, 
-  HARVESTFOREST, SELLLOGS, 
-  GRASSMAP, FORESTMAP, LOGCAMP) {
-    console.log("win() has been called");
-
+ function win(screen, nextScreen) {
   nextScreen = "win";
-  selectScreen(screen, nextScreen, 
-    WELCOME, INTRO, GAME, WIN, 
-    MONOLOGUEDISPLAY, GAMEDISPLAY, TARGETPROFIT, 
-    HARVESTFOREST, SELLLOGS, 
-    GRASSMAP, FORESTMAP, LOGCAMP);
+  selectScreen(screen, nextScreen);
 }
 
 // Game Functions
@@ -474,18 +317,8 @@ function game(screen, nextScreen,
  * In this version the gameResult can only be "win".
  * @param {*} screen 
  * @param {*} nextScreen 
- * @param {*} WELCOME 
- * @param {*} INTRO 
- * @param {*} GAME 
- * @param {*} WIN 
- * @param {*} MONOLOGUEDISPLAY 
- * @param {*} GAMEDISPLAY 
  */
-function loadGame(screen, nextScreen, 
-  WELCOME, INTRO, GAME, WIN, 
-  MONOLOGUEDISPLAY, GAMEDISPLAY, TARGETPROFIT, 
-  HARVESTFOREST, SELLLOGS, 
-  GRASSMAP, FORESTMAP, LOGCAMP) {
+function loadGame(screen, nextScreen) {
     console.log("loadGame() has been called");
 
     // Initilise Variables
@@ -497,31 +330,27 @@ function loadGame(screen, nextScreen,
   let adjacentTiles = new Set();
 
   // Display Initialised Game
-  gmMap = createMap(gmMap, GRASSMAP, FORESTMAP, LOGCAMP, HARVESTFOREST,tiles, currentTileId); // generates and displays game map
+  gmMap = createMap(gmMap, tiles, currentTileId); // generates and displays game map
   displayCurrentTileActions(currentTileId, gmMap); // displays current tile actions in the Actions Window
   displayCurrentTileMessages(currentTileId, gmMap); // displays current tile messages in the Messages Window
-  displayGameInfo(stockProfit, TARGETPROFIT); // display Game ino in the info bar
+  displayGameInfo(stockProfit); // display Game ino in the info bar
 
   // Create a set of adjacent tiles to the current tile
   adjacentTiles = makeAdjacentTilesSet(currentTileId, gmMap);
 
   // Event Listeners
-  setActionEventListners(currentTileId, gmMap, stockProfit, SELLLOGS, HARVESTFOREST);
+  setActionEventListners(currentTileId, gmMap, stockProfit);
   setTileEventListners(gmMap, adjacentTiles);
 
   // Get End Game Data
-  gameResult = checkProfit(stockProfit, TARGETPROFIT); // Checks if the Target Profit has been made
+  gameResult = checkProfit(stockProfit); // Checks if the Target Profit has been made
   console.log("game Result is: ", gameResult)
 
   // End Game Test
   if (gameResult === "win") { // if the game is won.... which it is!
     console.log("You have won the Game!");
 
-    win(screen, nextScreen, 
-      WELCOME, INTRO, GAME, WIN, 
-      MONOLOGUEDISPLAY, GAMEDISPLAY, TARGETPROFIT, 
-      HARVESTFOREST, SELLLOGS, 
-      GRASSMAP, FORESTMAP, LOGCAMP);
+    win(screen, nextScreen);
   }
 }
 
@@ -532,7 +361,7 @@ function loadGame(screen, nextScreen,
  * @param {*} TARGETPROFIT 
  * @returns 
  */
-function checkProfit(stockProfit, TARGETPROFIT) {
+function checkProfit(stockProfit) {
   console.log("checkProfit() has been called")
 
   return (stockProfit.profit >= TARGETPROFIT ? "win": null);
@@ -543,7 +372,7 @@ function checkProfit(stockProfit, TARGETPROFIT) {
  * @param {S} stockProfit 
  * @param {*} TARGETPROFIT 
  */
-function displayGameInfo(stockProfit, TARGETPROFIT) {
+function displayGameInfo(stockProfit) {
   console.log("displayGameInfo has been called");
 
   document.getElementById("logs").innerText = stockProfit.logsInStock;
@@ -558,15 +387,11 @@ function displayGameInfo(stockProfit, TARGETPROFIT) {
  * Displays initial map images to DOM
  * Displays LumberJackie overlay to current tile in DOM
  * @param {*} gmMap 
- * @param {*} GRASSMAP 
- * @param {*} FORESTMAP 
- * @param {*} LOGCAMP 
- * @param {*} HARVESTFOREST 
  * @param {*} tiles 
  * @param {*} currentTileId 
  * @returns 
  */
-function createMap(gmMap, GRASSMAP, FORESTMAP, LOGCAMP, HARVESTFOREST,tiles, currentTileId) {
+function createMap(gmMap,tiles, currentTileId) {
   console.log("createMap() has been called");
 
   // create map keys from Screen map ids
@@ -578,7 +403,7 @@ function createMap(gmMap, GRASSMAP, FORESTMAP, LOGCAMP, HARVESTFOREST,tiles, cur
   }
   // Generate tile objects
   tiles = createRawTiles(mapKeys, tiles); // an array of tile objects is created
-  tiles = setTiles(tiles, GRASSMAP, FORESTMAP, LOGCAMP); // sets all tiles with obects according to given object maps
+  tiles = setTiles(tiles); // sets all tiles with obects according to given object maps
   // set tile and overlay objects in game map object
   gmMap = setElMap(gmMap,tiles,mapKeys); // creates a map object gmMap 
   gmMap.forEach(displayMapTile); // displays all the tile images in the DOM map
@@ -635,14 +460,12 @@ function createRawTiles(mapKeys, tiles) {
 }
 
 /**
- * Sets a forest object to a given tile
+ *  Sets a forest object to a given tile
  * @param {*} tiles 
  * @param {*} tileId 
- * @param {*} HARVESTFOREST 
- * @param {*} stockProfit 
  * @returns 
  */
-function setForest(tiles, tileId, HARVESTFOREST, stockProfit) {
+function setForest(tiles, tileId) {
   console.log("setForest is called");
 
   class Forest {
@@ -661,7 +484,7 @@ function setForest(tiles, tileId, HARVESTFOREST, stockProfit) {
      * @param {*} HARVESTFOREST 
      * @returns 
      */
-    harvestForest(stockProfit, HARVESTFOREST) {
+    harvestForest(stockProfit) {
       console.log("harvestForest has been called");
       stockProfit.logsInStock = stockProfit.logsInStock + HARVESTFOREST;
       return stockProfit.logsInStock;
@@ -703,7 +526,7 @@ function setGrass(tiles, tileId) {
  * @param {*} tileId 
  * @returns 
  */
-function setLogCamp(tiles, tileId, stockProfit, SELLLOGS) {
+function setLogCamp(tiles, tileId) {
   console.log("setLogCamp is called");
 
   class LogCamp {
@@ -723,7 +546,7 @@ function setLogCamp(tiles, tileId, stockProfit, SELLLOGS) {
      * @param {*} SELLLOGS 
      * @returns 
      */
-    sellLogs(stockProfit, SELLLOGS) {
+    sellLogs(stockProfit) {
       console.log("sellLogs has been called");
       let saleProfit = stockProfit.logsInStock * SELLLOGS;
       stockProfit.logsInStock = 0;
@@ -740,12 +563,9 @@ function setLogCamp(tiles, tileId, stockProfit, SELLLOGS) {
 /**
  * sets each tile in tiles with an object according to the map arrays given
  * @param {*} tiles 
- * @param {*} GRASSMAP 
- * @param {*} FORESTMAP 
- * @param {*} LOGCAMP 
  * @returns 
  */
-function setTiles(tiles, GRASSMAP, FORESTMAP, LOGCAMP) {
+function setTiles(tiles) {
   console.log("setTiles is called");
   let map = [];
   map.push(GRASSMAP);
@@ -921,15 +741,13 @@ function makeAdjacentTilesSet(currentTileId, gmMap) {
 // Event Listeners
 
 /**
- * Add Event Listener to Actions menu based on the current tile.
+ *  Add Event Listener to Actions menu based on the current tile.
  * If the Action Menu item is clicked, the associated action is fired.
  * @param {*} currentTileId 
  * @param {*} gmMap 
  * @param {*} stockProfit 
- * @param {*} SELLLOGS 
- * @param {*} HARVESTFOREST 
  */
-function setActionEventListners(currentTileId, gmMap, stockProfit, SELLLOGS, HARVESTFOREST) {
+function setActionEventListners(currentTileId, gmMap, stockProfit) {
   console.log("setActionEventListners is called");
   let currentTile = gmMap.get(currentTileId); // get current tile
   elActionsMenuList = document.getElementById("actions-menu-list"); // get DOM Actions Menu list

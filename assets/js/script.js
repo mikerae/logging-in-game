@@ -502,11 +502,11 @@ function loadGame(screen, nextScreen,
   displayCurrentTileMessages(currentTileId, elMap); // displays current tile messages in the Messages Window
   displayGameInfo(stockProfit, TARGETPROFIT); // display Game ino in the info bar
 
-  // Create a set of current and adjacent tiles
+  // Create a set of adjacent tiles to the current tile
   adjacentTiles = makeAdjacentTilesSet(currentTileId, elMap);
 
   // Event Listeners
-  setActionEventListners(currentTileId, elMap, stockProfit, SELLLOGS);
+  setActionEventListners(currentTileId, elMap, stockProfit, SELLLOGS, HARVESTFOREST);
 
   // Get End Game Data
   gameResult = checkProfit(stockProfit, TARGETPROFIT); // Checks if the Target Profit has been made
@@ -661,6 +661,7 @@ function setForest(tiles, tileId, HARVESTFOREST, stockProfit) {
      * @returns 
      */
     harvestForest(stockProfit, HARVESTFOREST) {
+      console.log("harvestForest has been called");
       stockProfit.logsInStock = stockProfit.logsInStock + HARVESTFOREST;
       return stockProfit.logsInStock;
     }
@@ -706,7 +707,7 @@ function setLogCamp(tiles, tileId, stockProfit, SELLLOGS) {
 
   class LogCamp {
     constructor() {
-      this.type = 'LogCamp';
+      this.type = 'logCamp';
       this.src = "assets/images/log-camp-tile.jpg";
       this.alt = "Log Camp Tile: Sell your logs for profit here";
       this.actions = ["Sell Logs"];
@@ -878,7 +879,7 @@ function isAdjacent(currentTileId, newTileId) {
 }
 
 /**
- * Make a Set for given tile id. Initially this would be the current tile, but it will also function
+ * Make a Set of adjacent tiles for a given tile id. Initially this would be the current tile, but it will also function
  * for use with a movement instruction
  * @param {*} currentTileId 
  * @param {*} elMap 
@@ -890,7 +891,6 @@ function makeAdjacentTilesSet(currentTileId, elMap) {
   let b = currentTileId[1].charCodeAt(); // converts currentTile-2nd character to an ASCII number
   let adjacentTileIds ={};
   let currentTile = elMap.get(currentTileId);
-  adjacentTiles.add(currentTile); // add current tile to adjacentTiles Set
   let upperTile = String.fromCharCode((a+1),b); //construce a string for upper tile id
   let rightTile = String.fromCharCode(a,(b+1)); //construce a string for right tile id
   let lowerTile = String.fromCharCode((a-1),b); //construce a string for lower tile id
@@ -915,9 +915,11 @@ function makeAdjacentTilesSet(currentTileId, elMap) {
   return adjacentTiles;
 }
 
-function setActionEventListners(currentTileId, elMap, stockProfit, SELLLOGS) {
+function setActionEventListners(currentTileId, elMap, stockProfit, SELLLOGS, HARVESTFOREST) {
   console.log("setActionEventListners is called");
 
+  currentTileId = "g7";
+  console.log("the currentTileId is now: ",currentTileId);
   let currentTile = elMap.get(currentTileId); // get current tile
   console.log("currentTile is: ",currentTile);
   let actionsList = currentTile.kind.actions; // get actions from currentTile object
@@ -926,8 +928,19 @@ function setActionEventListners(currentTileId, elMap, stockProfit, SELLLOGS) {
   console.log("elActionsMenuList is: ",elActionsMenuList);
   console.log("elActionsMenuList.firstElementChild is: ",elActionsMenuList.firstElementChild);
   elActionsMenuList.firstElementChild.addEventListener("click", function() {
-    console.log("Your Action Menu Event Listner works!")
-    currentTile.kind.sellLogs(stockProfit, SELLLOGS);
+    console.log("Your Action Menu Event Listner works!");
+    console.log("currentTile.kind.type is: ",currentTile.kind.type);
+    if (currentTile.kind.type === "logCamp") {
+      console.log("logCamp is chosen. The current tile is: ",currentTile.kind);
+      currentTile.kind.sellLogs(stockProfit, SELLLOGS);
+    } else if (currentTile.kind.type === "forest"){
+      console.log("forest is chosen. The current tile is: ",currentTile.kind);
+      currentTile.kind.harvestForest(stockProfit, HARVESTFOREST);
+    } else if (currentTile.kind.type === "grass"){
+      console.log("grass is chosen. The current tile is: ",currentTile.kind);
+    }
+
+
   });
 }
 

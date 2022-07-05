@@ -491,6 +491,15 @@ font-size: 2em;
   bottom: 5%;
 }
 
+#lumber-jackie-hover {
+  z-index: 5;
+  object-fit:fill;
+  width: 50%;
+  position:absolute;
+  left: 25%;
+  bottom: 5%;
+}
+
 /* Small device screens (phones, 640px and down) in portrate */
 @media only screen and (max-width: 640px) {
   /* 

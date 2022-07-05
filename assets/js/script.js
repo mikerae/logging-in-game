@@ -65,7 +65,6 @@ function main() {
   let nextScreen = ""; // nextScreen controls the screen flow of the game
 
   nextScreen = "welcome"; //The Welcome Screen is the first screen to display
-
   selectScreen(screen, nextScreen); // The top level screen flow function is called.
 }
 
@@ -96,7 +95,6 @@ function selectScreen(screen, nextScreen) {
  * @param {*} nextScreen 
  */
 function setScreen(screen, nextScreen, ) {
-
   switch(nextScreen) {
     case 'game':
       MONOLOGUEDISPLAY.style.display = "none";
@@ -203,7 +201,6 @@ function setEventListenersButtons(screen, nextScreen) {
  * @returns 
  */
  function populateScreen(screen, nextScreen) {
-
   populateScreenText(screen); // Loads relevant text on screen
   loadImage(screen); // Loads relevenat image on screen
   populateScreenButtons(screen, nextScreen); // Gives buttons the relevant properties
@@ -214,7 +211,6 @@ function setEventListenersButtons(screen, nextScreen) {
  * @param {*} screen 
  */
  function populateScreenText(screen) {
-
   document.getElementById("screen-title").innerText = screen.title; // h1 element
   document.getElementById("screen-msg").innerText = screen.msg; // p element
 }
@@ -226,9 +222,7 @@ function setEventListenersButtons(screen, nextScreen) {
  * @param {*} screen 
  */
  function loadImage(screen) {
-
   let image = document.getElementById(screen.imgcontainer).getElementsByTagName("img");
-    
   while (image[0] != undefined ){ // checks if an image is present in wrraper
       image[0].remove(); // if present, imahe is removed
     } 
@@ -251,7 +245,6 @@ function setEventListenersButtons(screen, nextScreen) {
  */
  function populateScreenButtons(screen, nextScreen) {
   let button1 = document.getElementById(screen.btn1id);
-  
   if (nextScreen === "welcome") { // for welcome screen
       button1.innerText = screen.btn1txt; // set button1 text
 
@@ -319,9 +312,9 @@ function game(screen, nextScreen) {
  * @param {*} nextScreen 
  */
 function loadGame(screen, nextScreen) {
-    console.log("loadGame() has been called");
+  console.log("loadGame() has been called");
 
-    // Initilise Variables
+  // Initilise Variables
   let gameResult = null; // resets the game result
   let stockProfit = {logsInStock: 0, profit: 0}; // this object contains the Game Info and is needed because JavaScript does not support functions returning multiple values.
   let gmMap = new Map(); // Map object containing all game tiles maped to DOM grid
@@ -335,12 +328,15 @@ function loadGame(screen, nextScreen) {
   displayCurrentTileMessages(currentTileId, gmMap); // displays current tile messages in the Messages Window
   displayGameInfo(stockProfit); // display Game ino in the info bar
 
+  //Tile Sets
+
   // Create a set of adjacent tiles to the current tile
-  adjacentTiles = makeAdjacentTilesSet(currentTileId, gmMap);
+  adjacentTiles = makeAdjacentTilesSet(currentTileId, gmMap);   // Create a set of adjacent tiles to the current tile
+  console.log("adjacentTiles Set is: ",adjacentTiles);
 
   // Event Listeners
   setActionEventListners(currentTileId, gmMap, stockProfit);
-  setTileEventListners(gmMap, adjacentTiles);
+  setTileEventListners(adjacentTiles, gmMap);
 
   // Get End Game Data
   gameResult = checkProfit(stockProfit); // Checks if the Target Profit has been made
@@ -363,7 +359,6 @@ function loadGame(screen, nextScreen) {
  */
 function checkProfit(stockProfit) {
   console.log("checkProfit() has been called")
-
   return (stockProfit.profit >= TARGETPROFIT ? "win": null);
 }
 
@@ -632,6 +627,7 @@ function displayMapTile(_tile, _mapKey, _elMap) {
  * @param {*} gmMap 
  */
 function displayLumberJackie(currentTileId, gmMap) {
+  console.log("displayLumberJackie is called");
   let currentTile = gmMap.get(currentTileId);
   if (currentTile.currentTileId) {
     if (document.getElementById("lumber-jackie")) { // if there is already an image element present, remove it
@@ -643,6 +639,31 @@ function displayLumberJackie(currentTileId, gmMap) {
       document.getElementById(currentTile.loc).appendChild(image); // put image in wrapper in the DOM
     }
   }
+}
+
+/**
+ * Displays LumberJackie in the tile provided by tileId
+ * @param {*} tileId 
+ * @param {*} gmMap 
+ */
+function hoverLumberJackie(tileId, gmMap) {
+  let tile = gmMap.get(tileId);
+      let image = document.createElement('img'); // create an image element in the DOM
+      image.setAttribute("id", "lumber-jackie-hover"); // set its id to "lumber-jackie"
+      image.setAttribute("src", "assets/images/lumberjackie.png"); // set image src path
+      document.getElementById(tile.loc).appendChild(image); // put image in wrapper in the DOM
+}
+
+/**
+ * Hides LumberJackie in the tile provided by tileId
+ * @param {*} tileId 
+ * @param {*} gmMap 
+ */
+function unHoverLumberJackie(tileId, gmMap) {
+  let tile = gmMap.get(tileId);
+      if (document.getElementById("lumber-jackie-hover")) { // if there is already an image element present, remove it
+        document.getElementById("lumber-jackie-hover").remove();
+      }
 }
 
 /**
@@ -761,7 +782,32 @@ function setActionEventListners(currentTileId, gmMap, stockProfit) {
   });
 }
 
-function setTileEventListners(gmMap, adjacentTiles) {
-  console.log("setTileEventListners is called");
-  
+/**
+ * Creates Event lIstners which display and hide LumberJackie when the mouse moves over 
+ * an adjacent square.
+ * If an adjacent square is clicked, it becomes the new current square by calling the move() function.
+ * @param {*} adjacentTiles 
+ * @param {*} gmMap 
+ * @param {*} currentTileId 
+ */
+function setTileEventListners(adjacentTiles, gmMap, currentTileId) {
+  adjacentTiles.forEach((value) => { // For each of the tiles in the adjacent tile set:
+    let tile = document.getElementById(value.loc); // the Tile id is stored
+    tile.firstChild.addEventListener("mouseover",function() { // a mouseover event listener is added to the tile image
+      hoverLumberJackie(value.loc, gmMap); // LumberJackie is displayed
+    }, false);
+    tile.firstChild.addEventListener("mouseout",function() { // a mouseout event listener is added to the tile image
+      unHoverLumberJackie(value.loc, gmMap); // LumberJackie is hidden
+    }, false);
+    tile.firstChild.addEventListener("click",function() { // a mouse click event listener is added to the tile image
+      setTimeout(function() { // a delay of 1 second is set
+        move(event.target.parentElement.getAttribute("id"), currentTileId); // LumberJackie moves to the chosen tile, ready to receive further instructions. Game displays are set for the new current tile
+      }, 1000);
+    }, false);
+  });
+}
+
+function move(nextTileId, currentTileId) {
+  console.log("move is called after a delay of 1 secs")
+  console.log("nextTileId is: ", nextTileId);
 }

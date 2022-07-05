@@ -336,7 +336,7 @@ function loadGame(screen, nextScreen) {
 
   // Event Listeners
   setActionEventListners(currentTileId, gmMap, stockProfit);
-  setTileEventListners(adjacentTiles, gmMap);
+  setTileEventListners(adjacentTiles, gmMap, currentTileId);
 
   // Get End Game Data
   gameResult = checkProfit(stockProfit); // Checks if the Target Profit has been made
@@ -443,8 +443,8 @@ function createRawTiles(mapKeys, tiles) {
       tile = new Tiles(element, false, {}, "right-edge", true, {"up": true, "right": false, "down": true, "left": true}, ["Move up", "Move down", "Move Left"]);
     } else if (element.charAt(0) === "a") { //bottom edge tiles
       tile = new Tiles(element, false, {}, "bottom-edge", true, {"up": true, "right": true, "down": false, "left": true}, ["Move up", "Move right", "Move Left"]);
-    } else if (element.charAt(1) === "1") { //bottom edge tiles
-      tile = new Tiles(element, false, {}, "bottom-edge", true, {"up": true, "right": true, "down": false, "left": true}, ["Move up", "Move right", "Move Left"]);
+    } else if (element.charAt(1) === "1") { //left edge tiles
+      tile = new Tiles(element, false, {}, "left-edge", true, {"up": true, "right": true, "down": true, "left": false}, ["Move up", "Move right", "Move down"]);
     } else { // inner tiles
       tile = new Tiles(element, false, {}, "inner", false, {"up": true, "right": true, "down": true, "left": true}, ["Move up", "Move right", "Move down", "Move Left"]);
     }; 
@@ -469,7 +469,7 @@ function setForest(tiles, tileId) {
       this.src = "assets/images/forest-tile.jpg";
       this.alt = "Forest Tile. Harvest your forest to make logs here";
       this.actions =["Harvest Forest"];
-      this.messages = `Harvest the Forest in the Actions Menu. You will make ${HARVESTFOREST}  logs.`
+      this.messages = [`Harvest the Forest in the Actions Menu. You will make ${HARVESTFOREST}  logs.`];
     }
 
     /**
@@ -506,7 +506,7 @@ function setGrass(tiles, tileId) {
       this.src = "assets/images/grass-tile.jpg";
       this.alt = "Grass Tile";
       this.actions = [];
-      this.messages = [];
+      this.messages = ["Here is a lovely place for a picnick!"];
     }
   }
   let grassTile = tiles.find(item => item.loc === tileId);
@@ -628,17 +628,25 @@ function displayMapTile(_tile, _mapKey, _elMap) {
  */
 function displayLumberJackie(currentTileId, gmMap) {
   console.log("displayLumberJackie is called");
+  console.log("In displayLumberJackie currentTileId is: ",currentTileId);
   let currentTile = gmMap.get(currentTileId);
-  if (currentTile.currentTileId) {
+  if (document.getElementById("lumber-jackie")) { // if there is already an image element present, remove it
+    document.getElementById("lumber-jackie").remove();
+  }
+  let image = document.createElement('img'); // crreate an image element in the DOM
+  image.setAttribute("id", "lumber-jackie"); // set its id to "lumber-jackie"
+  image.setAttribute("src", "assets/images/lumberjackie.png"); // set image src path
+  document.getElementById(currentTile.loc).appendChild(image); // put image in wrapper in the DOM
+}
+
+/**
+ * Removes LumberJackie from DOM
+ */
+function removeLumberJackie() {
+  console.log("removeLumberJackie is called");
     if (document.getElementById("lumber-jackie")) { // if there is already an image element present, remove it
       document.getElementById("lumber-jackie").remove();
-    } else {
-      let image = document.createElement('img'); // crreate an image element in the DOM
-      image.setAttribute("id", "lumber-jackie"); // set its id to "lumber-jackie"
-      image.setAttribute("src", "assets/images/lumberjackie.png"); // set image src path
-      document.getElementById(currentTile.loc).appendChild(image); // put image in wrapper in the DOM
-    }
-  }
+    } 
 }
 
 /**
@@ -672,17 +680,18 @@ function unHoverLumberJackie(tileId, gmMap) {
  * @param {*} gmMap 
  */
 function displayCurrentTileActions(currentTileId, gmMap) {
+  console.log("displayCurrentTileActions is called");
+
   if (document.getElementById("actions-menu-list").children.length !== 0) { // if there are already any list elements present, remove them
     document.getElementById("actions-menu-list").innerHTML = "";
-  } else { 
-    let elActionsMenuList = document.getElementById("actions-menu-list"); // gets Actions Menu unordered list element from the DOM
-    let actionsMenuList = []; // creates a variable to store current tile actions
-    actionsMenuList.push(gmMap.get(currentTileId).kind.actions); // gets actions list from the current tile and stores them in actionsMenuList
-    for (let action of actionsMenuList){ // iterates through the actionsMenuList
-      let listItem = document.createElement("li"); // creates a list element in the DOM
-      listItem.innerText = action; // adds the action item to the inner text of the list element
-      elActionsMenuList.appendChild(listItem); // Adds Action List Element to the DOM
-    }
+  }
+  let elActionsMenuList = document.getElementById("actions-menu-list"); // gets Actions Menu unordered list element from the DOM
+  let actionsMenuList = []; // creates a variable to store current tile actions
+  actionsMenuList.push(gmMap.get(currentTileId).kind.actions); // gets actions list from the current tile and stores them in actionsMenuList
+  for (let action of actionsMenuList){ // iterates through the actionsMenuList
+    let listItem = document.createElement("li"); // creates a list element in the DOM
+    listItem.innerText = action; // adds the action item to the inner text of the list element
+    elActionsMenuList.appendChild(listItem); // Adds Action List Element to the DOM
   }
 }
 
@@ -692,15 +701,15 @@ function displayCurrentTileActions(currentTileId, gmMap) {
  * @param {*} gmMap 
  */
 function displayCurrentTileMessages(currentTileId, gmMap) {
+  console.log("displayCurrentTileMessages is called");
   if (document.getElementById("messages").innerText !== "") { // if there are already any messages present, remove them
     document.getElementById("messages").innerHTML = "";
-  } else { 
-    let elMessages = document.getElementById("messages"); // gets Messages <p></p> element from the DOM
-    let messages = ""; // creates a variable to store current tile messages
-    messages = (gmMap.get(currentTileId).kind.messages); // gets messages  from the current tile and stores them in messages
-    elMessages.innerText = messages; // adds the messages  to the inner text of the elMessages <p></p> element
-    elMessages.append; // Adds Action List Element to the DOM
-  }
+  } 
+  let elMessages = document.getElementById("messages"); // gets Messages <p></p> element from the DOM
+  let messages = ""; // creates a variable to store current tile messages
+  messages = (gmMap.get(currentTileId).kind.messages); // gets messages  from the current tile and stores them in messages
+  elMessages.innerText = messages; // adds the messages  to the inner text of the elMessages <p></p> element
+  elMessages.append; // Adds Action List Element to the DOM
 }
 
 // Movement Functions
@@ -730,16 +739,18 @@ function isAdjacent(currentTileId, newTileId) {
  * @returns 
  */
 function makeAdjacentTilesSet(currentTileId, gmMap) {
+  console.log("makeAdjacentTilesSet is called");
   let adjacentTiles = new Set(); // creates an empty set to hold adjacent tile ( to be used with currentID and onmouseclick for movement)
   let a = currentTileId[0].charCodeAt(); // converts currentTile-1st character to an ASCII number
   let b = currentTileId[1].charCodeAt(); // converts currentTile-2nd character to an ASCII number
   let adjacentTileIds ={};
   let currentTile = gmMap.get(currentTileId);
-  let upperTile = String.fromCharCode((a+1),b); //construce a string for upper tile id
-  let rightTile = String.fromCharCode(a,(b+1)); //construce a string for right tile id
-  let lowerTile = String.fromCharCode((a-1),b); //construce a string for lower tile id
-  let leftTile = String.fromCharCode(a,(b-1)); //construce a string for left tile id
+  let upperTile = String.fromCharCode((a+1),b); //construct a string for upper tile id
+  let rightTile = String.fromCharCode(a,(b+1)); //construct a string for right tile id
+  let lowerTile = String.fromCharCode((a-1),b); //construct a string for lower tile id
+  let leftTile = String.fromCharCode(a,(b-1)); //construct a string for left tile id
   adjacentTileIds = {"upperTile":upperTile, "rightTile":rightTile, "lowerTile":lowerTile, "leftTile":leftTile}; // populates adjacentTileIds with all possible adjecent tile ids
+  console.log("currentTile.movementis: ",currentTile.movement);
   for (let [key,value] of Object.entries(currentTile.movement)) { // iterates through the curret tile movement object
     if (value === false) { // is there a movement set to false? If so, delete it from adjacentTileIds
       if (key === "up") {
@@ -793,22 +804,70 @@ function setActionEventListners(currentTileId, gmMap, stockProfit) {
 function setTileEventListners(adjacentTiles, gmMap, currentTileId) {
   adjacentTiles.forEach((value) => { // For each of the tiles in the adjacent tile set:
     let tile = document.getElementById(value.loc); // the Tile id is stored
-    tile.addEventListener("mouseover",function() { // a mouseover event listener is added to the tile image
+    tile.addEventListener("mouseover",function() { // a mouseover event listener is added to the tile div
       hoverLumberJackie(value.loc, gmMap); // LumberJackie is displayed
     }, false);
-    tile.addEventListener("mouseout",function() { // a mouseout event listener is added to the tile image
+    tile.addEventListener("mouseout",function() { // a mouseout event listener is added to the tile div
       unHoverLumberJackie(value.loc, gmMap); // LumberJackie is hidden
     }, false);
-    tile.addEventListener("click",function() { // a mouse click event listener is added to the tile image
+    tile.addEventListener("click",function() { // a mouse click event listener is added to the tile div
       let nextTileId = event.target.parentElement.getAttribute("id");
       setTimeout(function() { // a delay of 1 second is set
-        move(nextTileId, currentTileId); // fter a short delay, LumberJackie moves to the chosen tile, ready to receive further instructions. Game displays are set for the new current tile
+        move(adjacentTiles, gmMap, currentTileId, nextTileId); // fter a short delay, LumberJackie moves to the chosen tile, ready to receive further instructions. Game displays are set for the new current tile
       }, 1000);
     }, false);
   });
 }
 
-function move(nextTileId, currentTileId) {
-  console.log("move is called after a delay of 1 secs")
-  console.log("nextTileId is: ", nextTileId);
+function removeTileEventListners(adjacentTiles, gmMap, currentTileId) {
+  console.log("removeTileEventListners is called");
+  adjacentTiles.forEach((value) => { // For each of the tiles in the adjacent tile set:
+    let tile = document.getElementById(value.loc); // the Tile id is stored
+    tile.removeEventListener("mouseover",function() { // a mouseover event listener is removed from  the tile div
+      hoverLumberJackie(value.loc, gmMap); // LumberJackie is displayed
+    }, false);
+    tile.removeEventListener("mouseout",function() { // a mouseout event listener is removed from  the tile div
+      unHoverLumberJackie(value.loc, gmMap); // LumberJackie is hidden
+    }, false);
+    tile.removeEventListener("click",function() { // a mouse click event listener is removed from  the tile div
+      let nextTileId = event.target.parentElement.getAttribute("id");
+      setTimeout(function() { // a delay of 1 second is set
+        move(adjacentTiles, gmMap, currentTileId, nextTileId); // fter a short delay, LumberJackie moves to the chosen tile, ready to receive further instructions. Game displays are set for the new current tile
+      }, 1000);
+    }, false);
+  });
+
+}
+
+/**
+ * This function provides movement around the whole grid.
+ * Movement is verticle or horizontal and one square at a time
+ * current tile event listners are removed
+ * current tile status is set to false
+ * LumberJackie is removed from the DOM
+ * next tile status is set to true
+ * LumberJackie is displayed in the new current tile
+ * displays new current tile actions in the Actions Window
+ * displays new current tile messages in the Messages Window
+ * Create a set of adjacent tiles to the new current tile
+ * set event listeners for the new adjacent tiles set
+ * @param {*} adjacentTiles 
+ * @param {*} gmMap 
+ * @param {*} currentTileId 
+ * @param {*} nextTileId 
+ */
+function move(adjacentTiles, gmMap, currentTileId, nextTileId) {
+  console.log("move is called after a delay of 1 secs");
+  removeTileEventListners(adjacentTiles, gmMap, currentTileId); // current tile event listners are removed
+  let currentTile = gmMap.get(currentTileId); // current tile object is stored
+  currentTile.currentTileId = false; // current tile status is set to false
+  let nextTile = gmMap.get(nextTileId); // next tile object is stored
+  removeLumberJackie(); // LumberJackie is removed from the DOM
+  nextTile.currentTileId = true; // next tile status is set to true
+  currentTileId = nextTileId; // next tile becomes current tile
+  displayLumberJackie(currentTileId, gmMap); // LumberJackie is displayed in the new current tile
+  displayCurrentTileActions(currentTileId, gmMap); // displays new current tile actions in the Actions Window
+  displayCurrentTileMessages(currentTileId, gmMap); // displays new current tile messages in the Messages Window
+  adjacentTiles = makeAdjacentTilesSet(currentTileId, gmMap);   // Create a set of adjacent tiles to the new current tile
+  setTileEventListners(adjacentTiles, gmMap, currentTileId); // set event listeners for the new adjacent tiles set
 }

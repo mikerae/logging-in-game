@@ -491,22 +491,23 @@ function loadGame(screen, nextScreen,
     // Initilise Variables
   let gameResult = null; // resets the game result
   let stockProfit = {logsInStock: 0, profit: 0}; // this object contains the Game Info and is needed because JavaScript does not support functions returning multiple values.
-  let elMap = new Map(); // Map object containing all game tiles maped to DOM grid
+  let gmMap = new Map(); // Map object containing all game tiles maped to DOM grid
   let tiles = []; // Array of  map tiles: "kind" to be specified
   let currentTileId = "a1"; // This is the current tile when the game is initialised
   let adjacentTiles = new Set();
 
   // Display Initialised Game
-  elMap = createMap(elMap, GRASSMAP, FORESTMAP, LOGCAMP, HARVESTFOREST,tiles, currentTileId); // generates and displays game map
-  displayCurrentTileActions(currentTileId, elMap); // displays current tile actions in the Actions Window
-  displayCurrentTileMessages(currentTileId, elMap); // displays current tile messages in the Messages Window
+  gmMap = createMap(gmMap, GRASSMAP, FORESTMAP, LOGCAMP, HARVESTFOREST,tiles, currentTileId); // generates and displays game map
+  displayCurrentTileActions(currentTileId, gmMap); // displays current tile actions in the Actions Window
+  displayCurrentTileMessages(currentTileId, gmMap); // displays current tile messages in the Messages Window
   displayGameInfo(stockProfit, TARGETPROFIT); // display Game ino in the info bar
 
   // Create a set of adjacent tiles to the current tile
-  adjacentTiles = makeAdjacentTilesSet(currentTileId, elMap);
+  adjacentTiles = makeAdjacentTilesSet(currentTileId, gmMap);
 
   // Event Listeners
-  setActionEventListners(currentTileId, elMap, stockProfit, SELLLOGS, HARVESTFOREST);
+  setActionEventListners(currentTileId, gmMap, stockProfit, SELLLOGS, HARVESTFOREST);
+  setTileEventListners(gmMap, adjacentTiles);
 
   // Get End Game Data
   gameResult = checkProfit(stockProfit, TARGETPROFIT); // Checks if the Target Profit has been made
@@ -550,13 +551,13 @@ function displayGameInfo(stockProfit, TARGETPROFIT) {
   document.getElementById("target-profit").innerText = TARGETPROFIT;
 }
 
-// Map Functions
+// Map Creation Functions
 
 /**
  * Creates An initial Map poulated with tile objects
  * Displays initial map images to DOM
  * Displays LumberJackie overlay to current tile in DOM
- * @param {*} elMap 
+ * @param {*} gmMap 
  * @param {*} GRASSMAP 
  * @param {*} FORESTMAP 
  * @param {*} LOGCAMP 
@@ -565,7 +566,7 @@ function displayGameInfo(stockProfit, TARGETPROFIT) {
  * @param {*} currentTileId 
  * @returns 
  */
-function createMap(elMap, GRASSMAP, FORESTMAP, LOGCAMP, HARVESTFOREST,tiles, currentTileId) {
+function createMap(gmMap, GRASSMAP, FORESTMAP, LOGCAMP, HARVESTFOREST,tiles, currentTileId) {
   console.log("createMap() has been called");
 
   // create map keys from Screen map ids
@@ -579,10 +580,10 @@ function createMap(elMap, GRASSMAP, FORESTMAP, LOGCAMP, HARVESTFOREST,tiles, cur
   tiles = createRawTiles(mapKeys, tiles); // an array of tile objects is created
   tiles = setTiles(tiles, GRASSMAP, FORESTMAP, LOGCAMP); // sets all tiles with obects according to given object maps
   // set tile and overlay objects in game map object
-  elMap = setElMap(elMap,tiles,mapKeys); // creates a map object elMap 
-  elMap.forEach(displayMapTile); // displays all the tile images in the DOM map
-  displayLumberJackie(currentTileId, elMap); // displays LumberJackie overlay in current tile
-  return elMap;
+  gmMap = setElMap(gmMap,tiles,mapKeys); // creates a map object gmMap 
+  gmMap.forEach(displayMapTile); // displays all the tile images in the DOM map
+  displayLumberJackie(currentTileId, gmMap); // displays LumberJackie overlay in current tile
+  return gmMap;
 }
 
 /**
@@ -770,21 +771,21 @@ function setTiles(tiles, GRASSMAP, FORESTMAP, LOGCAMP) {
 }
 
 /**
- * creates a map object elMap with
+ * creates a map object gmMap with
  * keys: the DOM mapgrid ids
  * values: the game tiles
- * @param {*} elMap 
+ * @param {*} gmMap 
  * @param {*} tiles 
  * @param {*} mapKeys 
  * @returns 
  */
-function setElMap(elMap, tiles, mapKeys) {
+function setElMap(gmMap, tiles, mapKeys) {
   console.log("setElMap is called");
   for (let mapKey of mapKeys) {
     let tile = tiles.find(item => item.loc === mapKey);
-    elMap.set (mapKey, tile);
+    gmMap.set (mapKey, tile);
   }
-  return elMap;
+  return gmMap;
 }
 
 /**
@@ -808,10 +809,10 @@ function displayMapTile(_tile, _mapKey, _elMap) {
 /**
  * Displays LumberJackie in the current tile
  * @param {*} currentTileId 
- * @param {*} elMap 
+ * @param {*} gmMap 
  */
-function displayLumberJackie(currentTileId, elMap) {
-  let currentTile = elMap.get(currentTileId);
+function displayLumberJackie(currentTileId, gmMap) {
+  let currentTile = gmMap.get(currentTileId);
   if (currentTile.currentTileId) {
     if (document.getElementById("lumber-jackie")) { // if there is already an image element present, remove it
       document.getElementById("lumber-jackie").remove();
@@ -827,15 +828,15 @@ function displayLumberJackie(currentTileId, elMap) {
 /**
  * Adds Actions for the current tile to the Actions Menu
  * @param {*} currentTileId 
- * @param {*} elMap 
+ * @param {*} gmMap 
  */
-function displayCurrentTileActions(currentTileId, elMap) {
+function displayCurrentTileActions(currentTileId, gmMap) {
   if (document.getElementById("actions-menu-list").children.length !== 0) { // if there are already any list elements present, remove them
     document.getElementById("actions-menu-list").innerHTML = "";
   } else { 
     let elActionsMenuList = document.getElementById("actions-menu-list"); // gets Actions Menu unordered list element from the DOM
     let actionsMenuList = []; // creates a variable to store current tile actions
-    actionsMenuList.push(elMap.get(currentTileId).kind.actions); // gets actions list from the current tile and stores them in actionsMenuList
+    actionsMenuList.push(gmMap.get(currentTileId).kind.actions); // gets actions list from the current tile and stores them in actionsMenuList
     for (let action of actionsMenuList){ // iterates through the actionsMenuList
       let listItem = document.createElement("li"); // creates a list element in the DOM
       listItem.innerText = action; // adds the action item to the inner text of the list element
@@ -847,19 +848,21 @@ function displayCurrentTileActions(currentTileId, elMap) {
 /**
  * Add Messages for the current tile to the Messages Window
  * @param {*} currentTileId 
- * @param {*} elMap 
+ * @param {*} gmMap 
  */
-function displayCurrentTileMessages(currentTileId, elMap) {
+function displayCurrentTileMessages(currentTileId, gmMap) {
   if (document.getElementById("messages").innerText !== "") { // if there are already any messages present, remove them
     document.getElementById("messages").innerHTML = "";
   } else { 
     let elMessages = document.getElementById("messages"); // gets Messages <p></p> element from the DOM
     let messages = ""; // creates a variable to store current tile messages
-    messages = (elMap.get(currentTileId).kind.messages); // gets messages  from the current tile and stores them in messages
+    messages = (gmMap.get(currentTileId).kind.messages); // gets messages  from the current tile and stores them in messages
     elMessages.innerText = messages; // adds the messages  to the inner text of the elMessages <p></p> element
     elMessages.append; // Adds Action List Element to the DOM
   }
 }
+
+// Movement Functions
 
 /**
  * Tests newTileId to see if it is adjecent to the currentTileId
@@ -882,15 +885,15 @@ function isAdjacent(currentTileId, newTileId) {
  * Make a Set of adjacent tiles for a given tile id. Initially this would be the current tile, but it will also function
  * for use with a movement instruction
  * @param {*} currentTileId 
- * @param {*} elMap 
+ * @param {*} gmMap 
  * @returns 
  */
-function makeAdjacentTilesSet(currentTileId, elMap) {
+function makeAdjacentTilesSet(currentTileId, gmMap) {
   let adjacentTiles = new Set(); // creates an empty set to hold adjacent tile ( to be used with currentID and onmouseclick for movement)
   let a = currentTileId[0].charCodeAt(); // converts currentTile-1st character to an ASCII number
   let b = currentTileId[1].charCodeAt(); // converts currentTile-2nd character to an ASCII number
   let adjacentTileIds ={};
-  let currentTile = elMap.get(currentTileId);
+  let currentTile = gmMap.get(currentTileId);
   let upperTile = String.fromCharCode((a+1),b); //construce a string for upper tile id
   let rightTile = String.fromCharCode(a,(b+1)); //construce a string for right tile id
   let lowerTile = String.fromCharCode((a-1),b); //construce a string for lower tile id
@@ -909,15 +912,26 @@ function makeAdjacentTilesSet(currentTileId, elMap) {
       }
     }
   }
-  for (let [key,value] of Object.entries(adjacentTileIds)) {
-    adjacentTiles.add(elMap.get(value));
+  for (let [_key,value] of Object.entries(adjacentTileIds)) {
+    adjacentTiles.add(gmMap.get(value));
   }
   return adjacentTiles;
 }
 
-function setActionEventListners(currentTileId, elMap, stockProfit, SELLLOGS, HARVESTFOREST) {
+// Event Listeners
+
+/**
+ * Add Event Listener to Actions menu based on the current tile.
+ * If the Action Menu item is clicked, the associated action is fired.
+ * @param {*} currentTileId 
+ * @param {*} gmMap 
+ * @param {*} stockProfit 
+ * @param {*} SELLLOGS 
+ * @param {*} HARVESTFOREST 
+ */
+function setActionEventListners(currentTileId, gmMap, stockProfit, SELLLOGS, HARVESTFOREST) {
   console.log("setActionEventListners is called");
-  let currentTile = elMap.get(currentTileId); // get current tile
+  let currentTile = gmMap.get(currentTileId); // get current tile
   elActionsMenuList = document.getElementById("actions-menu-list"); // get DOM Actions Menu list
   elActionsMenuList.addEventListener("click", function() {
     if (currentTile.kind.type === "logCamp") {
@@ -927,4 +941,9 @@ function setActionEventListners(currentTileId, elMap, stockProfit, SELLLOGS, HAR
     } else if (currentTile.kind.type === "grass"){
     }
   });
+}
+
+function setTileEventListners(gmMap, adjacentTiles) {
+  console.log("setTileEventListners is called");
+  
 }

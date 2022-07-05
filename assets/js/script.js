@@ -917,31 +917,14 @@ function makeAdjacentTilesSet(currentTileId, elMap) {
 
 function setActionEventListners(currentTileId, elMap, stockProfit, SELLLOGS, HARVESTFOREST) {
   console.log("setActionEventListners is called");
-
-  currentTileId = "g7";
-  console.log("the currentTileId is now: ",currentTileId);
   let currentTile = elMap.get(currentTileId); // get current tile
-  console.log("currentTile is: ",currentTile);
-  let actionsList = currentTile.kind.actions; // get actions from currentTile object
-  console.log("actionsList is: ",actionsList);
   elActionsMenuList = document.getElementById("actions-menu-list"); // get DOM Actions Menu list
-  console.log("elActionsMenuList is: ",elActionsMenuList);
-  console.log("elActionsMenuList.firstElementChild is: ",elActionsMenuList.firstElementChild);
-  elActionsMenuList.firstElementChild.addEventListener("click", function() {
-    console.log("Your Action Menu Event Listner works!");
-    console.log("currentTile.kind.type is: ",currentTile.kind.type);
+  elActionsMenuList.addEventListener("click", function() {
     if (currentTile.kind.type === "logCamp") {
-      console.log("logCamp is chosen. The current tile is: ",currentTile.kind);
       currentTile.kind.sellLogs(stockProfit, SELLLOGS);
     } else if (currentTile.kind.type === "forest"){
-      console.log("forest is chosen. The current tile is: ",currentTile.kind);
       currentTile.kind.harvestForest(stockProfit, HARVESTFOREST);
     } else if (currentTile.kind.type === "grass"){
-      console.log("grass is chosen. The current tile is: ",currentTile.kind);
     }
-
-
   });
 }
-
-

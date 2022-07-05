@@ -793,15 +793,16 @@ function setActionEventListners(currentTileId, gmMap, stockProfit) {
 function setTileEventListners(adjacentTiles, gmMap, currentTileId) {
   adjacentTiles.forEach((value) => { // For each of the tiles in the adjacent tile set:
     let tile = document.getElementById(value.loc); // the Tile id is stored
-    tile.firstChild.addEventListener("mouseover",function() { // a mouseover event listener is added to the tile image
+    tile.addEventListener("mouseover",function() { // a mouseover event listener is added to the tile image
       hoverLumberJackie(value.loc, gmMap); // LumberJackie is displayed
     }, false);
-    tile.firstChild.addEventListener("mouseout",function() { // a mouseout event listener is added to the tile image
+    tile.addEventListener("mouseout",function() { // a mouseout event listener is added to the tile image
       unHoverLumberJackie(value.loc, gmMap); // LumberJackie is hidden
     }, false);
-    tile.firstChild.addEventListener("click",function() { // a mouse click event listener is added to the tile image
+    tile.addEventListener("click",function() { // a mouse click event listener is added to the tile image
+      let nextTileId = event.target.parentElement.getAttribute("id");
       setTimeout(function() { // a delay of 1 second is set
-        move(event.target.parentElement.getAttribute("id"), currentTileId); // LumberJackie moves to the chosen tile, ready to receive further instructions. Game displays are set for the new current tile
+        move(nextTileId, currentTileId); // fter a short delay, LumberJackie moves to the chosen tile, ready to receive further instructions. Game displays are set for the new current tile
       }, 1000);
     }, false);
   });

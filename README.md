@@ -404,7 +404,12 @@ The attribute display:flex was added to the class 'tile' which fixed the issue.
 Currently, event listeners are attached to all tiles: but listeners are only needed for the current tile and adjacent tiles.
 A set of adjacent tiles was generated and this will be used to set relevant event listeners. This improved performance.
 ### Next Tile Eventlistners In Actions Menu are not yet corresponding to new current tile
-#### Status: Unresolved
+#### Status: Resolved
+The code for removing event LIstners is faulty. All event listeners are still active, inculidng hover and unhover Lumberjackie.
+https://stackoverflow.com/questions/10444077/javascript-removeeventlistener-not-working was used.
+Using an anonymous function call with an event listener made it impssible to remove an event Listener later.
+Changing the method of calling a function as per the stack overflow solvwd the issue for hoverLumberJackie, unhoverLumberJackie and the actions menu list.
+However, it was not possible yet to structue the call to move() in a similar way without error.
 ### move is called() when the CurrentTileId tiel is clicked again
 #### Status: Resolved
 currentTileId is not updating before mew move() event is fired.

@@ -106,6 +106,166 @@ The following reference sites were used extensively throughout development:
 - ![StackOverflow](https://stackoverflow.com/)
 - ![W3Schools](https://www.w3schools.com/)
 Other sites were used via goole searches as required.
+### Global Scope, Lexical Scope, Closure, Block Scope, Function perameters
+There were Several instances where variables within a function threw the error that they were not defined.
+Initially, this was because the variable had not been passed into the function as a perameter. The fix was to pass it as a perameter.
+However, this lead to the need to repetatively pass the same perameters to many functions.
+After discussion and research it was suggested that there might be a better solution, perhaps using 'Closure'. After reaserch it became clear that 'closure' was a complex concept and not necessarily the way forward. However the concept of 'lexical scope' became increasingly visible.
+A conversation with a Student Tutor (copied below) suggested that the only way to avoid repetatively passing multiple parameters into function was to initialise these variables with global scop, i.e. outside evrything. It was suggested that in the context of this game, the risk of global variables behaving unpredictably was negligable.
+
+The variables in question were initialised as global, and the funtion perameters were cleaned up. The game continued to be developed.
+
+However, further reasearch suggested that 'Lexical Scope' i.e. initialising variables within an enclosing function , and also having all the functions for which they needed to be visible within the same enclosing function would provide the solution [The solution needed was for these variables to be accesable to all called functions without passing them as perameters, but not accessable outside the enclosing function to prevent unpredictable behaviour].
+
+The variables were put back inside the encapsulating function main(), and all of the game functions were also placed inside main().
+Everything worked fine. Lexcal Scope provided the solution.
+ ```
+ Conversation with Code Institute
+Started on July 5, 2022 at 02:34 PM Europe/Dublin time IST (GMT+0100)
+
+---
+
+02:34 PM | mikerae@me.com: Begin a Tutoring Session
+
+02:34 PM | Operator: Please confirm that you have prepared for this session as per the steps on this page: https://code-institute-org.github.io/tutoring-info/guidelines/ 
+ You should have: 
+ - A clear description of your issue 
+- A list of the debugging steps and research you have carried so far 
+ Failure to answer all of the bots questions will result in this conversation being closed. 
+ By clicking "I'm Prepared," you agree to these conditions.
+
+02:34 PM | mikerae@me.com: I'm Prepared
+
+02:34 PM | Operator: Your tutoring usage time for this week (in minutes): 1
+
+02:34 PM | Operator: Please provide us with your Problem Statement. This is a clear description of the problem that you're currently facing. 
+ At the very least, you need to tell us what should your code be doing, and what is it actually doing? 
+ If you are getting an error, please send a screenshot. 
+ If you are working on a particular file, which file is it, and which lines of code?
+
+02:35 PM | mikerae@me.com: Tutor Assistance: Variable Scope 
+Issue Description
+JavaScripte: I want to access variables with block scope (let, const) which are declared in my top function ‘main()’ from within lower level functions without passing them as parameters through multiple subsidiary functions.
+How do I access variables within functions which have been declared above that function but are not global (var), without passing them down the function chain as arguments? If I do not provide a variable as a function(argument) created above a function which I want to access within a function, I get an error: ‘argument’ : undefined. 
+ Debugging / Research 
+- Use of var not recommended; var has global scope and is accessible above the function in which it was declared. This is understood to lead to unpredictable results.
+- let and const have block scope within the function in which they were declared.
+- all js code is encapsulated in a “main” function so as to prevent visibility above the function main()
+- Closure: research
+ - youtube https://youtu.be/aHrvi2zTlaU
+ - mob web docs https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures 
+ - w3 School https://www.w3schools.com/js/js_function_closures.asp
+ - JavaScript tutorial https://www.javascripttutorial.net/javascript-closure/
+
+02:35 PM | Operator: What steps have you taken so far to resolve the issue, or to address current gaps in your knowledge? 
+ Vague answers like "searched on Slack and Google" are not sufficient here. What specific steps have you taken? What code and debugging steps have you tried? What resources have you used (e.g. provide links to StackOverflow questions you have read)?
+
+02:35 PM | mikerae@me.com: Debugging / Research 
+- Use of var not recommended; var has global scope and is accessible above the function in which it was declared. This is understood to lead to unpredictable results.
+- let and const have block scope within the function in which they were declared.
+- all js code is encapsulated in a “main” function so as to prevent visibility above the function main()
+- Closure: research
+ - youtube https://youtu.be/aHrvi2zTlaU
+ - mob web docs https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures 
+ - w3 School https://www.w3schools.com/js/js_function_closures.asp
+ - JavaScript tutorial https://www.javascripttutorial.net/javascript-closure/
+
+02:35 PM | Operator: One final thing. Please share your code with us. 
+ If you are working on Gitpod, please set your workspace to shared, and send us the link to it. If you are working on a course challenge, please send the name of the challenge.
+
+02:37 PM | mikerae@me.com: mikerae-loggingingame-hrhcg0hrpxg
+
+02:37 PM | Operator: Thank you. We will get back to you as soon as possible. You can see how busy tutoring currently is on this page: https://code-institute-org.github.io/tutoring-info/status/ 
+ Note that if you have failed to sufficiently answer any of the above questions, tutors will have to re-ask you for the information, which will use up part of your weekly tutoring time allowance.
+
+02:38 PM | John from Code Institute: Hi Mike, John here 
+ I hope you are well 
+ 
+ The short answer is, you can't
+
+02:38 PM | John from Code Institute: Variables are scoped, and in order to use them in other functions, they'll need to be passed to those functions
+
+02:39 PM | mikerae@me.com: ok ... thanks..... I was lead to to think that you can by experienced coders... but I can accept your answer
+
+02:40 PM | John from Code Institute: If a variable has global scope, then it can be accessed within other functions
+
+02:40 PM | John from Code Institute: If not, it needs to be passed to the relevant functions
+
+02:40 PM | John from Code Institute: What is the scope of the project?
+
+02:40 PM | John from Code Institute: And what sort of information are you looking to handle/manipulate?
+
+02:41 PM | mikerae@me.com: my current understanding that the only way to give a variable global scope is to declare it using var. I also understand that this is not good practice
+
+02:41 PM | John from Code Institute: You should be using either let or const
+
+02:42 PM | mikerae@me.com: I want to access game constants at lower levels in the game, but want to declare them in one easily accessab;e place
+
+02:43 PM | John from Code Institute: but the way to give a variable global scope is to declare it globally
+﻿
+﻿script.js >>
+﻿
+﻿let score = 0; <<< declared globally
+﻿
+﻿function incrementScore(conditionOne, conditionTwo) {
+﻿if (conditionOne) {
+﻿score ++; <<< updated within function scope
+﻿}
+﻿if (conditionTwo) {
+﻿score = score + 2; <<< updated within function scope
+﻿}
+﻿}
+
+02:44 PM | John from Code Institute: Potential issues with this are, what if in a separate function, score is manipulated again, and set to zero, either by accident or design. 
+ 
+ For a smaller project, the implications are not that big
+
+02:44 PM | John from Code Institute: as the codebase won't be huge, an issue like this is easily handled
+
+02:45 PM | John from Code Institute: the advice against the use of global scope is given because most experienced coders are used to working with larger code bases
+
+02:45 PM | John from Code Institute: where a globally declared variable being manipulated in different functions could have catastrophic results
+
+02:45 PM | John from Code Institute: So it's all about, understanding the project, how large the code base is, and working accordingly
+
+02:45 PM | mikerae@me.com: question: ..
+
+02:46 PM | John from Code Institute: Should global scope variables be used? In practice from an industry standard, most often no (except for config/environment variables) 
+ 
+ Can they be used? For a smaller project with a smaller code base, yes
+
+02:48 PM | mikerae@me.com: If I encapsulate all my code within a top level function "main()' and declare a variable using let.... does that give it global scope within main() and functions called by main(); or is it only global if it is declared outside of any function..?
+
+02:49 PM | John from Code Institute: It's only global if it is declared outside of any function scope.
+
+02:50 PM | John from Code Institute: For small game constants, I'd say that using the global scope should be fine for your projects purposes. As you say, they are constants and I'm assuming you want to use them to set conditions for other game mechanics/conditions to compare against?
+
+02:50 PM | mikerae@me.com: thats clear -thank you.... what about using closures then (I dont understand closures yet)?
+
+02:51 PM | mikerae@me.com: yes: I am using my game constants as you describe...
+
+02:52 PM | John from Code Institute: Oooh, that's a tricky topic - I think I'm best left linking you to this https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures
+
+02:52 PM | John from Code Institute: to read and spend some time absorbing
+
+02:54 PM | mikerae@me.com: Thanks very much , John. I will study closures further.... and thank you...you have opened my thinking to carefully using global variables.... I think this has helped me to proceed. Thank you.
+
+02:57 PM | John from Code Institute: You're most welcome Mike. 
+ 
+ I'll go ahead and close this conversation. 
+ 
+ Have a splendid afternoon and the very best of luck with the project!
+
+02:58 PM | Operator: Help John understand how they’re doing:
+
+02:58 PM | Operator: Rate your conversation
+
+02:58 PM | mikerae@me.com: Thanks John, you too
+
+---
+Exported from Code Institute on July 5, 2022 at 03:00 PM Europe/Dublin time IST (GMT+0100)
+```
+
 
 
 

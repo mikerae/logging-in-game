@@ -405,6 +405,12 @@ Currently, event listeners are attached to all tiles: but listeners are only nee
 A set of adjacent tiles was generated and this will be used to set relevant event listeners. This improved performance.
 ### Next Tile Eventlistners In Actions Menu are not yet corresponding to new current tile
 #### Status: Unresolved
+### move is called() when the CurrentTileId tiel is clicked again
+#### Status: Resolved
+currentTileId is not updating before mew move() event is fired.
+A condition was added to move to call the function code if the currentTileId != nextTileId.
+The move() now returns the updated currentTileId.
+[the actionEventListners are still not working correctly].
 
 ## Testing
 Testing took place constantly throughout development as functions were built and deployed.

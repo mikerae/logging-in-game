@@ -336,7 +336,7 @@ function main() {
 
     // Event Listeners
     setActionEventListners(currentTileId, gmMap, stockProfit);
-    setTileEventListners(adjacentTiles, gmMap, currentTileId);
+    setTileEventListners(adjacentTiles, gmMap, currentTileId, stockProfit);
 
     // Get End Game Data
     gameResult = checkProfit(stockProfit); // Checks if the Target Profit has been made
@@ -547,8 +547,9 @@ function main() {
         stockProfit.logsInStock = 0;
         stockProfit.profit += saleProfit;
         return stockProfit;
+        }
       }
-    }
+    
     let logCampTile = tiles.find(item => item.loc === tileId);
     let logCamp = new LogCamp();
     logCampTile.kind = logCamp;
@@ -783,14 +784,21 @@ function main() {
     console.log("setActionEventListners is called");
     let currentTile = gmMap.get(currentTileId); // get current tile
     elActionsMenuList = document.getElementById("actions-menu-list"); // get DOM Actions Menu list
-    elActionsMenuList.addEventListener("click", function() {
-      if (currentTile.kind.type === "logCamp") {
+    elActionsMenuList.removeEventListener("click", onclick); // removes previously attached event listener.
+    console.log("currentTile.kind.type is: ", currentTile.kind.type);
+    if (currentTile.kind.type === "logCamp") {
+      console.log(`${currentTile.kind.type} is chosen`);
+      elActionsMenuList.addEventListener("click", function() {
         currentTile.kind.sellLogs(stockProfit, SELLLOGS);
-      } else if (currentTile.kind.type === "forest"){
+      });
+    } else if (currentTile.kind.type === "forest"){
+      console.log(`${currentTile.kind.type} is chosen`);
+      elActionsMenuList.addEventListener("click", function() {
         currentTile.kind.harvestForest(stockProfit, HARVESTFOREST);
-      } else if (currentTile.kind.type === "grass"){
-      }
-    });
+      });
+    } else if (currentTile.kind.type === "grass"){
+      console.log(`${currentTile.kind.type} is chosen`);
+    }
   }
 
   /**
@@ -801,7 +809,7 @@ function main() {
    * @param {*} gmMap 
    * @param {*} currentTileId 
    */
-  function setTileEventListners(adjacentTiles, gmMap, currentTileId) {
+  function setTileEventListners(adjacentTiles, gmMap, currentTileId, stockProfit) {
     adjacentTiles.forEach((value) => { // For each of the tiles in the adjacent tile set:
       let tile = document.getElementById(value.loc); // the Tile id is stored
       tile.addEventListener("mouseover",function() { // a mouseover event listener is added to the tile div
@@ -813,7 +821,8 @@ function main() {
       tile.addEventListener("click",function() { // a mouse click event listener is added to the tile div
         let nextTileId = event.target.parentElement.getAttribute("id");
         setTimeout(function() { // a delay of 1 second is set
-          move(adjacentTiles, gmMap, currentTileId, nextTileId); // fter a short delay, LumberJackie moves to the chosen tile, ready to receive further instructions. Game displays are set for the new current tile
+          currentTileId = move(adjacentTiles, gmMap, currentTileId, nextTileId, stockProfit);
+          console.log("after move new currentTileId is: ", currentTileId) // fter a short delay, LumberJackie moves to the chosen tile, ready to receive further instructions. Game displays are set for the new current tile
         }, 1000);
       }, false);
     });
@@ -830,13 +839,8 @@ function main() {
         unHoverLumberJackie(value.loc, gmMap); // LumberJackie is hidden
       }, false);
       tile.removeEventListener("click",function() { // a mouse click event listener is removed from  the tile div
-        let nextTileId = event.target.parentElement.getAttribute("id");
-        setTimeout(function() { // a delay of 1 second is set
-          move(adjacentTiles, gmMap, currentTileId, nextTileId); // fter a short delay, LumberJackie moves to the chosen tile, ready to receive further instructions. Game displays are set for the new current tile
-        }, 1000);
       }, false);
     });
-
   }
 
   /**
@@ -856,21 +860,31 @@ function main() {
    * @param {*} currentTileId 
    * @param {*} nextTileId 
    */
-  function move(adjacentTiles, gmMap, currentTileId, nextTileId) {
-    console.log("move is called after a delay of 1 secs");
-    removeTileEventListners(adjacentTiles, gmMap, currentTileId); // current tile event listners are removed
-    let currentTile = gmMap.get(currentTileId); // current tile object is stored
-    currentTile.currentTileId = false; // current tile status is set to false
-    let nextTile = gmMap.get(nextTileId); // next tile object is stored
-    removeLumberJackie(); // LumberJackie is removed from the DOM
-    nextTile.currentTileId = true; // next tile status is set to true
-    currentTileId = nextTileId; // next tile becomes current tile
-    displayLumberJackie(currentTileId, gmMap); // LumberJackie is displayed in the new current tile
-    displayCurrentTileActions(currentTileId, gmMap); // displays new current tile actions in the Actions Window
-    displayCurrentTileMessages(currentTileId, gmMap); // displays new current tile messages in the Messages Window
-    adjacentTiles = makeAdjacentTilesSet(currentTileId, gmMap);   // Create a set of adjacent tiles to the new current tile
-    setTileEventListners(adjacentTiles, gmMap, currentTileId); // set event listeners for the new adjacent tiles set
+  function move(adjacentTiles, gmMap, currentTileId, nextTileId, stockProfit) {
+    console.log("nextTileId is: ",nextTileId, "currentTileId is: ",currentTileId);
+
+    nextTileisCurentTile = (currentTileId === nextTileId);
+    console.log(`nextTileisCurentTile is: ${nextTileisCurentTile}`);
+    if (currentTileId != nextTileId) {
+      console.log("move is called after a delay of 1 secs");
+      removeTileEventListners(adjacentTiles, gmMap, currentTileId); // current tile event listners are removed
+      let currentTile = gmMap.get(currentTileId); // current tile object is stored
+      currentTile.currentTileId = false; // current tile status is set to false
+      let nextTile = gmMap.get(nextTileId); // next tile object is stored
+      removeLumberJackie(); // LumberJackie is removed from the DOM
+      nextTile.currentTileId = true; // next tile status is set to true
+      currentTileId = nextTileId; // next tile becomes current tile
+      console.log("nextTileId is: ",nextTileId, " new currentTileId is: ",currentTileId);
+      displayLumberJackie(currentTileId, gmMap); // LumberJackie is displayed in the new current tile
+      displayCurrentTileActions(currentTileId, gmMap); // displays new current tile actions in the Actions Window
+      setActionEventListners(currentTileId, gmMap, stockProfit); // sets Action Eventlistners for the new current tile
+      displayCurrentTileMessages(currentTileId, gmMap); // displays new current tile messages in the Messages Window
+      adjacentTiles = makeAdjacentTilesSet(currentTileId, gmMap);   // Create a set of adjacent tiles to the new current tile
+      setTileEventListners(adjacentTiles, gmMap, currentTileId, stockProfit); // set event listeners for the new adjacent tiles set
+    }
+    return currentTileId;
   }
+    
 
 } // Closure of main()
 

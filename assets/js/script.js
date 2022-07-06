@@ -336,17 +336,6 @@ function main() {
 
     // Event Listeners
     setTileEventListeners(adjacentTiles, gmMap, currentTileId, stockProfit);
-
-    // Get End Game Data
-    gameResult = checkProfit(stockProfit); // Checks if the Target Profit has been made
-    console.log("game Result is: ", gameResult)
-
-    // End Game Test
-    if (gameResult === "win") { // if the game is won.... which it is!
-      console.log("You have won the Game!");
-
-      win(screen, nextScreen);
-    }
   }
 
   /**
@@ -359,6 +348,19 @@ function main() {
   function checkProfit(stockProfit) {
     console.log("checkProfit() has been called")
     return (stockProfit.profit >= TARGETPROFIT ? "win": null);
+  }
+
+  function winLose(stockProfit) {
+    // Get End Game Data
+    gameResult = checkProfit(stockProfit); // Checks if the Target Profit has been made
+    console.log("game Result is: ", gameResult)
+
+    // End Game Test
+    if (gameResult === "win") { // if the game is won.... which it is!
+      console.log("You have won the Game!");
+
+      win(screen, nextScreen);
+    }
   }
 
   /**
@@ -478,8 +480,9 @@ function main() {
        * @param {*} HARVESTFOREST 
        * @returns 
        */
-      harvestForest(stockProfit) {
+      harvestForest(e, stockProfit) {
         console.log("harvestForest has been called");
+        console.log("stockProfit is: ", stockProfit);
         stockProfit.logsInStock = stockProfit.logsInStock + HARVESTFOREST;
         return stockProfit.logsInStock;
       }
@@ -540,7 +543,7 @@ function main() {
        * @param {*} SELLLOGS 
        * @returns 
        */
-      sellLogs(stockProfit) {
+      sellLogs(e, stockProfit) {
         console.log("sellLogs has been called");
         let saleProfit = stockProfit.logsInStock * SELLLOGS;
         stockProfit.logsInStock = 0;
@@ -691,23 +694,6 @@ function main() {
   // Movement Functions
 
   /**
-   * Tests newTileId to see if it is adjecent to the currentTileId
-   * @param {*} currentTileId 
-   * @param {*} newTileId 
-   * @returns 
-   */
-  function isAdjacent(currentTileId, newTileId) {
-    //console.log("isAdjacent is called");
-    let x = newTileId[0].charCodeAt(); // converts newTile-1st charater to an ASCII number
-    let y = newTileId[1].charCodeAt(); // converts newTile-2nd charater to an ASCII number
-    let a = currentTileId[0].charCodeAt(); // converts currentTile-1st character to an ASCII number
-    let b = currentTileId[1].charCodeAt(); // converts currentTile-2nd character to an ASCII number
-    let xAxis = ((x >= (a-1)) && (x <= (a+1))); //compares allowed 1st characters
-    let yAxis = ((y >= (b-1)) && (y <= (b+1))); //compares allowed 2nd characters
-    return xAxis && yAxis; // If both 1st and 2nd characters are allowed, the newTile is adjacent and function retuen True
-  }
-
-  /**
    * Make a Set of adjacent tiles for a given tile id. Initially this would be the current tile, but it will also function
    * for use with a movement instruction
    * @param {*} currentTileId 
@@ -762,10 +748,19 @@ function main() {
     console.log("currentTile.kind.type is: ", currentTile.kind.type);
     if (currentTile.kind.type === "logCamp") {
       console.log(`${currentTile.kind.type} is chosen`);
-      elActionsMenuList.addEventListener("click", currentTile.kind.sellLogs,false);
+      elActionsMenuList.addEventListener("click", function(e) {
+      stockProfit =  currentTile.kind.sellLogs(e, stockProfit);
+      displayGameInfo(stockProfit);
+      winLose(stockProfit);
+      }, false);
     } else if (currentTile.kind.type === "forest"){
       console.log(`${currentTile.kind.type} is chosen`);
-      elActionsMenuList.addEventListener("click", currentTile.kind.harvestForest, false);
+      elActionsMenuList.addEventListener("click", function(e) {
+      stockProfit.logsInStock = currentTile.kind.harvestForest(e, stockProfit);
+      displayGameInfo(stockProfit);
+      console.log("stockProfit.logsInStock is: ",stockProfit.logsInStock);
+      winLose(stockProfit);
+      }, false);
     } else if (currentTile.kind.type === "grass"){
       console.log(`${currentTile.kind.type} is chosen`);
     }

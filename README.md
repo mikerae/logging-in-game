@@ -403,7 +403,7 @@ The attribute display:flex was added to the class 'tile' which fixed the issue.
 #### Status: Resolved
 Currently, event listeners are attached to all tiles: but listeners are only needed for the current tile and adjacent tiles.
 A set of adjacent tiles was generated and this will be used to set relevant event listeners. This improved performance.
-### Next Tile Eventlistners In Actions Menu are not yet corresponding to new current tile
+### Next Tile Eventlisteners In Actions Menu are not yet corresponding to new current tile
 #### Status: Resolved
 The code for removing event LIstners is faulty. All event listeners are still active, inculidng hover and unhover Lumberjackie.
 https://stackoverflow.com/questions/10444077/javascript-removeeventlistener-not-working was used.

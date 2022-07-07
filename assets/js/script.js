@@ -62,11 +62,11 @@ function main() {
   
 
   // Initialise block variables
-  let Screen = null; // This object is of the class Screens
+  let screen = null; // This object is of the class Screens
   let nextScreen = ""; // nextScreen controls the screen flow of the game
 
   nextScreen = "welcome"; //The Welcome Screen is the first screen to display
-  selectScreen(screen, nextScreen); // The top level screen flow function is called.
+  selectScreen(screen, nextScreen, ); // The top level screen flow function is called.
 
   /**
    * *  * This top level function controls the screen flow of the game 
@@ -80,9 +80,10 @@ function main() {
    * @param {*} screen 
    * @param {*} nextScreen 
    */
-  function selectScreen(screen, nextScreen) {
+  function selectScreen(screen, nextScreen, ) {
     screen = setScreen(screen, nextScreen); // sets the screen view to Monologue or Game, and sets the screen object
-    displayScreen(screen, nextScreen); // displays the screen view
+    console.log("screen",);
+    displayScreen(screen, nextScreen, ); // displays the screen view
     setEventListeners(screen, nextScreen); // sets event listeners and waits for user input
   }
 
@@ -95,6 +96,8 @@ function main() {
    * @param {*} nextScreen 
    */
   function setScreen(screen, nextScreen, ) {
+    console.log("setScreen is called");
+    console.log("nextScreen is: ",nextScreen);
     switch(nextScreen) {
       case 'game':
         MONOLOGUEDISPLAY.style.display = "none";
@@ -127,11 +130,11 @@ function main() {
    * @param {*} screen 
    * @param {*} nextScreen 
    */
-  function displayScreen(screen, nextScreen) {
+  function displayScreen(screen, nextScreen, ) {
       console.log("displayScreen has been called");
 
       if (nextScreen === "game") { // Load the Game and run the main game loop
-        loadGame(screen, nextScreen);
+        loadGame(screen, nextScreen, );
       } else {
         populateScreen(screen, nextScreen); // enter screen flow 
       }
@@ -165,8 +168,8 @@ function main() {
           game(screen, nextScreen);
         });
     } else if (screen.name === "win") { // for win screen
-          button1.addEventListener('click', function() { //when button1 is clicked , the game event function is called
-            game(screen, nextScreen);
+          button1.addEventListener('click', function() { //when button1 is clicked , the welcome event function is called
+            welcome(screen, nextScreen);
           });
     }
   }
@@ -201,6 +204,8 @@ function main() {
    * @returns 
    */
   function populateScreen(screen, nextScreen) {
+    console.log("populateScreen has been called");
+    console.log("screen is: ", screen);
     populateScreenText(screen); // Loads relevant text on screen
     loadImage(screen); // Loads relevenat image on screen
     populateScreenButtons(screen, nextScreen); // Gives buttons the relevant properties
@@ -211,6 +216,8 @@ function main() {
    * @param {*} screen 
    */
   function populateScreenText(screen) {
+    console.log("populateScreenText has been called");
+    console.log("screen is: ", screen);
     document.getElementById("screen-title").innerText = screen.title; // h1 element
     document.getElementById("screen-msg").innerText = screen.msg; // p element
   }
@@ -266,7 +273,7 @@ function main() {
    */
   function welcome(screen, nextScreen) {
       nextScreen = "welcome";
-      selectScreen(screen, nextScreen);
+      selectScreen(screen, nextScreen, );
   }
 
   /**
@@ -277,7 +284,7 @@ function main() {
    */
   function intro(screen, nextScreen) {
       nextScreen = "intro";
-      selectScreen(screen, nextScreen);
+      selectScreen(screen, nextScreen, );
   }
 
   /**
@@ -288,7 +295,7 @@ function main() {
    */
   function game(screen, nextScreen) {
     nextScreen = "game";
-    selectScreen(screen, nextScreen);
+    selectScreen(screen, nextScreen, );
   }
 
   /**
@@ -299,7 +306,7 @@ function main() {
    */
   function win(screen, nextScreen) {
     nextScreen = "win";
-    selectScreen(screen, nextScreen);
+    selectScreen(screen, nextScreen, );
   }
 
   // Game Functions
@@ -311,7 +318,7 @@ function main() {
    * @param {*} screen 
    * @param {*} nextScreen 
    */
-  function loadGame(screen, nextScreen) {
+  function loadGame(screen, nextScreen, ) {
     console.log("loadGame() has been called");
 
     // Initilise Variables
@@ -335,7 +342,7 @@ function main() {
     console.log("adjacentTiles Set is: ",adjacentTiles);
 
     // Event Listeners
-    setTileEventListeners(adjacentTiles, gmMap, currentTileId, stockProfit);
+    setTileEventListeners(adjacentTiles, gmMap, currentTileId, stockProfit, );
   }
 
   /**
@@ -426,6 +433,33 @@ function main() {
         this.movement = movement; // Available movement {move-up: boolean, move-right: boolean etc}
         this.movementTxt = movementTxt; // {"Move Up", "Move Right"} etc
       }
+      changeTile(currentTile, currentTileId, gmMap) {
+        console.log("changeTile has been called");
+        console.log(`new tile kind is: ${currentTile.kind.nextTile}`);
+        switch (currentTile.kind.nextTile) {
+          case "grass":
+            let newTile = setGrass(tiles, currentTile.loc); // creast a new grass tile object
+            console.log("newTile is: ", newTile);
+            gmMap.set(currentTile.loc, newTile); // put it in the map object at the current location
+            console.log("new gmMap tile is: ", gmMap.get(currentTile.loc));
+            if (document.getElementById(currentTileId).children.length !== 0) { // if there is already an image element present, remove it
+              for (let img of document.getElementById(currentTileId).children) { // look through the images
+                if (img.getAttribute("class") === "tile-img") { // if there is a tile image
+                img.remove(); // remove it
+                }
+              }
+            }
+            let elTile = document.getElementById(currentTileId); // get the current tile DOM element
+            let image = document.createElement('img'); // create an image element in the DOM
+            image.setAttribute("class", "tile-img"); // set its class to "tile-img"
+            console.log("elTileis: ",elTile);
+            image.setAttribute("src", newTile.kind.src); // set image src path
+            image.setAttribute("alt", newTile.kind.alt); // set image alt
+            elTile.appendChild(image);/// put image in wrapper in the DOM
+            displayCurrentTileActions(currentTileId, gmMap); // displays new current tile actions in the Actions Window
+            displayCurrentTileMessages(currentTileId, gmMap); // displays new current tile messages in the Messages Window
+        }
+      }
     }
     let tile = {};
     // Create Array of  Tile Objects
@@ -471,7 +505,7 @@ function main() {
         this.alt = "Forest Tile. Harvest your forest to make logs here";
         this.actions =["Harvest Forest"];
         this.messages = [`Harvest the Forest in the Actions Menu. You will make ${HARVESTFOREST}  logs.`];
-        this.harvestTile = "grass";
+        this.nextTile = "grass";
       }
 
       /**
@@ -481,18 +515,14 @@ function main() {
        * @param {*} HARVESTFOREST 
        * @returns 
        */
-      harvestForest(e, stockProfit) {
+      harvestForest(e, stockProfit) { // e represents the event called by the EventListener calling harvestForest
         console.log("harvestForest has been called");
         console.log("stockProfit is: ", stockProfit);
         stockProfit.logsInStock = stockProfit.logsInStock + HARVESTFOREST;
         return stockProfit.logsInStock;
       }
-
-      changeToGrass(e, currentTileId) {
-        console.log("changeToGrass has been called");
-        console.log("currentTileId is: ", currentTileId);
-      }
     }
+
     let forestTile = tiles.find(item => item.loc === tileId);
     let forest = new Forest();
     forestTile.kind = forest;
@@ -619,15 +649,21 @@ function main() {
    * @param {*} _elMap 
    */
   function displayMapTile(_tile, _mapKey, _elMap) {
+    console.log("displayMapTile has been called");
+    console.log("document.getElementById(_mapKey).children is: ", document.getElementById(_mapKey).children);
     if (document.getElementById(_mapKey).children.length !== 0) { // if there is already an image element present, remove it
-      document.getElementById(_mapKey).removeChild;
-    } else {
+      for (let img of document.getElementById(_mapKey).children) {
+        if (img.getAttribute("class") === "tile-img") {
+        img.remove();
+        }
+      }
+    }
     let image = document.createElement('img'); // crreate an image element in the DOM
     image.setAttribute("class", "tile-img"); // set its class to "tile-img"
+    console.log("_elMap is: ",_elMap);
     image.setAttribute("src", _elMap.get(_mapKey).kind.src); // set image src path
     image.setAttribute("alt", _elMap.get(_mapKey).kind.alt); // set image alt
     document.getElementById(_mapKey).appendChild(image);/// put image in wrapper in the DOM
-    }
   }
 
   /**
@@ -747,7 +783,7 @@ function main() {
    * @param {*} gmMap 
    * @param {*} stockProfit 
    */
-  function setActionEventListeners(currentTileId, gmMap, stockProfit) {
+  function setActionEventListeners(currentTileId, gmMap, stockProfit, newTileKind, ) {
     console.log("setActionEventListeners is called");
     let currentTile = gmMap.get(currentTileId); // get current tile
     elActionsMenuList = document.getElementById("actions-menu-list"); // get DOM Actions Menu list
@@ -762,9 +798,10 @@ function main() {
     } else if (currentTile.kind.type === "forest"){
       console.log(`${currentTile.kind.type} is chosen`);
       elActionsMenuList.addEventListener("click", function(e) { // Add Event Listener to forest tile
-      stockProfit.logsInStock = currentTile.kind.harvestForest(e, stockProfit); // calls forest method to increment logs in stock
+      stockProfit.logsInStock = currentTile.kind.harvestForest(e, stockProfit); // calls forest method to increment logs in stock, and change tile to harvisted tile
+      console.log(" is: ",);
+      currentTile = currentTile.changeTile(currentTile, currentTileId, gmMap, );
       displayGameInfo(stockProfit); // Displays updated Game Info
-      currentTile.kind.changeToGrass(e, currentTileId); // calls forest method to change tile to grass when harvested.
       console.log("stockProfit.logsInStock is: ",stockProfit.logsInStock);
       }, false);
     } else if (currentTile.kind.type === "grass"){
@@ -832,7 +869,7 @@ function main() {
    * @param {*} gmMap 
    * @param {*} currentTileId 
    */
-  function setTileEventListeners(adjacentTiles, gmMap, currentTileId, stockProfit) {
+  function setTileEventListeners(adjacentTiles, gmMap, currentTileId, stockProfit, ) {
     console.log("setTileEventListeners is called");
     console.log("adjacentTiles is: ",adjacentTiles);
     adjacentTiles.forEach((value) => { // For each of the tiles in the adjacent tile set:
@@ -849,7 +886,7 @@ function main() {
       }, 1000);  
       }, false);  // on click Move to next tile
     }); // end of forEach
-    setActionEventListeners(currentTileId, gmMap, stockProfit); // set Action Event Listeners in the Actions List menu
+    setActionEventListeners(currentTileId, gmMap, stockProfit, ); // set Action Event Listeners in the Actions List menu
   } // end of function
 
 

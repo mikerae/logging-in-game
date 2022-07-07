@@ -404,18 +404,31 @@ The attribute display:flex was added to the class 'tile' which fixed the issue.
 Currently, event listeners are attached to all tiles: but listeners are only needed for the current tile and adjacent tiles.
 A set of adjacent tiles was generated and this will be used to set relevant event listeners. This improved performance.
 ### Next Tile Eventlisteners In Actions Menu are not yet corresponding to new current tile
-#### Status: Resolved
+#### Status: Unresolved
 The code for removing event LIstners is faulty. All event listeners are still active, inculidng hover and unhover Lumberjackie.
 https://stackoverflow.com/questions/10444077/javascript-removeeventlistener-not-working was used.
 Using an anonymous function call with an event listener made it impssible to remove an event Listener later.
-Changing the method of calling a function as per the stack overflow solvwd the issue for hoverLumberJackie, unhoverLumberJackie and the actions menu list.
-However, it was not possible yet to structue the call to move() in a similar way without error.
-### move is called() when the CurrentTileId tiel is clicked again
+Changing the method of calling a function as per the stack overflow solved the issue for hoverLumberJackie, unhoverLumberJackie.
+However, I have not yet been able to structure the call to move() or the setActionEventListeners() in a similar way without error.
++> find a way to use a named function for the addEventListener and removeEventListener calls.
+### move is called() when the CurrentTileId tile is clicked again
 #### Status: Resolved
 currentTileId is not updating before mew move() event is fired.
 A condition was added to move to call the function code if the currentTileId != nextTileId.
 The move() now returns the updated currentTileId.
 [the actionEventListners are still not working correctly].
+## Next Eventlisteners for LumberJackie hove/unhover fireing multiple times and behaving unpredictably
+#### Status: Unresolved
+Lumber Jackie is removed quickly to the point that she does not display at all.
+This may be linked to the while loop which removes multiple "lumber-jackie-hover" images where they are present.
+Multiple "lumber-jackie-hover" images are created because the "mouseovr' event id fired multiple times- by the grid, by the tile and by the image elements.
+=> fix multiple firing: only fire on tile element or image for "mouseover", and only fire on tile for "mouseout"
+=> remover while loop: replace with one remove "lumber-jackie-hover"  inGE action preceeding a display "lumber-jackie-hover" image action.
+
+## Next Eventlisteners for Game mechanics Actions firing multilple times
+#### Status: Unresolved
+It appears that there are compound firing of action event listeners- linked to these not having been removed on a previous move.
+This leads to premature ending of the game.
 
 ## Testing
 Testing took place constantly throughout development as functions were built and deployed.

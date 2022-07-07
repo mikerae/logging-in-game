@@ -486,6 +486,11 @@ function main() {
         stockProfit.logsInStock = stockProfit.logsInStock + HARVESTFOREST;
         return stockProfit.logsInStock;
       }
+
+      changeToGrass(e, currentTileId) {
+        console.log("changeToGrass has been called");
+        console.log("currentTileId is: ", currentTileId);
+      }
     }
     let forestTile = tiles.find(item => item.loc === tileId);
     let forest = new Forest();
@@ -518,7 +523,7 @@ function main() {
   }
 
   /**
-   * Sets a lofCamp object to a given tile
+   * Sets a Log Camp object to a given tile
    * @param {*} tiles 
    * @param {*} tileId 
    * @returns 
@@ -652,7 +657,6 @@ function main() {
       } 
   }
 
-  
   /**
    * Adds Actions for the current tile to the Actions Menu
    * @param {*} currentTileId 
@@ -732,9 +736,10 @@ function main() {
     return adjacentTiles;
   }
 
-  // Event Listeners
+  // Main Game Flow: Event Listeners
 
   /**
+   * The main Game Flow is controled from this function.
    *  Add Event Listener to Actions menu based on the current tile.
    * If the Action Menu item is clicked, the associated action is fired.
    * @param {*} currentTileId 
@@ -748,18 +753,18 @@ function main() {
     console.log("currentTile.kind.type is: ", currentTile.kind.type);
     if (currentTile.kind.type === "logCamp") {
       console.log(`${currentTile.kind.type} is chosen`);
-      elActionsMenuList.addEventListener("click", function(e) {
-      stockProfit =  currentTile.kind.sellLogs(e, stockProfit);
-      displayGameInfo(stockProfit);
-      winLose(stockProfit);
+      elActionsMenuList.addEventListener("click", function(e) { // Add Event Listener to Log Camp tile
+      stockProfit =  currentTile.kind.sellLogs(e, stockProfit); // calls Log Cap method to increase profit
+      displayGameInfo(stockProfit); // Displays  updated Game Info
+      winLose(stockProfit); // Check win status
       }, false);
     } else if (currentTile.kind.type === "forest"){
       console.log(`${currentTile.kind.type} is chosen`);
-      elActionsMenuList.addEventListener("click", function(e) {
-      stockProfit.logsInStock = currentTile.kind.harvestForest(e, stockProfit);
-      displayGameInfo(stockProfit);
+      elActionsMenuList.addEventListener("click", function(e) { // Add Event Listener to forest tile
+      stockProfit.logsInStock = currentTile.kind.harvestForest(e, stockProfit); // calls forest method to increment logs in stock
+      displayGameInfo(stockProfit); // Displays updated Game Info
+      currentTile.kind.changeToGrass(e, currentTileId); // calls forest method to change tile to grass when harvested.
       console.log("stockProfit.logsInStock is: ",stockProfit.logsInStock);
-      winLose(stockProfit);
       }, false);
     } else if (currentTile.kind.type === "grass"){
       console.log(`${currentTile.kind.type} is chosen`);
@@ -864,7 +869,7 @@ function main() {
   }
 
   /**
-   * This function provides movement around the whole grid.
+   *  * This function provides movement around the whole grid.
    * Movement is verticle or horizontal and one square at a time
    * current tile event listners are removed
    * current tile status is set to false
@@ -879,6 +884,8 @@ function main() {
    * @param {*} gmMap 
    * @param {*} currentTileId 
    * @param {*} nextTileId 
+   * @param {*} stockProfit 
+   * @returns 
    */
   function move(adjacentTiles, gmMap, currentTileId, nextTileId, stockProfit) {
     console.log("move is called");

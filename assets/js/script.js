@@ -471,6 +471,7 @@ function main() {
         this.alt = "Forest Tile. Harvest your forest to make logs here";
         this.actions =["Harvest Forest"];
         this.messages = [`Harvest the Forest in the Actions Menu. You will make ${HARVESTFOREST}  logs.`];
+        this.harvestTile = "grass";
       }
 
       /**

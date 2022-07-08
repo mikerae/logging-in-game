@@ -69,7 +69,6 @@ h1, h2, h3 {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  /* background-image: linear-gradient(top to bottom, rgb(55	100	158	), rgb(109	224	159	)); */
 }
 
 .screen {
@@ -97,6 +96,7 @@ header {
 /* Nav Styling */
 #nav {
   display:flex;
+  min-height: 10vh;
 }
 
 #nav-list {
@@ -131,6 +131,7 @@ header {
   align-items: center;
   justify-content: center;
   max-width: 100vw;
+  max-height: 100%;
 }
 
 /* 
@@ -138,9 +139,10 @@ header {
   proportional as screen width changes
 */
 #display-img-wrapper {
-  width: 100%;
+  width: 60%;
   aspect-ratio: 16/9;
 }
+
 #screen-image {
   object-fit: fill;
   width: 100%;
@@ -522,8 +524,18 @@ aspect-ratio: 16 / 9;
     font-size: 0.7em;
     margin: 0;
   }
+
+  #display-img-wrapper {
+    width: 100%;
+    aspect-ratio: 16/9;
+  }
   
   /* Nav Bar */
+
+  #nav {
+    height: 10vh;
+  }
+
   #nav-list li {
     padding: .3rem;
   }
@@ -543,7 +555,8 @@ aspect-ratio: 16 / 9;
 
   /* Display Image and Text */
   #inner-display-wrapper {
-    display:block;
+    display:flex;
+    flex-direction: column;
   }
 
   #game-body-wrapper {

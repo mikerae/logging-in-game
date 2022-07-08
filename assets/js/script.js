@@ -814,18 +814,17 @@ function main() {
   function hoverLumberJackie(event) {
     console.log("hoverLumberJackie is called");
     let tile = event.target;
-    console.log("tile is: ",tile);
-    //console.log("parent of tile is: ",tile.parentElement);
-    if (tile.getAttribute("id" === "map")) {
-      console.log("event is fired on map");
-    } else if (tile.getAttribute("class") === "tile") {
-      if (document.getElementById("lumber-jackie-hover")) {
-        document.getElementById("lumber-jackie-hover").remove();
+    if (tile.getAttribute("class") === "tile-img") {
+      let elTileContents = tile.parentElement.children;
+      for (el of elTileContents) {
+        if (el.getAttribute("id")== "lumber-jackie-hover") {
+          el.remove();
+        }
       }
       let image = document.createElement('img'); // create an image element in the DOM
       image.setAttribute("id", "lumber-jackie-hover"); // set its id to "lumber-jackie"
       image.setAttribute("src", "assets/images/lumberjackie.png"); // set image src path
-      tile.appendChild(image); // put image in wrapper in the DOM
+      tile.parentElement.appendChild(image); // put image in wrapper in the DOM
     }
   }
 
@@ -835,19 +834,17 @@ function main() {
    * @param {*} gmMap 
    */
   function unHoverLumberJackie(event) {
-    setTimeout(() => {
-      console.log("unHoverLumberJackie is called");
-      let tile = event.target;
-      console.log("tile is: ",tile);
-      //console.log("parent of tile is: ",tile.parentElement);
-      if (tile.getAttribute("id" === "map")) {
-        console.log("event is fired on map");
-      } else {
-        if (document.getElementById("lumber-jackie-hover")) { // if there is already an image element present, remove it
-          document.getElementById("lumber-jackie-hover").remove();
+    console.log("unHoverLumberJackie is called");
+    let tile = event.target;
+    console.log("tile is: ",tile);
+    if (tile.getAttribute("class") === "tile-img") {
+      let elTileContents = tile.parentElement.children;
+      for (el of elTileContents) {
+        if (el.getAttribute("id")== "lumber-jackie-hover") {
+          el.remove();
         }
       }
-    }, 500)
+    }
   }
 
   let logCampAction = (currentTile, stockProfit) => { //Convert logCampAction to arrow function for use as named function to remover eventListener
@@ -886,15 +883,15 @@ function main() {
       console.log("value.loc is: ",value.loc );
       let tile = document.getElementById(value.loc); // the Tile id is stored
       console.log("tile is: ",tile );
-      tile.addEventListener("mouseover", hoverLumberJackie, false); // on hover LumberJackie is displayed 
-      tile.addEventListener("mouseout", unHoverLumberJackie, false); // on mouseout LumberJackie is hidden
+      tile.addEventListener("mouseover", hoverLumberJackie); // on hover LumberJackie is displayed 
+      tile.addEventListener("mouseout", unHoverLumberJackie); // on mouseout LumberJackie is hidden
       tile.addEventListener("click", function() { // on click Move to next tile
         let nextTileId = event.target.parentElement.getAttribute("id");
         setTimeout(function() { // a delay of 1 second is set
           currentTile = move(adjacentTiles, gmMap, currentTileId, nextTileId, stockProfit); // after a short delay, LumberJackie moves to the chosen tile, 
           console.log("after move new currentTile is: ", currentTile);                   // ready to receive further instructions. 
         }, 1000);  
-      }, false);  
+      });  
     }); // end of forEach
     setActionEventListeners(gmMap, currentTile, currentTileId, stockProfit); // set Action Event Listeners in the Actions List menu
   } // end of function

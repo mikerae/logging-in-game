@@ -268,13 +268,6 @@ currentTileId is not updating before mew move() event is fired.
 A condition was added to move to call the function code if the currentTileId != nextTileId.
 The move() now returns the updated currentTileId.
 [the actionEventListners are still not working correctly].
-## Eventlisteners for LumberJackie hove/unhover fireing multiple times and behaving unpredictably
-#### Status: Unresolved
-Lumber Jackie is removed quickly to the point that she does not display at all.
-This may be linked to the while loop which removes multiple "lumber-jackie-hover" images where they are present.
-Multiple "lumber-jackie-hover" images are created because the "mouseovr' event id fired multiple times- by the grid, by the tile and by the image elements.
-=> fix multiple firing: only fire on tile element or image for "mouseover", and only fire on tile for "mouseout"
-=> remover while loop: replace with one remove "lumber-jackie-hover"  inGE action preceeding a display "lumber-jackie-hover" image action.
 ## Eventlisteners for Game mechanics Actions firing imediately and not waiting for event
 #### Status: Resolved
 The parameters were removed from the called function for eventListeners, and the called functions were defined withing the scope of the function within which the eventListeners were enclosed. 
@@ -306,6 +299,18 @@ Using an anonymous function call with an event listener made it impssible to rem
 When on a new forest tile, the actionsEventListeners is still firing the sell.logs event from the log cabin
 => it has not been removed.
 This remains a bug. 
+## Eventlisteners for LumberJackie hove/unhover fireing multiple times and behaving unpredictably
+#### Status: Partially resolved
+Lumber Jackie is removed quickly to the point that she does not display at all.
+This may be linked to the while loop which removes multiple "lumber-jackie-hover" images where they are present.
+Multiple "lumber-jackie-hover" images are created because the "mouseovr' event id fired multiple times- by the grid, by the tile and by the image elements.
+=> fix multiple firing: only fire on tile element or image for "mouseover", and only fire on tile for "mouseout"
+=> remover while loop: replace with one remove "lumber-jackie-hover"  inGE action preceeding a display "lumber-jackie-hover" image action.
+Partial Solution:
+The function hoverLumberJackie() was only acted upon if the eevent target was the tile image. A Html collection of the parent (div)'s children was made.This was itterated
+through. If the iterated element had id = "lumber-jackie-hover", this element was removed. An image of Lumber-Jackie was then created and put in the tile div.
+The function unhoverLumberJackie() m, on filtering the event tartgert to tile image, iterated the same collection and remved the image of Lumber-Jackie.
+Currently, when LJ moves to another tile, a residual LJ image is left in the exited tile until a unhoverLumberJacket function is called on it.
 
 ## Testing
 Testing took place constantly throughout development as functions were built and deployed.

@@ -254,13 +254,14 @@ The attribute display:flex was added to the class 'tile' which fixed the issue.
 Currently, event listeners are attached to all tiles: but listeners are only needed for the current tile and adjacent tiles.
 A set of adjacent tiles was generated and this will be used to set relevant event listeners. This improved performance.
 ### Next Tile Eventlisteners In Actions Menu are not yet corresponding to new current tile
-#### Status: Unresolved
+#### Status: Resolved
 The code for removing event LIstners is faulty. All event listeners are still active, inculidng hover and unhover Lumberjackie.
 https://stackoverflow.com/questions/10444077/javascript-removeeventlistener-not-working was used.
 Using an anonymous function call with an event listener made it impssible to remove an event Listener later.
 Changing the method of calling a function as per the stack overflow solved the issue for hoverLumberJackie, unhoverLumberJackie.
+The move from tile to tile now dispalalys the correct curent tile Actions Menu list.
 However, I have not yet been able to structure the call to move() or the setActionEventListeners() in a similar way without error.
-+> find a way to use a named function for the addEventListener and removeEventListener calls.
+=> find a way to use a named function for the addEventListener and removeEventListener calls.
 ### move is called() when the CurrentTileId tile is clicked again
 #### Status: Resolved
 currentTileId is not updating before mew move() event is fired.
@@ -274,14 +275,6 @@ This may be linked to the while loop which removes multiple "lumber-jackie-hover
 Multiple "lumber-jackie-hover" images are created because the "mouseovr' event id fired multiple times- by the grid, by the tile and by the image elements.
 => fix multiple firing: only fire on tile element or image for "mouseover", and only fire on tile for "mouseout"
 => remover while loop: replace with one remove "lumber-jackie-hover"  inGE action preceeding a display "lumber-jackie-hover" image action.
-## Eventlisteners for Game mechanics Actions firing multilple times
-#### Status: Unresolved
-It appears that there are compound firing of action event listeners- linked to these not having been removed on a previous move.
-This leads to premature ending of the game.
-## remover ActionEventListeners() not workinng
-#### Status: Unresolved
-When on a new forest tile, the actionsEventListeners is still firing the sell.logs event from the log cabin
-=> it has not been removed.
 ## Eventlisteners for Game mechanics Actions firing imediately and not waiting for event
 #### Status: Resolved
 The parameters were removed from the called function for eventListeners, and the called functions were defined withing the scope of the function within which the eventListeners were enclosed. 
@@ -292,6 +285,27 @@ A new line making currentTile = nextTile after currentTilID = nextTileId was add
 #### Status: Resolved
 Line 832: harvestForestAction(stockProfit, currentTile, currentTile.loc, gmMap); 3rd parameter needs cuurentTileId but that was undefined.
 Passing it currentTile.loc where currentTile was defines solved the issue.
+## Eventlisteners for Game mechanics Actions firing multilple times
+#### Status: Unresolved
+It appears that there are compound firing of action event listeners- linked to these not having been removed on a previous move.
+This leads to premature ending of the game. This issue and "remove ActionEventListeners() not workinng"
+## remove ActionEventListeners() not workinng
+#### Status: Unresolved
+The code for removing event Listeners is not working as desired. The move() and Action Event  listeners are still active.
+https://stackoverflow.com/questions/10444077/javascript-removeeventlistener-not-working is still relevant. However, it has not been
+possible to construct a named function which then receives the required parameters. All attempts at passing parameters to a named function
+result in the function not being able to see them.
+I have tried moving the scope of the Action Event List functions inwards, so that their scope is the same as the parameters it calls with. This did not work. I finally placed them at the outermost scope (within main{} but not global.
+At the current stae,  the actions list works the best yet... but its not right. 
+```
+script.js:864 Uncaught TypeError: currentTile.kind.harvestForest is not a function
+    at harvestForestAction (script.js:864)
+    at HTMLUListElement.<anonymous> (script.js:803)
+```
+Using an anonymous function call with an event listener made it impssible to remove an event Listener later.
+When on a new forest tile, the actionsEventListeners is still firing the sell.logs event from the log cabin
+=> it has not been removed.
+This remains a bug. 
 
 ## Testing
 Testing took place constantly throughout development as functions were built and deployed.

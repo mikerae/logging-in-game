@@ -311,6 +311,10 @@ The function hoverLumberJackie() was only acted upon if the eevent target was th
 through. If the iterated element had id = "lumber-jackie-hover", this element was removed. An image of Lumber-Jackie was then created and put in the tile div.
 The function unhoverLumberJackie() m, on filtering the event tartgert to tile image, iterated the same collection and remved the image of Lumber-Jackie.
 Currently, when LJ moves to another tile, a residual LJ image is left in the exited tile until a unhoverLumberJacket function is called on it.
+## LumberJackie not hidding when moving from current tile to next tile
+#### Unresolved
+## LumberJackie still showig on some tiles when New Game is selected
+#### Unresolved
 
 ## Testing
 Testing took place constantly throughout development as functions were built and deployed.

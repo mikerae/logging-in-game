@@ -66,7 +66,7 @@ function main() {
   let nextScreen = ""; // nextScreen controls the screen flow of the game
 
   nextScreen = "welcome"; //The Welcome Screen is the first screen to display
-  selectScreen(screen, nextScreen, ); // The top level screen flow function is called.
+  selectScreen(screen, nextScreen); // The top level screen flow function is called.
 
   /**
    * *  * This top level function controls the screen flow of the game 
@@ -80,9 +80,9 @@ function main() {
    * @param {*} screen 
    * @param {*} nextScreen 
    */
-  function selectScreen(screen, nextScreen, ) {
+  function selectScreen(screen, nextScreen) {
     screen = setScreen(screen, nextScreen); // sets the screen view to Monologue or Game, and sets the screen object
-    displayScreen(screen, nextScreen, ); // displays the screen view
+    displayScreen(screen, nextScreen); // displays the screen view
     setEventListeners(screen, nextScreen); // sets event listeners and waits for user input
   }
 
@@ -94,7 +94,7 @@ function main() {
    * @param {*} screen 
    * @param {*} nextScreen 
    */
-  function setScreen(screen, nextScreen, ) {
+  function setScreen(screen, nextScreen) {
     switch(nextScreen) {
       case 'game':
         MONOLOGUEDISPLAY.style.display = "none";
@@ -127,9 +127,9 @@ function main() {
    * @param {*} screen 
    * @param {*} nextScreen 
    */
-  function displayScreen(screen, nextScreen, ) {
+  function displayScreen(screen, nextScreen) {
       if (nextScreen === "game") { // Load the Game and run the main game loop
-        loadGame(screen, nextScreen, );
+        loadGame(screen, nextScreen);
       } else {
         populateScreen(screen, nextScreen); // enter screen flow 
       }
@@ -182,9 +182,9 @@ function main() {
           welcome(screen, nextScreen);
         } else if (this.getAttribute("nav-type") === "nav-newgame") { //If New Game is clicked in the welcome() is called and the Welcome Screen is displayed
           game(screen, nextScreen);
-        };
+        }
       });
-    };
+    }
   }
 
   // Screen Display Utility Functions
@@ -266,7 +266,7 @@ function main() {
    */
   function welcome(screen, nextScreen) {
       nextScreen = "welcome";
-      selectScreen(screen, nextScreen, );
+      selectScreen(screen, nextScreen);
       document.getElementById("nav-newgame").style.display = "none";
       document.getElementById("nav-quit").style.display = "none";
 
@@ -280,7 +280,7 @@ function main() {
    */
   function intro(screen, nextScreen) {
       nextScreen = "intro";
-      selectScreen(screen, nextScreen, );
+      selectScreen(screen, nextScreen);
       document.getElementById("nav-newgame").style.display = "none";
       document.getElementById("nav-quit").style.display = "";
   }
@@ -293,7 +293,7 @@ function main() {
    */
   function game(screen, nextScreen) {
     nextScreen = "game";
-    selectScreen(screen, nextScreen, );
+    selectScreen(screen, nextScreen);
     document.getElementById("screen-title").style.display = "none";
     document.getElementById("nav-newgame").style.display = "";
   }
@@ -306,7 +306,7 @@ function main() {
    */
   function win(screen, nextScreen) {
     nextScreen = "win";
-    selectScreen(screen, nextScreen, );
+    selectScreen(screen, nextScreen);
     document.getElementById("screen-title").style.display = "";
     document.getElementById("btn-1").style.display = "none";
 
@@ -321,10 +321,9 @@ function main() {
    * @param {*} screen 
    * @param {*} nextScreen 
    */
-  function loadGame(screen, nextScreen, ) {
+  function loadGame(screen, nextScreen) {
 
     // Initilise Variables
-    let gameResult = null; // resets the game result
     let stockProfit = {logsInStock: 0, profit: 0}; // this object contains the Game Info and is needed because JavaScript does not support functions returning multiple values.
     let gmMap = new Map(); // Map object containing all game tiles maped to DOM grid
     let tiles = []; // Array of  map tiles: "kind" to be specified
@@ -363,7 +362,7 @@ function main() {
    */
   function winLose(stockProfit) {
     // Get End Game Data
-    gameResult = checkProfit(stockProfit); // Checks if the Target Profit has been made
+    let gameResult = checkProfit(stockProfit); // Checks if the Target Profit has been made
 
     // End Game Test
     if (gameResult === "win") { // if the game is won.... which it is!
@@ -473,7 +472,7 @@ function main() {
         tile = new Tiles(element, false, {}, "left-edge", true, {"up": true, "right": true, "down": true, "left": false}, ["Move up", "Move right", "Move down"]);
       } else { // inner tiles
         tile = new Tiles(element, false, {}, "inner", false, {"up": true, "right": true, "down": true, "left": true}, ["Move up", "Move right", "Move down", "Move Left"]);
-      }; 
+      }
       tiles.push(tile); //add each tile object to tiles array
     });
     return tiles;
@@ -697,7 +696,7 @@ function main() {
     let messages = ""; // creates a variable to store current tile messages
     messages = (gmMap.get(currentTileId).kind.messages); // gets messages  from the current tile and stores them in messages
     elMessages.innerText = messages; // adds the messages  to the inner text of the elMessages <p></p> element
-    elMessages.append; // Adds Action List Element to the DOM
+    elMessages.append(); // Adds Action List Element to the DOM
   }
 
   // Movement Functions
@@ -723,13 +722,13 @@ function main() {
     for (let [key,value] of Object.entries(currentTile.movement)) { // iterates through the curret tile movement object
       if (value === false) { // is there a movement set to false? If so, delete it from adjacentTileIds
         if (key === "up") {
-          delete adjacentTileIds["upperTile"];
+          delete adjacentTileIds.upperTile;
         } else if (key === "right") {
-          delete adjacentTileIds["rightTile"];
+          delete adjacentTileIds.rightTile;
         } else if (key === "down") {
-          delete adjacentTileIds["lowerTile"];
+          delete adjacentTileIds.lowerTile;
         } else if (key === "left")  {
-          delete adjacentTileIds["leftTile"];
+          delete adjacentTileIds.leftTile;
         }
       }
     }
@@ -780,7 +779,7 @@ function main() {
    * @param {*} harvestForestActions 
    */
   function setActionEventListeners(gmMap, currentTile, currentTileId, stockProfit) {
-    elActionsMenuList = document.getElementById("actions-menu-list"); // get DOM Actions Menu list
+    let elActionsMenuList = document.getElementById("actions-menu-list"); // get DOM Actions Menu list
     if (currentTile.kind.type === "logCamp") { // if  log camp tile
       elActionsMenuList.addEventListener("click", function() { // set sell logs event listener
         logCampAction(currentTile, stockProfit);
@@ -798,13 +797,13 @@ function main() {
     stockProfit =  currentTile.kind.sellLogs(stockProfit); // calls Log Cap method to increase profit
       displayGameInfo(stockProfit); // Displays  updated Game Info
       winLose(stockProfit); // Check win status
-  }
+  };
 
   let harvestForestAction = (stockProfit, currentTile, currentTileId, gmMap) => { //Convert harvestForestAction to arrow function for use as named function to remover eventListener
     stockProfit.logsInStock = currentTile.kind.harvestForest(stockProfit); // calls forest method to increment logs in stock, and change tile to harvisted tile
     currentTile = currentTile.changeTile(currentTile, currentTileId, gmMap); // changes the forest tile to grass
     displayGameInfo(stockProfit); // Displays updated Game Info
-  }
+  };
 
   /**
    * Displays LumberJackie in the tile where the mouse is
@@ -814,7 +813,7 @@ function main() {
     let tile = event.target;
     if (tile.getAttribute("class") === "tile-img") {
       let elTileContents = tile.parentElement.children;
-      for (el of elTileContents) {
+      for (let el of elTileContents) {
         if (el.getAttribute("id")== "lumber-jackie-hover") {
           el.remove();
         }
@@ -835,7 +834,7 @@ function main() {
     let tile = event.target;
     if (tile.getAttribute("class") === "tile-img") {
       let elTileContents = tile.parentElement.children;
-      for (el of elTileContents) {
+      for (let el of elTileContents) {
         if (el.getAttribute("id")== "lumber-jackie-hover") {
           el.remove();
         }
@@ -878,9 +877,9 @@ function main() {
    * @param {*} logCampAction 
    * @param {*} harvestForestAction 
    */
-  function removeActionEventListeners(gmMap , currentTile, currentTileId, logCampAction, harvestForestAction) {
+  function removeActionEventListeners(gmMap , currentTile, currentTileId, logCampAction, harvestForestAction, stockProfit) {
     currentTile = gmMap.get(currentTileId); // get current tile
-    elActionsMenuList = document.getElementById("actions-menu-list"); // get DOM Actions Menu list
+    let elActionsMenuList = document.getElementById("actions-menu-list"); // get DOM Actions Menu list
     elActionsMenuList.removeEventListener("click", function() { // set sell logs event listener
       logCampAction(currentTile, stockProfit); // removes previously attached harvestForest event listener.
     }, false); 
@@ -910,11 +909,10 @@ function main() {
    */
   function move(adjacentTiles, gmMap, currentTileId, nextTileId, stockProfit) {
     let currentTile = gmMap.get(currentTileId); // current tile object is stored
-    nextTileisCurentTile = (currentTileId === nextTileId);
     if (currentTileId !== nextTileId) {
       // remove current event listeners
       removeTileEventListeners(adjacentTiles, gmMap, currentTile, currentTileId, nextTileId, stockProfit); // current tile event listeners are removed
-      removeActionEventListeners(gmMap , currentTile, currentTileId); // current tile Action event Liteners are removed
+      removeActionEventListeners(gmMap , currentTile, currentTileId, logCampAction, harvestForestAction, stockProfit); // current tile Action event Liteners are removed
       currentTile.currentTileId = false; // current tile status is set to false
       let nextTile = gmMap.get(nextTileId); // next tile object is stored
       nextTile.currentTileId = true; // next tile status is set to true
@@ -931,4 +929,3 @@ function main() {
   }
     
 } // Closure of main()
-

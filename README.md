@@ -331,3 +331,7 @@ After consultation with Sarah Rae the following changes were made:
   the Display Screen text was placed under the image
   the Display Screen Header h1 element was removed
   the quit button under the image was removed
+### Jshint
+The script.js passed through the jshint linter without significant issues. The unused variable -key in line 735 was needed so that the adjacentTiles.forEach((value) in line 753 could read 'value'.
+![Jshint test](/assets/images/jshint.png)
+

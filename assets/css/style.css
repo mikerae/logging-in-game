@@ -138,7 +138,7 @@ header {
   proportional as screen width changes
 */
 #display-img-wrapper {
-  height: 100%;
+  width: 100%;
   aspect-ratio: 16/9;
 }
 #screen-image {
@@ -159,6 +159,7 @@ aspect-ratio: 16 / 9;
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  width:fit-content
 }
 
 .button {
@@ -168,7 +169,8 @@ aspect-ratio: 16 / 9;
   border:groove 0.5em rgb(238	141	185	);
   border-style: outset hidden hidden outset ;
   border-radius: 0.5rem;
-font-size: 2em;
+  font-size: 2em;
+  width:fit-content;
 }
 
 .button:hover {
@@ -515,10 +517,28 @@ font-size: 2em;
     clear: both;
     display: table;
   }
+
+  #screen-msg {
+    font-size: 0.7em;
+    margin: 0;
+  }
   
   /* Nav Bar */
   #nav-list li {
-    padding: .5rem;
+    padding: .3rem;
+  }
+
+  .nav-elements {
+    font-size: 0.5em;
+    padding: 0;
+  }
+
+  #display-buttons-wrapper {
+    margin: 0;
+  }
+
+  .button {
+    font-size: 1em;
   }
 
   /* Display Image and Text */
@@ -578,6 +598,7 @@ font-size: 2em;
 /* The Fire Alert is turnd off in dev stage 1 */
     #fire-alert-wrapper {
       order: 2;
+      display: none;
     }
 
     #spacer {
@@ -591,7 +612,17 @@ font-size: 2em;
     }
 
     #menu-messages-wrapper h2 {
-      font-size: .8em;
+      font-size: 1em;
+    }
+
+    #actions-menu-list li {
+      font-size: 1em;
+      margin:auto;
+    }
+
+    #messages {
+      font-size: 1em;
+      margin: 0;
     }
 
 /* Positioning the Map */
@@ -628,6 +659,11 @@ font-size: 2em;
   #inner-display-wrapper {
     display:flexbox;
     flex-direction: column;
+  }
+
+  .button {
+    font-size: 1.5em;
+    width:fit-content;
   }
 
   #game-body-wrapper {

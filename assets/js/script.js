@@ -910,7 +910,7 @@ function main() {
       tile.addEventListener("click", function() { // on click Move to next tile
         let nextTileId = event.target.parentElement.getAttribute("id");
       setTimeout(function() { // a delay of 1 second is set
-        currentTileId = move(adjacentTiles, gmMap, currentTile, currentTileId, nextTileId, stockProfit); // after a short delay, LumberJackie moves to the chosen tile, 
+        currentTileId = move(adjacentTiles, gmMap, currentTileId, nextTileId, stockProfit); // after a short delay, LumberJackie moves to the chosen tile, 
         console.log("after move new currentTileId is: ", currentTileId);                   // ready to receive further instructions. 
       }, 1000);  
       }, false);  
@@ -957,17 +957,19 @@ function main() {
    * @param {*} stockProfit 
    * @returns 
    */
-  function move(adjacentTiles, gmMap, currentTile, currentTileId, nextTileId, stockProfit) {
+  function move(adjacentTiles, gmMap, currentTileId, nextTileId, stockProfit) {
     console.log("move is called");
     console.log("nextTileId is: ",nextTileId, "currentTileId is: ",currentTileId);
     console.log("adjacentTiles is: ",adjacentTiles);
     console.log("gmMap", gmMap);
+    let currentTile = gmMap.get(currentTileId); // current tile object is stored
     console.log("currentTile is: ",currentTile);
 
     nextTileisCurentTile = (currentTileId === nextTileId);
     console.log(`nextTileisCurentTile is: ${nextTileisCurentTile}`);
     if (currentTileId !== nextTileId) {
       console.log("move is called after a delay of 1 secs");
+      console.log("nextTileId is: ",nextTileId, "currentTileId is: ",currentTileId);
       console.log("gmMap", gmMap);
       console.log("currentTile is: ",currentTile);
       
@@ -975,12 +977,14 @@ function main() {
       console.log("gmMap", gmMap);
       console.log("currentTile is: ",currentTile);
 
-      //let currentTile = gmMap.get(currentTileId); // current tile object is stored
+
       currentTile.currentTileId = false; // current tile status is set to false
       let nextTile = gmMap.get(nextTileId); // next tile object is stored
       removeLumberJackie(); // LumberJackie is removed from the DOM
       nextTile.currentTileId = true; // next tile status is set to true
-      currentTileId = nextTileId; // next tile becomes current tile
+      currentTileId = nextTileId; // next tileId becomes current tile
+      currentTile = nextTile; // next tile becomes current tile
+      console.log("nextTileId becomes currentTileId")
       console.log("nextTileId is: ",nextTileId, " new currentTileId is: ",currentTileId);
       displayLumberJackie(currentTileId, gmMap); // LumberJackie is displayed in the new current tile
       displayCurrentTileActions(currentTileId, gmMap); // displays new current tile actions in the Actions Window

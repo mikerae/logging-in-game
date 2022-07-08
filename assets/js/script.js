@@ -805,6 +805,8 @@ function main() {
         displayGameInfo(stockProfit); // Displays  updated Game Info
         winLose(stockProfit); // Check win status
     }
+
+    
   
     function harvestForestAction(stockProfit, currentTile, currentTileId, gmMap) {
       console.log("harvestForestAction has been called");
@@ -827,7 +829,7 @@ function main() {
     } else if (currentTile.kind.type === "forest"){ // if on forest tile
       console.log(`${currentTile.kind.type} is chosen`);
       elActionsMenuList.addEventListener("click", function() { //set harvest forest event listener
-        harvestForestAction(stockProfit, currentTile, currentTileId, gmMap);
+        harvestForestAction(stockProfit, currentTile, currentTile.loc, gmMap);
       }, false);
     } else if (currentTile.kind.type === "grass"){ // do nothing
       console.log(`${currentTile.kind.type} is chosen`);
@@ -840,10 +842,16 @@ function main() {
     console.log("currentTile is: ", currentTile);
     //currentTile = gmMap.get(currentTileId); // get current tile
     elActionsMenuList = document.getElementById("actions-menu-list"); // get DOM Actions Menu list
-    elActionsMenuList.removeEventListener("click", logCampAction, false); // removes previously attached sellLogs event listener.
-    elActionsMenuList.removeEventListener("click", harvestForestAction, false); // removes previously attached harvestForest event listener.
+    elActionsMenuList.removeEventListener("click", function() { // removes previously attached sellLogs event listener.
+      logCampAction(currentTile, stockProfit);
+    }, false); 
+    elActionsMenuList.removeEventListener("click", function() { // removes previously attached harvestForest event listener.
+      harvestForestAction(stockProfit, currentTile, currentTileId, gmMap);
+    }, false);
     console.log("currentTile.kind.type is: ", currentTile.kind.type);
   }
+
+  
 
   /**
    * Displays LumberJackie in the tile where the mouse is
@@ -915,7 +923,7 @@ function main() {
       }, 1000);  
       }, false);  
     }); // end of forEach
-    setActionEventListeners(gmMap, currentTile, stockProfit); // set Action Event Listeners in the Actions List menu
+    setActionEventListeners(gmMap, currentTile, stockProfit, removeActionEventListeners); // set Action Event Listeners in the Actions List menu
   } // end of function
 
 

@@ -288,6 +288,10 @@ The parameters were removed from the called function for eventListeners, and the
 ## Move() not updating CurentTile
 #### Status: Resolved
 A new line making currentTile = nextTile after currentTilID = nextTileId was added to move().
+## setActionEventList() failing on HarvestForest
+#### Status: Resolved
+Line 832: harvestForestAction(stockProfit, currentTile, currentTile.loc, gmMap); 3rd parameter needs cuurentTileId but that was undefined.
+Passing it currentTile.loc where currentTile was defines solved the issue.
 
 ## Testing
 Testing took place constantly throughout development as functions were built and deployed.

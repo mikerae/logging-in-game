@@ -254,12 +254,12 @@ function main() {
     let button1 = document.getElementById(screen.btn1id);
     if (nextScreen === "welcome") { // for welcome screen
         button1.innerText = screen.btn1txt; // set button1 text
-
+        document.getElementById("nav-newgame").style.display = "none";
       } else if (nextScreen === "intro") { // for intro screen
         button1.innerText = screen.btn1txt; // set button1 text
-
+        document.getElementById("nav-newgame").style.display = "";
       }  else if (nextScreen === "win") { // for win screen
-          button1.innerText = screen.btn1txt; // set button1 text
+        button1.innerText = screen.btn1txt; // set button1 text       
       }
   }
 
@@ -357,6 +357,10 @@ function main() {
     return (stockProfit.profit >= TARGETPROFIT ? "win": null);
   }
 
+  /**
+   * Check WinLose conditions: Returns the user to the Win screen (in this version)
+   * @param {*} stockProfit 
+   */
   function winLose(stockProfit) {
     // Get End Game Data
     gameResult = checkProfit(stockProfit); // Checks if the Target Profit has been made
@@ -775,10 +779,46 @@ function main() {
 
   // Main Game Flow: Event Listeners
 
-  /**
+ /**
    * The main Game Flow is controled from this function.
+   * Creates Event lIstners which display and hide LumberJackie when the mouse moves over 
+   * an adjacent square.
+   * If an adjacent square is clicked, it becomes the new current square by calling the move() function.
+   * @param {*} adjacentTiles 
+   * @param {*} gmMap 
+   * @param {*} currentTileId 
+   */
+  function setTileEventListeners(adjacentTiles, gmMap, currentTile, currentTileId, stockProfit) {
+    console.log("setTileEventListeners is called");
+    console.log("adjacentTiles is: ",adjacentTiles);
+    console.log("gmMap is: ",gmMap);
+    console.log("currentTile is: ",currentTile);
+    console.log("currentTileId is: ",currentTileId);
+    adjacentTiles.forEach((value) => { // For each of the tiles in the adjacent tile set:
+      console.log("value.loc is: ",value.loc );
+      let tile = document.getElementById(value.loc); // the Tile id is stored
+      console.log("tile is: ",tile );
+      tile.addEventListener("mouseover", hoverLumberJackie); // on hover LumberJackie is displayed 
+      tile.addEventListener("mouseout", unHoverLumberJackie); // on mouseout LumberJackie is hidden
+      tile.addEventListener("click", function() { // on click Move to next tile
+        let nextTileId = event.target.parentElement.getAttribute("id");
+        setTimeout(function() { // a delay of 1 second is set
+          currentTile = move(adjacentTiles, gmMap, currentTileId, nextTileId, stockProfit); // after a short delay, LumberJackie moves to the chosen tile, 
+          console.log("after move new currentTile is: ", currentTile);                   // ready to receive further instructions. 
+        }, 1000);  
+      });  
+    }); // end of forEach
+    setActionEventListeners(gmMap, currentTile, currentTileId, stockProfit); // set Action Event Listeners in the Actions List menu
+  } // end of function
+
+  /**
    * Add Event Listener to Actions menu based on the current tile.
    * If the Action Menu item is clicked, the associated action is fired.
+   * Many, many attemptes were made to create named functions which passed parameters to the two called functions
+   * logCampAction and harvestForestAction below, in such a way as to allow the parameters to be read
+   * and later have the event listeners removed. In this version, the paramaters can be read,
+   * but the event listeners for the Actions List cannot be removed.
+   * I have yet to find a solution to this issue.
    * @param {*} currentTileId 
    * @param {*} gmMap 
    * @param {*} stockProfit 
@@ -805,6 +845,25 @@ function main() {
     } else if (currentTile.kind.type === "grass"){ // do nothing
       console.log(`${currentTile.kind.type} is chosen`);
     }
+  }
+
+  // The following two arrow functions are an attempt to make named function objects which can then have event listeners removed from them later.
+  let logCampAction = (currentTile, stockProfit) => { //Convert logCampAction to arrow function for use as named function to remover eventListener
+    console.log("logCampAction has been called");
+    console.log("currentTile is: ",currentTile);
+    stockProfit =  currentTile.kind.sellLogs(stockProfit); // calls Log Cap method to increase profit
+      displayGameInfo(stockProfit); // Displays  updated Game Info
+      winLose(stockProfit); // Check win status
+  }
+
+  let harvestForestAction = (stockProfit, currentTile, currentTileId, gmMap) => { //Convert harvestForestAction to arrow function for use as named function to remover eventListener
+    console.log("harvestForestAction has been called");
+    console.log("currentTile is: ",currentTile);
+    stockProfit.logsInStock = currentTile.kind.harvestForest(stockProfit); // calls forest method to increment logs in stock, and change tile to harvisted tile
+    console.log("harvestForestActions is: ",harvestForestAction);
+    currentTile = currentTile.changeTile(currentTile, currentTileId, gmMap); // changes the forest tile to grass
+    displayGameInfo(stockProfit); // Displays updated Game Info
+    console.log("stockProfit.logsInStock is: ",stockProfit.logsInStock);
   }
 
   /**
@@ -847,56 +906,16 @@ function main() {
     }
   }
 
-  let logCampAction = (currentTile, stockProfit) => { //Convert logCampAction to arrow function for use as named function to remover eventListener
-    console.log("logCampAction has been called");
-    console.log("currentTile is: ",currentTile);
-    stockProfit =  currentTile.kind.sellLogs(stockProfit); // calls Log Cap method to increase profit
-      displayGameInfo(stockProfit); // Displays  updated Game Info
-      winLose(stockProfit); // Check win status
-  }
-
-  let harvestForestAction = (stockProfit, currentTile, currentTileId, gmMap) => { //Convert harvestForestAction to arrow function for use as named function to remover eventListener
-    console.log("harvestForestAction has been called");
-    console.log("currentTile is: ",currentTile);
-    stockProfit.logsInStock = currentTile.kind.harvestForest(stockProfit); // calls forest method to increment logs in stock, and change tile to harvisted tile
-    console.log("harvestForestActions is: ",harvestForestAction);
-    currentTile = currentTile.changeTile(currentTile, currentTileId, gmMap); // changes the forest tile to grass
-    displayGameInfo(stockProfit); // Displays updated Game Info
-    console.log("stockProfit.logsInStock is: ",stockProfit.logsInStock);
-  }
-
   /**
-   * Creates Event lIstners which display and hide LumberJackie when the mouse moves over 
-   * an adjacent square.
-   * If an adjacent square is clicked, it becomes the new current square by calling the move() function.
+   * Removes event listeners from the curent tile, and adjacent tiles.
+   * These do work, because named functions are used.
    * @param {*} adjacentTiles 
    * @param {*} gmMap 
+   * @param {*} currentTile 
    * @param {*} currentTileId 
+   * @param {*} nextTileId 
+   * @param {*} stockProfit 
    */
-  function setTileEventListeners(adjacentTiles, gmMap, currentTile, currentTileId, stockProfit) {
-    console.log("setTileEventListeners is called");
-    console.log("adjacentTiles is: ",adjacentTiles);
-    console.log("gmMap is: ",gmMap);
-    console.log("currentTile is: ",currentTile);
-    console.log("currentTileId is: ",currentTileId);
-    adjacentTiles.forEach((value) => { // For each of the tiles in the adjacent tile set:
-      console.log("value.loc is: ",value.loc );
-      let tile = document.getElementById(value.loc); // the Tile id is stored
-      console.log("tile is: ",tile );
-      tile.addEventListener("mouseover", hoverLumberJackie); // on hover LumberJackie is displayed 
-      tile.addEventListener("mouseout", unHoverLumberJackie); // on mouseout LumberJackie is hidden
-      tile.addEventListener("click", function() { // on click Move to next tile
-        let nextTileId = event.target.parentElement.getAttribute("id");
-        setTimeout(function() { // a delay of 1 second is set
-          currentTile = move(adjacentTiles, gmMap, currentTileId, nextTileId, stockProfit); // after a short delay, LumberJackie moves to the chosen tile, 
-          console.log("after move new currentTile is: ", currentTile);                   // ready to receive further instructions. 
-        }, 1000);  
-      });  
-    }); // end of forEach
-    setActionEventListeners(gmMap, currentTile, currentTileId, stockProfit); // set Action Event Listeners in the Actions List menu
-  } // end of function
-
-
   function removeTileEventListeners(adjacentTiles, gmMap, currentTile, currentTileId, nextTileId, stockProfit) {
     console.log("removeTileEventListeners is called");
     console.log("adjacentTiles is: ",adjacentTiles);
@@ -920,7 +939,18 @@ function main() {
         }, 1000);
       }, false);
   }
-
+  /**
+   * Removes (or attempts to remove) event listeners from Action List Menu
+   * It doesn't work in this version. See readmee.
+   * It was not possible to use named functions and have the correct paramaters passed to them
+   * Evy attempt, and there were many, resulted in the parameters not being defined within the
+   * Action List functions.
+   * @param {*} gmMap 
+   * @param {*} currentTile 
+   * @param {*} currentTileId 
+   * @param {*} logCampAction 
+   * @param {*} harvestForestAction 
+   */
   function removeActionEventListeners(gmMap , currentTile, currentTileId, logCampAction, harvestForestAction) {
     console.log("removeActionEventListeners is called");
     console.log("gmMap is: ",gmMap);
@@ -976,7 +1006,6 @@ function main() {
 
       console.log("gmMap", gmMap);
       console.log("currentTile is: ",currentTile);
-
 
       currentTile.currentTileId = false; // current tile status is set to false
       let nextTile = gmMap.get(nextTileId); // next tile object is stored

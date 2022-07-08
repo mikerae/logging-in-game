@@ -775,23 +775,7 @@ function main() {
 
   // Main Game Flow: Event Listeners
 
-  function logCampAction(e, currentTile, stockProfit) {
-    console.log("logCampAction has been called");
-    console.log("currentTile is: ",currentTile);
-    stockProfit =  currentTile.kind.sellLogs(stockProfit); // calls Log Cap method to increase profit
-      displayGameInfo(stockProfit); // Displays  updated Game Info
-      winLose(stockProfit); // Check win status
-  }
-
-  function harvestForestAction(stockProfit, currentTile, currentTileId, gmMap) {
-    console.log("harvestForestAction has been called");
-    console.log("currentTile is: ",currentTile);
-    stockProfit.logsInStock = currentTile.kind.harvestForest(stockProfit); // calls forest method to increment logs in stock, and change tile to harvisted tile
-    console.log("harvestForestActions is: ",harvestForestAction);
-    currentTile = currentTile.changeTile(currentTile, currentTileId, gmMap);
-    displayGameInfo(stockProfit); // Displays updated Game Info
-    console.log("stockProfit.logsInStock is: ",stockProfit.logsInStock);
-  }
+  
 
   /**
    *    * The main Game Flow is controled from this function.
@@ -807,16 +791,45 @@ function main() {
     console.log("setActionEventListeners is called");
     console.log("gmMap is: ",gmMap);
     console.log("currentTile is: ",currentTile);
+
+    /* logCampAction() and harvestForestAction() exist so that the respective event listneers
+    call a named function. This enables the event listeners to be removed.
+    They are created within this setActionEventListeners() so that the scope of the perameters
+    passed matches what is needed.
+    */
+
+    function logCampAction(currentTile, stockProfit) {
+      console.log("logCampAction has been called");
+      console.log("currentTile is: ",currentTile);
+      stockProfit =  currentTile.kind.sellLogs(stockProfit); // calls Log Cap method to increase profit
+        displayGameInfo(stockProfit); // Displays  updated Game Info
+        winLose(stockProfit); // Check win status
+    }
+  
+    function harvestForestAction(stockProfit, currentTile, currentTileId, gmMap) {
+      console.log("harvestForestAction has been called");
+      console.log("currentTile is: ",currentTile);
+      stockProfit.logsInStock = currentTile.kind.harvestForest(stockProfit); // calls forest method to increment logs in stock, and change tile to harvisted tile
+      console.log("harvestForestActions is: ",harvestForestAction);
+      currentTile = currentTile.changeTile(currentTile, currentTileId, gmMap); // changes the forest tile to grass
+      displayGameInfo(stockProfit); // Displays updated Game Info
+      console.log("stockProfit.logsInStock is: ",stockProfit.logsInStock);
+    }
+
     //let currentTile = gmMap.get(currentTileId); // get current tile
     elActionsMenuList = document.getElementById("actions-menu-list"); // get DOM Actions Menu list
     console.log("currentTile.kind.type is: ", currentTile.kind.type);
-    if (currentTile.kind.type === "logCamp") {
+    if (currentTile.kind.type === "logCamp") { // if  log camp tile
       console.log(`${currentTile.kind.type} is chosen`);
-      elActionsMenuList.addEventListener("click", logCampAction, false);
-    } else if (currentTile.kind.type === "forest"){
+      elActionsMenuList.addEventListener("click", function() { // set sell logs event listener
+        logCampAction(currentTile, stockProfit);
+      }, false);
+    } else if (currentTile.kind.type === "forest"){ // if on forest tile
       console.log(`${currentTile.kind.type} is chosen`);
-      elActionsMenuList.addEventListener("click", harvestForestAction, false);
-    } else if (currentTile.kind.type === "grass"){
+      elActionsMenuList.addEventListener("click", function() { //set harvest forest event listener
+        harvestForestAction(stockProfit, currentTile, currentTileId, gmMap);
+      }, false);
+    } else if (currentTile.kind.type === "grass"){ // do nothing
       console.log(`${currentTile.kind.type} is chosen`);
     }
   }
@@ -906,7 +919,7 @@ function main() {
   } // end of function
 
 
-  function removeTileEventListners(adjacentTiles, gmMap, currentTile, currentTileId, nextTileId, stockProfit) {
+  function removeTileEventListners(adjacentTiles, gmMap, currentTile, currentTileId, nextTileId, stockProfit, logCampAction, harvestForestAction) {
     console.log("removeTileEventListners is called");
     console.log("adjacentTiles is: ",adjacentTiles);
     console.log("gmMap is: ",gmMap);

@@ -255,11 +255,13 @@ function main() {
     if (nextScreen === "welcome") { // for welcome screen
         button1.innerText = screen.btn1txt; // set button1 text
         document.getElementById("nav-newgame").style.display = "none";
+        document.getElementById("nav-quit").style.display = "none";
+        document.getElementById("btn-1").style.display = "";
       } else if (nextScreen === "intro") { // for intro screen
         button1.innerText = screen.btn1txt; // set button1 text
-        document.getElementById("nav-newgame").style.display = "";
       }  else if (nextScreen === "win") { // for win screen
-        button1.innerText = screen.btn1txt; // set button1 text       
+        //button1.innerText = screen.btn1txt; // set button1 text 
+
       }
   }
 
@@ -274,6 +276,9 @@ function main() {
   function welcome(screen, nextScreen) {
       nextScreen = "welcome";
       selectScreen(screen, nextScreen, );
+      document.getElementById("nav-newgame").style.display = "none";
+      document.getElementById("nav-quit").style.display = "none";
+
   }
 
   /**
@@ -285,6 +290,8 @@ function main() {
   function intro(screen, nextScreen) {
       nextScreen = "intro";
       selectScreen(screen, nextScreen, );
+      document.getElementById("nav-newgame").style.display = "none";
+      document.getElementById("nav-quit").style.display = "";
   }
 
   /**
@@ -296,6 +303,8 @@ function main() {
   function game(screen, nextScreen) {
     nextScreen = "game";
     selectScreen(screen, nextScreen, );
+    document.getElementById("screen-title").style.display = "none";
+    document.getElementById("nav-newgame").style.display = "";
   }
 
   /**
@@ -307,6 +316,9 @@ function main() {
   function win(screen, nextScreen) {
     nextScreen = "win";
     selectScreen(screen, nextScreen, );
+    document.getElementById("screen-title").style.display = "";
+    document.getElementById("btn-1").style.display = "none";
+
   }
 
   // Game Functions

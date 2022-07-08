@@ -278,6 +278,10 @@ Multiple "lumber-jackie-hover" images are created because the "mouseovr' event i
 #### Status: Unresolved
 It appears that there are compound firing of action event listeners- linked to these not having been removed on a previous move.
 This leads to premature ending of the game.
+## remover ActionEventListeners() not workinng
+#### Status: Unresolved
+When on a new forest tile, the actionsEventListeners is still firing the sell.logs event from the log cabin
+=> it has not been removed.
 ## Eventlisteners for Game mechanics Actions firing imediately and not waiting for event
 #### Status: Resolved
 The parameters were removed from the called function for eventListeners, and the called functions were defined withing the scope of the function within which the eventListeners were enclosed. 

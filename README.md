@@ -1,7 +1,7 @@
 ![AmIResponsive](/assets/images/amiresponsive.png)
 # Logging-In
 ## A Game for LumberJacks and LumberJackies using JavaScript
-All art work was created for this project by Sarah Rae and is used with permission. All copyrights artwork used in this project are owned and reserved by Sarah Rae. 
+All art work was created for this project by Sarah Rae and is used with permission. All copyrights for artwork used in this project are owned and reserved by Sarah Rae. 
 
 You can play Logging-In [here.](https://mikerae.github.io/logging-in-game/)
 ## Contents

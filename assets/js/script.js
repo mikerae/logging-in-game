@@ -774,7 +774,7 @@ function main() {
         let nextTileId = event.target.parentElement.getAttribute("id");
         setTimeout(function() { // a delay of 1 second is set
           currentTile = move(adjacentTiles, gmMap, currentTileId, nextTileId, logCampAction, harvestForestAction, stockProfit); // after a short delay, LumberJackie moves to the chosen tile, 
-        }, 1000);  // ready to receive further instructions. 
+        }, 500);  // ready to receive further instructions. 
       }, {once: true});  
     }); // end of forEach
     setActionEventListeners(gmMap, currentTile, currentTileId, stockProfit, logCampAction, harvestForestAction); // set Action Event Listeners in the Actions List menu

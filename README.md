@@ -7,7 +7,7 @@ You can play Logging-In [here.](https://mikerae.github.io/logging-in-game/)
 ## Contents
 + [User Experience Design - UXD](#user-experience-design "User Experience Design")
     + [Strategy](#strategy "Strategy")
-    + [Scope: Development Stage 1](#scope:-development-stage-1 "Scope")
+    + [Scope: Development Stage 1](#scope-development-stage-1)
     + [Structure](#structure "Structure")
     + [Skeleton](#skeleton "Skeleton")
     + [Surface](#surface "Surface")

@@ -665,6 +665,7 @@ function main() {
     }
     let image = document.createElement('img'); // crreate an image element in the DOM
     image.setAttribute("id", "lumber-jackie"); // set its id to "lumber-jackie"
+    image.setAttribute("class", "lumber-jackie-move");
     image.setAttribute("src", "assets/images/lumberjackie.png"); // set image src path
     document.getElementById(currentTile.loc).appendChild(image); // put image in wrapper in the DOM
   }
@@ -673,11 +674,14 @@ function main() {
    * Removes LumberJackie from DOM
    */
   function removeLumberJackie() {
-      if (document.getElementById("lumber-jackie")) { // if there is already an image element present, remove it
-        document.getElementById("lumber-jackie").remove();
-      } else if (document.getElementById("lumber-jackie-hover")) { // if there is already a hover  image element present, remove it
-        document.getElementById("lumber-jackie-hover").remove();
-      }
+    let lumberJackiesMove = document.getElementsByClassName("lumber-jackie-move"); // gets a collection of any residual lumberJackie-move images
+    let lumberJackiesHover = document.getElementsByClassName("lumber-jackie-hover"); // gets a colection of any residual lumberJackie-hover images
+    for (let LJm of lumberJackiesMove) { // iterate through the collection
+      LJm.remove(); // remove each one
+    }
+    for (let LJh of lumberJackiesHover) {// iterate through the collection
+      LJh.remove(); // remove each one
+    }
     }
 
   /**

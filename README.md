@@ -67,40 +67,8 @@ You can play Logging-In [here.](https://mikerae.github.io/logging-in-game/)
   + [W3 CSS Validator](#w3-css-validator)
   + [Lighthouse Analytics](#lighthouse-analytics)
   + [Am-I-Responsive](#am-i-responsive)
-  + []
++ [Acknowledgments](#acknowledgments)
 
-
-
-
-
-  
-
-
-+ [Technologies Used](#technologies-used "Technologies Used")
-    + HTML5
-    + CSS3
-    + GitPod
-    + Git
-    + GitHub
-+ [Testing and Resulting Issues](#testing-and-resulting-issues "Testing and Resulting Issues")
-    + Human Testing
-    + Developer Tools
-    + Amiresponsive site
-    + Validator Testing
-    + Lighthouse Accessibility Testing
-+ [Known Issues](#known-issues "Known Issues")
-+ [Development and Deployment](#development-and-deployment "Development and Deployment")
-    + IDE
-    + Version Control
-    + GitHub
-    + GitHub Pages
-    + External Resources
-    + Development Issues
-+ [Credits](#credits "Credits")
-    - Content
-    - Media
-    - Code
-    - Feedback
 ## UXD
 ### Strategy
 ##### [Back to Top](#contents "Contents")  

@@ -448,5 +448,5 @@ A screen shot of the website generated at https://ui.dev/amiresponsive?url=https
 ##### [Back to Top](#contents "Contents")
 ### Sarah Rae
 Sarah has contributed extensively to this project with original art work, design concepts and helpful feedback.
-### Matina Martina
+### Matina Terlevic
 Martina, in her role as Code Institute Mentor has provided extensive and valuable guidance. 

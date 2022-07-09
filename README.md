@@ -1,3 +1,4 @@
+![AmIResponsive](/assets/images/amiresponsive.png)
 # Logging-In
 ## A Game for LumberJacks and LumberJackies using JavaScript
 You can play Logging-In [here.](https://mikerae.github.io/logging-in-game/)
@@ -56,7 +57,7 @@ After the initial consultation with my mentor, it was decided to plan  developme
 The first stage aims to fulfil all pass criteria for the Code-Institute Portfolio Project 2, and presents the game in its simplest form.  
 ### Use of Libraries
 It was advised, given the ambitious scope of the various development stages, and limited time resource to make full use of libraries, eg Bootstrap and JQuery etc.
-After consideration it was decided not to significantly use libraries for stage 1. The rationale is after feedback from the assessment of Portfolio Project 1 there was room for improvement in UXD, HTML and CSS. It is hoped that this improvement can be made through stage 1 without resorting to the use of libraries. This use of raw HTML CSS and JavaScript can be demonstrated and assesed up to the final commit for Stage 1.
+After consideration it was decided not to significantly use libraries for stage 1. The rationale is after feedback from the assessment of Portfolio Project 1 there was room for improvement in UXD, HTML and CSS. It is hoped that this improvement can be made through stage 1 without resorting to the use of libraries. This use of raw HTML CSS and JavaScript can be demonstrated and assessed up to the final commit for Stage 1.
 
 ### UXD Responsive Design
 Guidance on building a responsive Grid View was obtained from [W3 Schools](https://www.w3schools.com/css/css_rwd_grid.asp).
@@ -106,19 +107,19 @@ The following reference sites were used extensively throughout development:
 - ![StackOverflow](https://stackoverflow.com/)
 - ![W3Schools](https://www.w3schools.com/)
 Other sites were used via goole searches as required.
-### Global Scope, Lexical Scope, Closure, Block Scope, Function perameters
+### Global Scope, Lexical Scope, Closure, Block Scope, Function parameters
 There were Several instances where variables within a function threw the error that they were not defined.
-Initially, this was because the variable had not been passed into the function as a perameter. The fix was to pass it as a perameter.
-However, this lead to the need to repetatively pass the same perameters to many functions.
-After discussion and research it was suggested that there might be a better solution, perhaps using 'Closure'. After reaserch it became clear that 'closure' was a complex concept and not necessarily the way forward. However the concept of 'lexical scope' became increasingly visible.
-A conversation with a Student Tutor suggested that the only way to avoid repetatively passing multiple parameters into function was to initialise these variables with global scop, i.e. outside evrything. It was suggested that in the context of this game, the risk of global variables behaving unpredictably was negligable.
+Initially, this was because the variable had not been passed into the function as a parameter. The fix was to pass it as a parameter.
+However, this lead to the need to repetitively pass the same parameters to many functions.
+After discussion and research it was suggested that there might be a better solution, perhaps using 'Closure'. After research it became clear that 'closure' was a complex concept and not necessarily the way forward. However the concept of 'lexical scope' became increasingly visible.
+A conversation with a Student Tutor suggested that the only way to avoid repetitively passing multiple parameters into function was to initialise these variables with global scope, i.e. outside everything. It was suggested that in the context of this game, the risk of global variables behaving unpredictably was negligible.
 
-The variables in question were initialised as global, and the funtion perameters were cleaned up. The game continued to be developed.
+The variables in question were initialised as global, and the function parameters were cleaned up. The game continued to be developed.
 
-However, further reasearch suggested that 'Lexical Scope' i.e. initialising variables within an enclosing function , and also having all the functions for which they needed to be visible within the same enclosing function would provide the solution [The solution needed was for these variables to be accesable to all called functions without passing them as perameters, but not accessable outside the enclosing function to prevent unpredictable behaviour].
+However, further research suggested that 'Lexical Scope' i.e. initialising variables within an enclosing function , and also having all the functions for which they needed to be visible within the same enclosing function would provide the solution [The solution needed was for these variables to be accessible to all called functions without passing them as parameters, but not accessible outside the enclosing function to prevent unpredictable behaviour].
 
 The variables were put back inside the encapsulating function main(), and all of the game functions were also placed inside main().
-Everything worked fine. Lexcal Scope provided the solution.
+Everything worked fine. Lexical Scope provided the solution.
 
 ## Deployment
 At the appropriate stage in development, the GitHub repository was deployed to GitHub Pages for public viewing via the GitHub server. The main repository was selected and an http link was generated and displayed in the repository Readme.md.
@@ -207,7 +208,7 @@ The full screen gradient is currently a background image which does not load on 
 The gradient image was replaced with "background: liniar-gradient" to solve the issue.
 ### Functions only return one value
 #### Status: Resolved
-For the function sellLogs(stockProfit, SELLLOGS), I needed a fucntion which, when called by an event, would sell the current stock of logs for a profit,  increase the profit variable and decrease the logsInstock variable. This is not possible directly in JavaScript because a function can only return one value. The work-around was to combine the profit and logsInStock variables int one object "stockProfit".
+For the function sellLogs(stockProfit, SELLLOGS), I needed a function which, when called by an event, would sell the current stock of logs for a profit,  increase the profit variable and decrease the logsInstock variable. This is not possible directly in JavaScript because a function can only return one value. The work-around was to combine the profit and logsInStock variables int one object "stockProfit".
 The function applied its calculations to the stockprofit.profit and stockprofit.logsInStock and returned the stockProfit object.
 ### TARGETPROFIT  became 'undefined'
 #### Status: Resolved
@@ -217,7 +218,7 @@ Inconsistencies were found. Once corrected, the issue was resolved.
 #### Status: Resolved
 The order of function arguments was checked for when the functions were defined and when they were called.
 Inconsistencies were found. Once corrected, the issue was resolved.
-### Map overpoulates with tile images when multiple New Games are started
+### Map overpopulates with tile images when multiple New Games are started
 #### Status:Resolved
 Each time a new game is called, the map populates in addition to the tiles already created.
 When the DOM is inspected, the tile divs show multiple tile images.
@@ -255,11 +256,11 @@ Currently, event listeners are attached to all tiles: but listeners are only nee
 A set of adjacent tiles was generated and this will be used to set relevant event listeners. This improved performance.
 ### Next Tile Eventlisteners In Actions Menu are not yet corresponding to new current tile
 #### Status: Resolved
-The code for removing event LIstners is faulty. All event listeners are still active, inculidng hover and unhover Lumberjackie.
+The code for removing event Listeners is faulty. All event listeners are still active, including hover and unhover Lumberjackie.
 https://stackoverflow.com/questions/10444077/javascript-removeeventlistener-not-working was used.
-Using an anonymous function call with an event listener made it impssible to remove an event Listener later.
+Using an anonymous function call with an event listener made it impossible to remove an event Listener later.
 Changing the method of calling a function as per the stack overflow solved the issue for hoverLumberJackie, unhoverLumberJackie.
-The move from tile to tile now dispalalys the correct curent tile Actions Menu list.
+The move from tile to tile now displays the correct current tile Actions Menu list.
 However, I have not yet been able to structure the call to move() or the setActionEventListeners() in a similar way without error.
 => find a way to use a named function for the addEventListener and removeEventListener calls.
 ### move is called() when the CurrentTileId tile is clicked again
@@ -267,10 +268,10 @@ However, I have not yet been able to structure the call to move() or the setActi
 currentTileId is not updating before mew move() event is fired.
 A condition was added to move to call the function code if the currentTileId != nextTileId.
 The move() now returns the updated currentTileId.
-[the actionEventListners are still not working correctly].
-## Eventlisteners for Game mechanics Actions firing imediately and not waiting for event
+[the actionEventListeners are still not working correctly].
+## Eventlisteners for Game mechanics Actions firing immediately and not waiting for event
 #### Status: Resolved
-The parameters were removed from the called function for eventListeners, and the called functions were defined withing the scope of the function within which the eventListeners were enclosed. 
+The parameters were removed from the called function for eventListeners, and the called functions were defined within the scope of the function within which the eventListeners were enclosed. 
 ## Move() not updating CurentTile
 #### Status: Resolved
 A new line making currentTile = nextTile after currentTilID = nextTileId was added to move().
@@ -278,42 +279,42 @@ A new line making currentTile = nextTile after currentTilID = nextTileId was add
 #### Status: Resolved
 Line 832: harvestForestAction(stockProfit, currentTile, currentTile.loc, gmMap); 3rd parameter needs cuurentTileId but that was undefined.
 Passing it currentTile.loc where currentTile was defines solved the issue.
-## Eventlisteners for Game mechanics Actions firing multilple times
+## Eventlisteners for Game mechanics Actions firing multiple times
 #### Status: Unresolved
 It appears that there are compound firing of action event listeners- linked to these not having been removed on a previous move.
-This leads to premature ending of the game. This issue and "remove ActionEventListeners() not workinng"
-## remove ActionEventListeners() not workinng
+This leads to premature ending of the game. This issue and "remove ActionEventListeners() not working"
+## remove ActionEventListeners() not working
 #### Status: Unresolved
 The code for removing event Listeners is not working as desired. The move() and Action Event  listeners are still active.
 https://stackoverflow.com/questions/10444077/javascript-removeeventlistener-not-working is still relevant. However, it has not been
 possible to construct a named function which then receives the required parameters. All attempts at passing parameters to a named function
 result in the function not being able to see them.
 I have tried moving the scope of the Action Event List functions inwards, so that their scope is the same as the parameters it calls with. This did not work. I finally placed them at the outermost scope (within main{} but not global.
-At the current stae,  the actions list works the best yet... but its not right. 
+At the current stage,  the actions list works the best yet... but it’s not right. 
 ```
 script.js:864 Uncaught TypeError: currentTile.kind.harvestForest is not a function
     at harvestForestAction (script.js:864)
     at HTMLUListElement.<anonymous> (script.js:803)
 ```
-Using an anonymous function call with an event listener made it impssible to remove an event Listener later.
+Using an anonymous function call with an event listener made it impossible to remove an event Listener later.
 When on a new forest tile, the actionsEventListeners is still firing the sell.logs event from the log cabin
 => it has not been removed.
 This remains a bug. 
-## Eventlisteners for LumberJackie hove/unhover fireing multiple times and behaving unpredictably
+## Eventlisteners for LumberJackie hove/unhover firing multiple times and behaving unpredictably
 #### Status: Partially resolved
 Lumber Jackie is removed quickly to the point that she does not display at all.
 This may be linked to the while loop which removes multiple "lumber-jackie-hover" images where they are present.
-Multiple "lumber-jackie-hover" images are created because the "mouseovr' event id fired multiple times- by the grid, by the tile and by the image elements.
+Multiple "lumber-jackie-hover" images are created because the "mouseover' event id fired multiple times- by the grid, by the tile and by the image elements.
 => fix multiple firing: only fire on tile element or image for "mouseover", and only fire on tile for "mouseout"
-=> remover while loop: replace with one remove "lumber-jackie-hover"  inGE action preceeding a display "lumber-jackie-hover" image action.
+=> remover while loop: replace with one remove "lumber-jackie-hover"  inGE action preceding a display "lumber-jackie-hover" image action.
 Partial Solution:
-The function hoverLumberJackie() was only acted upon if the eevent target was the tile image. A Html collection of the parent (div)'s children was made.This was itterated
+The function hoverLumberJackie() was only acted upon if the event target was the tile image. A Html collection of the parent (div)'s children was made.This was iterated
 through. If the iterated element had id = "lumber-jackie-hover", this element was removed. An image of Lumber-Jackie was then created and put in the tile div.
-The function unhoverLumberJackie() m, on filtering the event tartgert to tile image, iterated the same collection and remved the image of Lumber-Jackie.
+The function unhoverLumberJackie() m, on filtering the event tartget to tile image, iterated the same collection and remved the image of Lumber-Jackie.
 Currently, when LJ moves to another tile, a residual LJ image is left in the exited tile until a unhoverLumberJacket function is called on it.
 ## LumberJackie not hidding when moving from current tile to next tile
 #### Unresolved
-## LumberJackie still showig on some tiles when New Game is selected
+## LumberJackie still showing on some tiles when New Game is selected
 #### Unresolved
 
 ## Testing
@@ -340,12 +341,13 @@ The script.js passed through the jshint linter without significant issues. The u
 ![Jshint test](/assets/images/jshint.png)
 ### W3 HTML Validator
 ![W3 HTML Validator](/assets/images/w3-html-validator.png)
-The empty headings refered to in the W3 HTML Validator are populated through Java Script.
+The empty headings referred to in the W3 HTML Validator are populated through Java Script.
 Otherwise , the index.html file passed through the validator without issues.
 ### W3 CSS Validator
 ![W3 CSS Validator](/assets/images/w3-css-validator.png)
 The style.css file passed the W3 CSS Validator with no issues.
 ### Lighthouse Analytics
 ![Lighthouse Analytics](/assets/images/lighthouse.png)
-The website passed through Lighhouse Analytics
-
+The website passed through Lighthouse Analytics
+### Am-I-Responsive
+A screen shot of the website generated at https://ui.dev/amiresponsive?url=https://mikerae.github.io/logging-in-game/ show the welcome screen of the game on a variety of screen sizes.

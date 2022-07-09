@@ -205,7 +205,7 @@ if (Screens.name === "welcome") {
 ```
 Console.log(nextScreen) was not called => the eventListener function was not called. The syntax of the eventListener was checked.
 
-The Logic of the screen flow was reconsidered and it was decided to redesign the flow og the program. A temporary file temporarycode.js was created and contents of script.js was copied.
+The Logic of the screen flow was reconsidered and it was decided to redesign the flow of the program. A temporary file temporarycode.js was created and contents of script.js was copied.
 Here is the commit message for this stage of development:
 
 ```
@@ -318,24 +318,37 @@ A new line making currentTile = nextTile after currentTilID = nextTileId was add
 Line 832: harvestForestAction(stockProfit, currentTile, currentTile.loc, gmMap); 3rd parameter needs cuurentTileId but that was undefined.
 Passing it currentTile.loc where currentTile was defines solved the issue.
 ### Loading issues after clean up from testing
-#### Resolved
+#### Status: Resolved
 The function objects logCampActions and harvestForestAction were being called when the html.index page was refreshed.
 This was because I put them at top scope level main() in-order to ensure currentTile was always defined. I relocated these two functions inside the scope
 of loadGame() and repopulated all the resulting function parameters eg setTileEventListeners() and removeTileEventListeners etc.
 This resolved the page load issue but did not resolve the issue that currentTile was at times undefined in harvestForestAction()
-### CurrentTile becomes undefined in harvestForestAction
-#### Resolved
-After 2 or more calls of harvestForestAction currentTile becomes undefined. This could be caused by something in move(), and/or a consequence of event listeners not being removed properly.
-The chrome DevTools debugger was used to step through the code at line 342 harvestForestActions until the console error message was generated.
-On first iteration of harvestForestAction, currentTile was define accurately : in this case as tile object a3. This was true upto and including the last line 341.
-When the function harvestForistAction exited , no return was specified, but currentTile had been given a new value, and one was expected later.
-Also, because the event listener for Forest Action had not been removed, and there were possibly by no multiple instances of this event listener, when harvestForistAction was exited, it was called again immediately. this time round, currentTile was not defined, and generated the error on line 339 which required '''stockProfit.logsInStock = currentTile.kind.harvestForest(stockProfit)''' to be read.
-
-The solution was to add '''return currentTile''' at the end of the harvestForestAction function and also to recieve this value where it was called on line 801.
-The error message was no longer generated.
-However: the issue of un-removed event listeners calling harvestForestAction remains
+### Eventlisteners for LumberJackie hove/unhover firing multiple times and behaving unpredictably
+#### Status: Resolved
+Lumber Jackie is removed quickly to the point that she does not display at all.
+This may be linked to the while loop which removes multiple "lumber-jackie-hover" images where they are present.
+Multiple "lumber-jackie-hover" images are created because the "mouseover' event id fired multiple times- by the grid, by the tile and by the image elements.
+=> fix multiple firing: only fire on tile element or image for "mouseover", and only fire on tile for "mouseout"
+=> remover while loop: replace with one remove "lumber-jackie-hover"  inGE action preceding a display "lumber-jackie-hover" image action.
+Partial Solution:
+The function hoverLumberJackie() was only acted upon if the event target was the tile image. A Html collection of the parent (div)'s children was made.This was iterated
+through. If the iterated element had id = "lumber-jackie-hover", this element was removed. An image of Lumber-Jackie was then created and put in the tile div.
+The function unhoverLumberJackie() m, on filtering the event target to tile image, iterated the same collection and removed the image of Lumber-Jackie.
+### Screen navigation buttons not working after code testing and clean up
+#### Status Resolved
+In order to pass the w3 html validator, I had removed the nav-type="###" attribute from the nav elements.
+Replacing  the getAttribute "nav-type" with "id" solved the issue.
+### LumberJackie not unHovering
+#### Status Resolved
+Currently, when LJ moves to another tile, a residual LJ image is left in the exited tile until a unhoverLumberJacket function is called on it. If the game is restarted with Lumber Jackie not at the Log Camp, her image remains at the start of a new game.
+The image is then deleted.
+This issue was solved by setting a class attribute of "lumber-jackie-hover" on any created LumberJackie inages. When unHoverLumberKackie was
+fired, a collection of all images with class "lumber-jackie-hover" currently in the DOM. 
+This collection was iterated over and each instace was removed. Also, when hoverLumberJackie was called, a check was made to see if an image with class "lumber-jackie-hover" exists in that elTile. Is so, it was removed from the tile before another was created.
+## Known Issues
+##### [Back to Top](#contents "Contents")
 ### Eventlisteners not being removed
-#### Status: Ressolved
+#### Status: Partially Ressolved
 It appears that there are compound firing of action event listeners- linked to these not having been removed on a previous move.
 This causes the game mechanics actions firing multiple times, and then leads to premature ending of the game. This is because "remove ActionEventListeners() is not working.
 
@@ -360,30 +373,22 @@ However, it was decided to set the option to fire the event listeners only once 
 for logCampActions, harvestForestActions and move().
 This solved the issue, and also made the game mechanics work as designed for the first time!
 It is now necessary to return to the log camp to sell logs, make profit and win the game.
-### Eventlisteners for LumberJackie hove/unhover firing multiple times and behaving unpredictably
-#### Status: Resolved
-Lumber Jackie is removed quickly to the point that she does not display at all.
-This may be linked to the while loop which removes multiple "lumber-jackie-hover" images where they are present.
-Multiple "lumber-jackie-hover" images are created because the "mouseover' event id fired multiple times- by the grid, by the tile and by the image elements.
-=> fix multiple firing: only fire on tile element or image for "mouseover", and only fire on tile for "mouseout"
-=> remover while loop: replace with one remove "lumber-jackie-hover"  inGE action preceding a display "lumber-jackie-hover" image action.
-Partial Solution:
-The function hoverLumberJackie() was only acted upon if the event target was the tile image. A Html collection of the parent (div)'s children was made.This was iterated
-through. If the iterated element had id = "lumber-jackie-hover", this element was removed. An image of Lumber-Jackie was then created and put in the tile div.
-The function unhoverLumberJackie() m, on filtering the event target to tile image, iterated the same collection and removed the image of Lumber-Jackie.
-### Screen navigation buttons not working after code testing and clean up
-#### Resolved
-In order to pass the w3 html validator, I had removed the nav-type="###" attribute from the nav elements.
-Replacing  the getAttribute "nav-type" with "id" solved the issue.
-## Known Issues
-##### [Back to Top](#contents "Contents")
-### LumberJackie not unHovering
-#### Resolved
-Currently, when LJ moves to another tile, a residual LJ image is left in the exited tile until a unhoverLumberJacket function is called on it. If the game is restarted with Lumber Jackie not at the Log Camp, her image remains at the start of a new game.
-The image is then deleted.
-This issue was solved by setting a class attribute of "lumber-jackie-hover" on any created LumberJackie inages. When unHoverLumberKackie was
-fired, a collection of all images with class "lumber-jackie-hover" currently in the DOM. 
-This collection was iterated over and each instace was removed. Also, when hoverLumberJackie was called, a check was made to see if an image with class "lumber-jackie-hover" exists in that elTile. Is so, it was removed from the tile before another was created.
+### CurrentTile becomes undefined in harvestForestAction
+#### Status: Partially Resolved
+After 2 or more calls of harvestForestAction currentTile becomes undefined. This could be caused by something in move(), and/or a consequence of event listeners not being removed properly.
+The chrome DevTools debugger was used to step through the code at line 342 harvestForestActions until the console error message was generated.
+On first iteration of harvestForestAction, currentTile was define accurately : in this case as tile object a3. This was true upto and including the last line 341.
+When the function harvestForistAction exited , no return was specified, but currentTile had been given a new value, and one was expected later.
+Also, because the event listener for Forest Action had not been removed, and there were possibly by no multiple instances of this event listener, when harvestForistAction was exited, it was called again immediately. this time round, currentTile was not defined, and generated the error on line 339 which required '''stockProfit.logsInStock = currentTile.kind.harvestForest(stockProfit)''' to be read.
+
+The solution was to add '''return currentTile''' at the end of the harvestForestAction function and also to recieve this value where it was called on line 801.
+The error message was no longer generated.
+However: the issue of un-removed event listeners calling harvestForestAction remains
+### move() not restricted to adjacent tiles
+#### Unresolved
+Movement should be restricted to adjacent tiles as controled by the adjacentTiles Set.
+This is not caused by the ajacentTiles set not being cleared correctly before being repolpulated after a move().
+It is not known at this time why this occers, but it is suposed that eventListenerers are not being removed correctly.
 ### currentTile not defined in harvestForestAction
 #### Partially Resolved
 This has sometimes occurred as the game progresses. In chrome devtools, the function can sometimes be see to iterate into the thousands.
@@ -406,11 +411,6 @@ script.js:353 Uncaught TypeError: currentTile.kind.harvestForest is not a functi
 ### Move() is not restricted to tiles adjacent to the current tile
 ```
 I am going to attribute this to multple eventListeners which I am unable to remove, call this project finished, and have some wine :)
-### move() not restricted to adjacent tiles
-#### Unresolved
-Movement should be restricted to adjacent tiles as controled by the adjacentTiles Set.
-This is not caused by the ajacentTiles set not being cleared correctly before being repolpulated after a move().
-It is not known at this time why this occers, but it is suposed that eventListenerers are not being removed correctly.
 
 ## Testing
 ##### [Back to Top](#contents "Contents")

@@ -661,8 +661,10 @@ function main() {
   function removeLumberJackie() {
       if (document.getElementById("lumber-jackie")) { // if there is already an image element present, remove it
         document.getElementById("lumber-jackie").remove();
-      } 
-  }
+      } else if (document.getElementById("lumber-jackie-hover")) { // if there is already a hover  image element present, remove it
+        document.getElementById("lumber-jackie-hover").remove();
+      }
+    }
 
   /**
    * Adds Actions for the current tile to the Actions Menu

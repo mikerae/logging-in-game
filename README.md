@@ -385,9 +385,33 @@ The image is then deleted.
 This issue was solved by setting a class attribute of "lumber-jackie-hover" on any created LumberJackie inages. When unHoverLumberKackie was
 fired, a collection of all images with class "lumber-jackie-hover" currently in the DOM. 
 This collection was iterated over and each instace was removed. Also, when hoverLumberJackie was called, a check was made to see if an image with class "lumber-jackie-hover" exists in that elTile. Is so, it was removed from the tile before another was created.
+### currentTile not defined in harvestForestAction
+#### Partially Resolved
+This has sometimes occurred as the game progresses. In chrome devtools, the function can sometimes be see to iterate into the thousands.
+After investigation, it was found that on the first calling of harvestForestAction the value of currentTile was defined on line 343:
+```
+currentTile = currentTile.changeTile(currentTile, currentTileId, gmMap); // changes the forest tile to grass
+```
+but on line 344 it was undefined:
+```
+ displayGameInfo(stockProfit); // Displays updated Game Info
+ ```
+the next line expected to return the value of currentTile but could only return 'undefined'. This caused the error on the subsequent calling of harvestForestAction.
+Stepping into currentTile.changeTile(currentTile, currentTileId, gmMap) it was found that although this function changes the value of currentTile and performed a series of actions with it correctly, currentTile was not returned.
+A return currentTile was added at the end of currentTile.changeTile on line 465 and the problem was reduced!
+A complete play of the game only produced 33 uncaught errors on the first calling of harvstForestActions.
+```
+script.js:353 Uncaught TypeError: currentTile.kind.harvestForest is not a function
+    at harvestForestAction (script.js:353)
+    at HTMLUListElement.elActionsMenuList.addEventListener.once (script.js:820)
 ### Move() is not restricted to tiles adjacent to the current tile
+```
+I am going to attribute this to multple eventListeners which I am unable to remove, call this project finished, and have some wine :)
+### move() not restricted to adjacent tiles
 #### Unresolved
-This is probably caused by the ajacentTiles set not being cleared correctly before being repolpulated after a move().
+Movement should be restricted to adjacent tiles as controled by the adjacentTiles Set.
+This is not caused by the ajacentTiles set not being cleared correctly before being repolpulated after a move().
+It is not known at this time why this occers, but it is suposed that eventListenerers are not being removed correctly.
 
 ## Testing
 ##### [Back to Top](#contents "Contents")

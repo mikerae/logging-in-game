@@ -1,3 +1,14 @@
+// Hello.
+//
+// This is JSHint, a tool that helps to detect errors and potential
+// problems in your JavaScript code.
+//
+// To start, simply enter some JavaScript anywhere on this page. Your
+// report will appear on the right side.
+//
+// Additionally, you can toggle specific options in the Configure
+// menu.
+
 // Wait for the DOM to finish loading before running the Main  wrapper function
 document.addEventListener("DOMContentLoaded", main());
 
@@ -184,7 +195,7 @@ function main() {
         if (this.getAttribute("id") === "nav-quit") { //If Quit is clicked in the welcome() is called and the Welcome Screen is displayed
           welcome(screen, nextScreen);
         } else if (this.getAttribute("id") === "nav-newgame") { //If New Game is clicked in the welcome() is called and the Welcome Screen is displayed
-          game(screen, nextScreen);;
+          game(screen, nextScreen);
         }
       }, {once: true});
     }
@@ -462,8 +473,8 @@ function main() {
             elTile.appendChild(image);/// put image in wrapper in the DOM
             displayCurrentTileActions(currentTileId, gmMap); // displays new current tile actions in the Actions Window
             displayCurrentTileMessages(currentTileId, gmMap); // displays new current tile messages in the Messages Window
-        }
-      }
+        } return currentTile;
+      } 
     }
     let tile = {};
     // Create Array of  Tile Objects
@@ -858,7 +869,7 @@ function main() {
    * @param {*} nextTileId 
    * @param {*} stockProfit 
    */
-  function removeTileEventListeners(adjacentTiles, gmMap, currentTile, currentTileId, nextTileId, stockProfit) {
+  function removeTileEventListeners(adjacentTiles, gmMap, currentTileId, nextTileId, logCampAction, harvestForestAction, stockProfit, currentTile) {
     adjacentTiles.forEach((value) => { // For each of the tiles in the adjacent tile set:
       let elTile = document.getElementById(value.loc); // the Tile id is stored
       elTile.removeEventListener("mouseover", hoverLumberJackie, false); // LumberJackie is displayed 
@@ -917,7 +928,7 @@ function main() {
     let currentTile = gmMap.get(currentTileId); // current tile object is stored
     if (currentTileId !== nextTileId) {
       // remove current event listeners
-      removeTileEventListeners(adjacentTiles, gmMap, currentTile, currentTileId, nextTileId, stockProfit); // current tile event listeners are removed
+      removeTileEventListeners(adjacentTiles, gmMap, currentTileId, nextTileId, logCampAction, harvestForestAction, stockProfit, currentTile); // current tile event listeners are removed
       removeActionEventListeners(gmMap , currentTile, currentTileId, logCampAction, harvestForestAction, stockProfit); // current tile Action event Liteners are removed
       currentTile.currentTileId = false; // current tile status is set to false
       let nextTile = gmMap.get(nextTileId); // next tile object is stored

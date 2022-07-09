@@ -14,21 +14,21 @@
     and forms the foundation to the sites responsiveness.
   -->
   <div class="outer-wrapper">
-    <header class="lgcol-12 container" aria-label="Logging-In Header">
+    <div id="header" class="lgcol-12 container">
     <!-- 
         The Nav Element is an ARIA element. It contains the sites navigation elements and 
         is visible at all times. 
       -->
       <nav id="nav" class="lgcol-12 smcol-3 container">
         <ul id="nav-list" class="lgcol-5 smcol-3 mdcol-8 container">
-          <li id="nav-quit" nav-type="nav-quit" class="nav-elements">Quit</li>
-          <li id="nav-newgame" nav-type="nav-newgame"class="nav-elements">New Game</li>
+          <li id="nav-quit" class="nav-elements">Quit</li>
+          <li id="nav-newgame" class="nav-elements">New Game</li>
           <!-- Not implemented in dev stage 1: The Help Menu is a dropdown menu activated from the span tag -->
           <li id="help" class="nav-elements" ><span>Help</span></li>
         </ul>
       </nav>
       <h1 id="screen-title"></h1>
-    </header>
+    </div>
   
     <!-- 
       This section diplays all the game monologues which ocurr before and after the main game display.
@@ -37,7 +37,7 @@
       This section is styled with layout columns, the number and width of which change acording to
       screen size, and enable the site to be responsive.
     -->
-    <section id="displayScreen-wrapper" class="lgcol-12 screen">
+    <div id="displayScreen-wrapper" class="lgcol-12 screen">
       <div id="inner-display-wrapper" class="lgcol-12">
         <div id="display-img-wrapper" class="lgcol-6 mdcol-12 smcol-3 smrow">
         </div>
@@ -48,7 +48,7 @@
       <div id="display-buttons-wrapper" class="lgcol-4 container">
         <button id="btn-1" class="button lgcol-2 mdcol-4 smcol-3" data-typr="play-game"></button>
       </div>
-    </section>
+    </div>
 
     <!-- 
       This section diplays the main game display.
@@ -56,7 +56,7 @@
       This section is styled with layout columns, the number and width of which change acording to
       screen size, and enable the site to be responsive.
     -->
-    <section id="displayGame-wrapper" class="lgcol-12 container screen" >
+    <div id="displayGame-wrapper" class="lgcol-12 container screen" >
       <!-- Infor Bar Wrapper-->
       <div id="info-bar-wrapper" class="lgcol-12 container">
         <!-- PLace holder for Fire Alert and spacer for Info Bar-->
@@ -170,7 +170,7 @@
           <div id="h8" class="tile"></div>
         </div>
       </div>
-    </section>
+    </div>
   </div>
 
   <script src="assets/js/script.js"></script>

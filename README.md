@@ -334,4 +334,12 @@ After consultation with Sarah Rae the following changes were made:
 ### Jshint
 The script.js passed through the jshint linter without significant issues. The unused variable -key in line 735 was needed so that the adjacentTiles.forEach((value) in line 753 could read 'value'.
 ![Jshint test](/assets/images/jshint.png)
+  the quit button u#nder the image was removed
+### Jshint
+The script.js passed through the jshint linter without significant issues. The unused variable -key in line 735 was needed so that the adjacentTiles.forEach((value) in line 753 could read 'value'.
+![Jshint test](/assets/images/jshint.png)
+### W3 HTML Validator
+![W3 HTML Validator](/assets/images/w3-html-validator.png)
+The empty headings refered to are populated through Java Script.
+Otherwise , the index.html file passed through the W3 HTML validator without issues.
 

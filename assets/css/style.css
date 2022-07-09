@@ -76,7 +76,7 @@ h1, h2, h3 {
 }
 
 /* Display Screen Header */
-header {
+#header {
   text-align: center;
   display: flex;
   background: rgb(33,	89,	160);

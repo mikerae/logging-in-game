@@ -342,4 +342,8 @@ The script.js passed through the jshint linter without significant issues. The u
 ![W3 HTML Validator](/assets/images/w3-html-validator.png)
 The empty headings refered to are populated through Java Script.
 Otherwise , the index.html file passed through the W3 HTML validator without issues.
+### W3 CSS Validator
+![W3 CSS Validator](/assets/images/w3-css-validator.png)
+The style.css file passed the W3 CSS Validator with no issues.
+
 

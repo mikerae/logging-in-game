@@ -361,10 +361,8 @@ However, it was decided to set the option to fire the event listeners only once 
 for logCampActions, harvestForestActions and move().
 This solved the issue, and also made the game mechanics work as designed for the first time!
 It is now necessary to return to the log camp to sell logs, make profit and win the game.
-## Known Issues
-##### [Back to Top](#contents "Contents")
 ### Eventlisteners for LumberJackie hove/unhover firing multiple times and behaving unpredictably
-#### Status: Partially resolved
+#### Status: Resolved
 Lumber Jackie is removed quickly to the point that she does not display at all.
 This may be linked to the while loop which removes multiple "lumber-jackie-hover" images where they are present.
 Multiple "lumber-jackie-hover" images are created because the "mouseover' event id fired multiple times- by the grid, by the tile and by the image elements.
@@ -374,15 +372,19 @@ Partial Solution:
 The function hoverLumberJackie() was only acted upon if the event target was the tile image. A Html collection of the parent (div)'s children was made.This was iterated
 through. If the iterated element had id = "lumber-jackie-hover", this element was removed. An image of Lumber-Jackie was then created and put in the tile div.
 The function unhoverLumberJackie() m, on filtering the event target to tile image, iterated the same collection and removed the image of Lumber-Jackie.
-Currently, when LJ moves to another tile, a residual LJ image is left in the exited tile until a unhoverLumberJacket function is called on it.
+### Screen navigation buttons not working after code testing and clean up
+#### Resolved
+In order to pass the w3 html validator, I had removed the nav-type="###" attribute from the nav elements.
+Replacing  the getAttribute "nav-type" with "id" solved the issue.
+## Known Issues
+##### [Back to Top](#contents "Contents")
 ### LumberJackie not hiding when moving from current tile to next tile
 #### Unresolved
-An undeleted image of LumberJakie is left after moving to the next tile. If the mouse hovers over the image and then moves out of the tile, the image is deleted.
+Currently, when LJ moves to another tile, a residual LJ image is left in the exited tile until a unhoverLumberJacket function is called on it.
+The image is then deleted.
 ### LumberJackie still showing on some tiles when New Game is selected
 #### Unresolved
 IF the game is restarted with Lumber Jackie not at the Log Camp, her image remains at the start of a new game.
-### Screen navigation buttons not working after code testing and clean up
-#### Unresolved
 ### Move() is not restricted to tiles adjacent to the current tile
 #### Unresolved
 This is probably caused by the ajacentTiles set not being cleared correctly before being repolpulated after a move().

@@ -59,14 +59,17 @@ function main() {
   const GAME = new Screens("game");
   const WIN = new Screens("win", "Congratulations! You Won!", "You reached your target profit. How will you spend it? Feel free to play again or quit", "assets/images/win-screen.png", "Win image", "New Game");
 
-  
-
-  // Initialise block variables
+  // Initialise main() scope block variables
   let screen = null; // This object is of the class Screens
   let nextScreen = ""; // nextScreen controls the screen flow of the game
 
+  // Start the code flow
+
   nextScreen = "welcome"; //The Welcome Screen is the first screen to display
   selectScreen(screen, nextScreen); // The top level screen flow function is called.
+
+  // Screen and gale flow continues as per selectScreen().
+  // All code below here are functions to be called from withing selectScreen().
 
   /**
    * *  * This top level function controls the screen flow of the game 
@@ -178,12 +181,12 @@ function main() {
     let navElements = document.getElementsByClassName("nav-elements"); // the nav elements are stored in the htmlCollection navElements
     for (let navElement of navElements) { // The nav elements collection are iterated through
       navElement.addEventListener("click", function() {
-        if (this.getAttribute("nav-type") === "nav-quit") { //If Quit is clicked in the welcome() is called and the Welcome Screen is displayed
+        if (this.getAttribute("id") === "nav-quit") { //If Quit is clicked in the welcome() is called and the Welcome Screen is displayed
           welcome(screen, nextScreen);
-        } else if (this.getAttribute("nav-type") === "nav-newgame") { //If New Game is clicked in the welcome() is called and the Welcome Screen is displayed
-          game(screen, nextScreen);
+        } else if (this.getAttribute("id") === "nav-newgame") { //If New Game is clicked in the welcome() is called and the Welcome Screen is displayed
+          game(screen, nextScreen);;
         }
-      });
+      }, {once: true});
     }
   }
 
@@ -244,16 +247,15 @@ function main() {
   function populateScreenButtons(screen, nextScreen) {
     let button1 = document.getElementById(screen.btn1id);
     if (nextScreen === "welcome") { // for welcome screen
-        button1.innerText = screen.btn1txt; // set button1 text
-        document.getElementById("nav-newgame").style.display = "none";
-        document.getElementById("nav-quit").style.display = "none";
-        document.getElementById("btn-1").style.display = "";
-      } else if (nextScreen === "intro") { // for intro screen
-        button1.innerText = screen.btn1txt; // set button1 text
-      }  else if (nextScreen === "win") { // for win screen
-        //button1.innerText = screen.btn1txt; // set button1 text 
-
-      }
+      button1.innerText = screen.btn1txt; // set button1 text
+      document.getElementById("nav-newgame").style.display = "none";
+      document.getElementById("nav-quit").style.display = "none";
+      document.getElementById("btn-1").style.display = "";
+    } else if (nextScreen === "intro") { // for intro screen
+      button1.innerText = screen.btn1txt; // set button1 text
+    }  else if (nextScreen === "win") { // for win screen
+      button1.innerText = screen.btn1txt; // set button1 text 
+    }
   }
 
   // Event Functions
@@ -333,6 +335,7 @@ function main() {
       stockProfit =  currentTile.kind.sellLogs(stockProfit); // calls Log Cap method to increase profit
         displayGameInfo(stockProfit); // Displays  updated Game Info
         winLose(stockProfit); // Check win status
+        return currentTile;
     };
 
     let harvestForestAction = (stockProfit, currentTile, currentTileId, gmMap) => { //Convert harvestForestAction to arrow function for use as named function to remover eventListener
@@ -795,7 +798,7 @@ function main() {
     let elActionsMenuList = document.getElementById("actions-menu-list"); // get DOM Actions Menu list
     if (currentTile.kind.type === "logCamp") { // if  log camp tile
       elActionsMenuList.addEventListener("click", function() { // set sell logs event listener
-        logCampAction(currentTile, stockProfit);
+        currentTile = logCampAction(currentTile, stockProfit);
       }, {once: true});
     } else if (currentTile.kind.type === "forest"){ // if on forest tile
       elActionsMenuList.addEventListener("click", function() { //set harvest forest event listener
@@ -882,10 +885,10 @@ function main() {
     let elActionsMenuList = document.getElementById("actions-menu-list"); // get DOM Actions Menu list
     elActionsMenuList.removeEventListener("click", function() { // set sell logs event listener
       logCampAction(currentTile, stockProfit); // removes previously attached harvestForest event listener.
-    }, false); 
+    }, {once: true}); 
     elActionsMenuList.removeEventListener("click", function() { // removes previously attached harvestForest event listener.
       harvestForestAction(stockProfit, currentTile, currentTileId, gmMap);
-    }, false);
+    }, {once: true});
   }
 
   /**

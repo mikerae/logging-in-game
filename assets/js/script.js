@@ -205,7 +205,7 @@ function main() {
   }
 
   /**
-   * Add text to h1 and p elements in Dispaly Screen
+   * Add text to h1 and p elements in Display Screen
    * @param {*} screen 
    */
   function populateScreenText(screen) {
@@ -269,7 +269,6 @@ function main() {
       selectScreen(screen, nextScreen);
       document.getElementById("nav-newgame").style.display = "none";
       document.getElementById("nav-quit").style.display = "none";
-
   }
 
   /**
@@ -322,13 +321,25 @@ function main() {
    * @param {*} nextScreen 
    */
   function loadGame(screen, nextScreen) {
-
     // Initilise Variables
     let stockProfit = {logsInStock: 0, profit: 0}; // this object contains the Game Info and is needed because JavaScript does not support functions returning multiple values.
     let gmMap = new Map(); // Map object containing all game tiles maped to DOM grid
     let tiles = []; // Array of  map tiles: "kind" to be specified
     let currentTileId = "a1"; // This is the current tile when the game is initialised
     let adjacentTiles = new Set();
+
+    // The following two arrow functions are an attempt to make named function objects which can then have event listeners removed from them later.
+    let logCampAction = (currentTile, stockProfit) => { //Convert logCampAction to arrow function for use as named function to remover eventListener
+      stockProfit =  currentTile.kind.sellLogs(stockProfit); // calls Log Cap method to increase profit
+        displayGameInfo(stockProfit); // Displays  updated Game Info
+        winLose(stockProfit); // Check win status
+    };
+
+    let harvestForestAction = (stockProfit, currentTile, currentTileId, gmMap) => { //Convert harvestForestAction to arrow function for use as named function to remover eventListener
+      stockProfit.logsInStock = currentTile.kind.harvestForest(stockProfit); // calls forest method to increment logs in stock, and change tile to harvisted tile
+      currentTile = currentTile.changeTile(currentTile, currentTileId, gmMap); // changes the forest tile to grass
+      displayGameInfo(stockProfit); // Displays updated Game Info
+    };
 
     // Display Initialised Game
     gmMap = createMap(gmMap, tiles, currentTileId); // generates and displays game map
@@ -342,7 +353,7 @@ function main() {
     adjacentTiles = makeAdjacentTilesSet(currentTileId, gmMap);   // Create a set of adjacent tiles to the current tile
 
     // Event Listeners
-    setTileEventListeners(adjacentTiles, gmMap, currentTile, currentTileId, stockProfit, logCampAction, harvestForestAction);
+    setTileEventListeners(gmMap, currentTile, currentTileId, stockProfit, logCampAction, harvestForestAction, adjacentTiles);
   }
 
   /**
@@ -382,7 +393,6 @@ function main() {
   }
 
   // Map Creation Functions
-
   /**
    * Creates An initial Map poulated with tile objects
    * Displays initial map images to DOM
@@ -751,7 +761,7 @@ function main() {
    * @param {*} gmMap 
    * @param {*} currentTileId 
    */
-  function setTileEventListeners(adjacentTiles, gmMap, currentTile, currentTileId, stockProfit) {
+  function setTileEventListeners(gmMap, currentTile, currentTileId, stockProfit, logCampAction, harvestForestAction, adjacentTiles) {
     adjacentTiles.forEach((value) => { // For each of the tiles in the adjacent tile set:
       let tile = document.getElementById(value.loc); // the Tile id is stored
       tile.addEventListener("mouseover", hoverLumberJackie); // on hover LumberJackie is displayed 
@@ -759,11 +769,11 @@ function main() {
       tile.addEventListener("click", function() { // on click Move to next tile
         let nextTileId = event.target.parentElement.getAttribute("id");
         setTimeout(function() { // a delay of 1 second is set
-          currentTile = move(adjacentTiles, gmMap, currentTileId, nextTileId, stockProfit); // after a short delay, LumberJackie moves to the chosen tile, 
+          currentTile = move(adjacentTiles, gmMap, currentTileId, nextTileId, logCampAction, harvestForestAction, stockProfit); // after a short delay, LumberJackie moves to the chosen tile, 
         }, 1000);  // ready to receive further instructions. 
       });  
     }); // end of forEach
-    setActionEventListeners(gmMap, currentTile, currentTileId, stockProfit); // set Action Event Listeners in the Actions List menu
+    setActionEventListeners(gmMap, currentTile, currentTileId, stockProfit, logCampAction, harvestForestAction); // set Action Event Listeners in the Actions List menu
   } // end of function
 
   /**
@@ -780,7 +790,7 @@ function main() {
    * @param {*} logCampActions 
    * @param {*} harvestForestActions 
    */
-  function setActionEventListeners(gmMap, currentTile, currentTileId, stockProfit) {
+  function setActionEventListeners(gmMap, currentTile, currentTileId, stockProfit, logCampAction, harvestForestAction) {
     let elActionsMenuList = document.getElementById("actions-menu-list"); // get DOM Actions Menu list
     if (currentTile.kind.type === "logCamp") { // if  log camp tile
       elActionsMenuList.addEventListener("click", function() { // set sell logs event listener
@@ -793,19 +803,6 @@ function main() {
     } else if (currentTile.kind.type === "grass"){ // do nothing
     }
   }
-
-  // The following two arrow functions are an attempt to make named function objects which can then have event listeners removed from them later.
-  let logCampAction = (currentTile, stockProfit) => { //Convert logCampAction to arrow function for use as named function to remover eventListener
-    stockProfit =  currentTile.kind.sellLogs(stockProfit); // calls Log Cap method to increase profit
-      displayGameInfo(stockProfit); // Displays  updated Game Info
-      winLose(stockProfit); // Check win status
-  };
-
-  let harvestForestAction = (stockProfit, currentTile, currentTileId, gmMap) => { //Convert harvestForestAction to arrow function for use as named function to remover eventListener
-    stockProfit.logsInStock = currentTile.kind.harvestForest(stockProfit); // calls forest method to increment logs in stock, and change tile to harvisted tile
-    currentTile = currentTile.changeTile(currentTile, currentTileId, gmMap); // changes the forest tile to grass
-    displayGameInfo(stockProfit); // Displays updated Game Info
-  };
 
   /**
    * Displays LumberJackie in the tile where the mouse is
@@ -863,7 +860,7 @@ function main() {
     document.getElementById(currentTile.loc).removeEventListener("click", function() { // on click Move to next tile
         let nextTileId = event.target.parentElement.getAttribute("id");
         setTimeout(function() { // a delay of 1 second is set
-          currentTile = move(adjacentTiles, gmMap, currentTileId, nextTileId, stockProfit); // after a short delay, LumberJackie moves to the chosen tile, 
+          currentTile = move(adjacentTiles, gmMap, currentTileId, nextTileId, logCampAction, harvestForestAction, stockProfit); // after a short delay, LumberJackie moves to the chosen tile, 
         }, 1000); // ready to receive further instructions.
       }, false);
   }
@@ -909,7 +906,7 @@ function main() {
    * @param {*} stockProfit 
    * @returns 
    */
-  function move(adjacentTiles, gmMap, currentTileId, nextTileId, stockProfit) {
+  function move(adjacentTiles, gmMap, currentTileId, nextTileId, logCampAction, harvestForestAction, stockProfit) {
     let currentTile = gmMap.get(currentTileId); // current tile object is stored
     if (currentTileId !== nextTileId) {
       // remove current event listeners
@@ -923,7 +920,7 @@ function main() {
       displayCurrentTileActions(currentTileId, gmMap); // displays new current tile actions in the Actions Window
       displayCurrentTileMessages(currentTileId, gmMap); // displays new current tile messages in the Messages Window
       adjacentTiles = makeAdjacentTilesSet(currentTileId, gmMap);   // Create a set of adjacent tiles to the new current tile
-      setTileEventListeners(adjacentTiles, gmMap, currentTile, currentTileId, stockProfit); // set event listeners for the new adjacent tiles set, and actions menu list
+      setTileEventListeners(gmMap, currentTile, currentTileId, stockProfit, logCampAction, harvestForestAction, adjacentTiles); // set event listeners for the new adjacent tiles set, and actions menu list
       removeLumberJackie(); // LumberJackie is removed from the DOM
       displayLumberJackie(currentTileId, gmMap); // LumberJackie is displayed in the new current tile
     }

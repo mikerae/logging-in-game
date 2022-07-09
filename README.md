@@ -154,8 +154,13 @@ Everything worked fine. Lexical Scope provided the solution.
 
 ## Deployment
 ##### [Back to Top](#contents "Contents")
-At the appropriate stage in development, the GitHub repository was deployed to GitHub Pages for public viewing via the GitHub server. The main repository was selected and an http link was generated and displayed in the repository Readme.md.
-
+At the appropriate stage in development, the GitHub repository was deployed to GitHub Pages for public viewing via the GitHub server.
+This was acheived by following these steps:
++ In the GitHub repository, find the Settings tab and click on it
++ Find the source section drop-down menu, and select the master branch
++ Having selected the master branch, an http link  to the publicly deployed gitHub Pages server version of the site.
++ Once the master branch has been selected, the page was automatically refreshed  indicating successful deployment.
++ This link was then displayed in the repository readme.
 ## Bugs and Resolutions
 ##### [Back to Top](#contents "Contents")
 ### Image does not display in #display-img-wrapper in js
@@ -303,23 +308,29 @@ currentTileId is not updating before mew move() event is fired.
 A condition was added to move to call the function code if the currentTileId != nextTileId.
 The move() now returns the updated currentTileId.
 [the actionEventListeners are still not working correctly].
-## Eventlisteners for Game mechanics Actions firing immediately and not waiting for event
+### Eventlisteners for Game mechanics Actions firing immediately and not waiting for event
 #### Status: Resolved
 The parameters were removed from the called function for eventListeners, and the called functions were defined within the scope of the function within which the eventListeners were enclosed. 
-## Move() not updating CurentTile
+### Move() not updating CurentTile
 #### Status: Resolved
 A new line making currentTile = nextTile after currentTilID = nextTileId was added to move().
-## setActionEventList() failing on HarvestForest
+### setActionEventList() failing on HarvestForest
 #### Status: Resolved
 Line 832: harvestForestAction(stockProfit, currentTile, currentTile.loc, gmMap); 3rd parameter needs cuurentTileId but that was undefined.
 Passing it currentTile.loc where currentTile was defines solved the issue.
-### Known Issues
+### Loading issues after clean up from testing
+#### Resolved
+The function objects logCampActions and harvestForestAction were being called when the html.index page was refeeshed.
+This was because I put them at top scope level main() inorder to ensure currentTile was always defined. I relocated these two functions inside the scope
+of loadGame() and repuplated all the resulting function parameters eg setTileEventListeners() and removeTileEventListeners etc.
+This resolved the page load issue but did not resolve the issue that currentTile was at times undefined in harvestForestAction()
+## Known Issues
 ##### [Back to Top](#contents "Contents")
-## Eventlisteners for Game mechanics Actions firing multiple times
+### Eventlisteners for Game mechanics Actions firing multiple times
 #### Status: Unresolved
 It appears that there are compound firing of action event listeners- linked to these not having been removed on a previous move.
 This leads to premature ending of the game. This issue and "remove ActionEventListeners() not working"
-## remove ActionEventListeners() not working
+### remove ActionEventListeners() not working
 #### Status: Unresolved
 The code for removing event Listeners is not working as desired. The move() and Action Event  listeners are still active.
 https://stackoverflow.com/questions/10444077/javascript-removeeventlistener-not-working is still relevant. However, it has not been
@@ -336,7 +347,7 @@ Using an anonymous function call with an event listener made it impossible to re
 When on a new forest tile, the actionsEventListeners is still firing the sell.logs event from the log cabin
 => it has not been removed.
 This remains a bug. 
-## Eventlisteners for LumberJackie hove/unhover firing multiple times and behaving unpredictably
+### Eventlisteners for LumberJackie hove/unhover firing multiple times and behaving unpredictably
 #### Status: Partially resolved
 Lumber Jackie is removed quickly to the point that she does not display at all.
 This may be linked to the while loop which removes multiple "lumber-jackie-hover" images where they are present.
@@ -348,12 +359,17 @@ The function hoverLumberJackie() was only acted upon if the event target was the
 through. If the iterated element had id = "lumber-jackie-hover", this element was removed. An image of Lumber-Jackie was then created and put in the tile div.
 The function unhoverLumberJackie() m, on filtering the event target to tile image, iterated the same collection and removed the image of Lumber-Jackie.
 Currently, when LJ moves to another tile, a residual LJ image is left in the exited tile until a unhoverLumberJacket function is called on it.
-## LumberJackie not hiding when moving from current tile to next tile
+### LumberJackie not hiding when moving from current tile to next tile
 #### Unresolved
 An undeleted image of LumberJakie is left after moving to the next tile. If the mouse hovers over the image and then moves out of the tile, the image is deleted.
-## LumberJackie still showing on some tiles when New Game is selected
+### LumberJackie still showing on some tiles when New Game is selected
 #### Unresolved
 IF the game is restarted with Lumber Jackie not at the Log Camp, her image remains at the start of a new game.
+### CurrentTile becomes undefined in harvestForest
+#### Unresolved
+After 2 or more calls of harvestForest currentTile becomes undefined. This could be caused by something in move(), and/or a consequence of event listeners not being removed properly.
+### Screen navigation buttons not working after code testing and clean up
+#### Unresolved
 
 ## Testing
 ##### [Back to Top](#contents "Contents")

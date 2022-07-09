@@ -378,13 +378,13 @@ In order to pass the w3 html validator, I had removed the nav-type="###" attribu
 Replacing  the getAttribute "nav-type" with "id" solved the issue.
 ## Known Issues
 ##### [Back to Top](#contents "Contents")
-### LumberJackie not hiding when moving from current tile to next tile
-#### Unresolved
-Currently, when LJ moves to another tile, a residual LJ image is left in the exited tile until a unhoverLumberJacket function is called on it.
+### LumberJackie not unHovering
+#### Resolved
+Currently, when LJ moves to another tile, a residual LJ image is left in the exited tile until a unhoverLumberJacket function is called on it. If the game is restarted with Lumber Jackie not at the Log Camp, her image remains at the start of a new game.
 The image is then deleted.
-### LumberJackie still showing on some tiles when New Game is selected
-#### Unresolved
-IF the game is restarted with Lumber Jackie not at the Log Camp, her image remains at the start of a new game.
+This issue was solved by setting a class attribute of "lumber-jackie-hover" on any created LumberJackie inages. When unHoverLumberKackie was
+fired, a collection of all images with class "lumber-jackie-hover" currently in the DOM. 
+This collection was iterated over and each instace was removed. Also, when hoverLumberJackie was called, a check was made to see if an image with class "lumber-jackie-hover" exists in that elTile. Is so, it was removed from the tile before another was created.
 ### Move() is not restricted to tiles adjacent to the current tile
 #### Unresolved
 This is probably caused by the ajacentTiles set not being cleared correctly before being repolpulated after a move().

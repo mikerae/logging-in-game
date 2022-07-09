@@ -817,12 +817,13 @@ function main() {
     if (tile.getAttribute("class") === "tile-img") {
       let elTileContents = tile.parentElement.children;
       for (let el of elTileContents) {
-        if (el.getAttribute("id")== "lumber-jackie-hover") {
+        if (el.getAttribute("class")== "lumber-jackie-hover") {
           el.remove();
         }
       }
       let image = document.createElement('img'); // create an image element in the DOM
-      image.setAttribute("id", "lumber-jackie-hover"); // set its id to "lumber-jackie"
+      image.setAttribute("id", "lumber-jackie-hover");
+      image.setAttribute("class", "lumber-jackie-hover"); // set its id to "lumber-jackie"
       image.setAttribute("src", "assets/images/lumberjackie.png"); // set image src path
       tile.parentElement.appendChild(image); // put image in wrapper in the DOM
     }
@@ -836,13 +837,11 @@ function main() {
   function unHoverLumberJackie(event) {
     let tile = event.target;
     if (tile.getAttribute("class") === "tile-img") {
-      let elTileContents = tile.parentElement.children;
-      for (let el of elTileContents) {
-        if (el.getAttribute("id")== "lumber-jackie-hover") {
+      let hoverLumberJackies = document.getElementsByClassName("lumber-jackie-hover");
+      for (let el of hoverLumberJackies) {
           el.remove();
         }
       }
-    }
   }
 
   /**

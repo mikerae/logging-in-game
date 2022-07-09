@@ -320,10 +320,21 @@ Line 832: harvestForestAction(stockProfit, currentTile, currentTile.loc, gmMap);
 Passing it currentTile.loc where currentTile was defines solved the issue.
 ### Loading issues after clean up from testing
 #### Resolved
-The function objects logCampActions and harvestForestAction were being called when the html.index page was refeeshed.
-This was because I put them at top scope level main() inorder to ensure currentTile was always defined. I relocated these two functions inside the scope
-of loadGame() and repuplated all the resulting function parameters eg setTileEventListeners() and removeTileEventListeners etc.
+The function objects logCampActions and harvestForestAction were being called when the html.index page was refreshed.
+This was because I put them at top scope level main() in-order to ensure currentTile was always defined. I relocated these two functions inside the scope
+of loadGame() and repopulated all the resulting function parameters eg setTileEventListeners() and removeTileEventListeners etc.
 This resolved the page load issue but did not resolve the issue that currentTile was at times undefined in harvestForestAction()
+### CurrentTile becomes undefined in harvestForestAction
+#### Resolved
+After 2 or more calls of harvestForestAction currentTile becomes undefined. This could be caused by something in move(), and/or a consequence of event listeners not being removed properly.
+The chrome DevTools debugger was used to step through the code at line 342 harvestForestActions until the console error message was generated.
+On first iteration of harvestForestAction, currentTile was define accurately : in this case as tile object a3. This was true upto and including the last line 341.
+When the function harvestForistAction exited , no return was specified, but currentTile had been given a new value, and one was expected later.
+Also, because the event listener for Forest Action had not been removed, and there were possibly by no multiple instances of this event listener, when harvestForistAction was exited, it was called again immediately. this time round, currentTile was not defined, and generated the error on line 339 which required '''stockProfit.logsInStock = currentTile.kind.harvestForest(stockProfit)''' to be read.
+
+The solution was to add '''return currentTile''' at the end of the harvestForestAction function and also to recieve this value where it was called on line 801.
+The error message was no longer generated.
+However: the issue of un-removed event listeners calling harvestForestAction remains
 ## Known Issues
 ##### [Back to Top](#contents "Contents")
 ### Eventlisteners for Game mechanics Actions firing multiple times
@@ -365,9 +376,6 @@ An undeleted image of LumberJakie is left after moving to the next tile. If the 
 ### LumberJackie still showing on some tiles when New Game is selected
 #### Unresolved
 IF the game is restarted with Lumber Jackie not at the Log Camp, her image remains at the start of a new game.
-### CurrentTile becomes undefined in harvestForest
-#### Unresolved
-After 2 or more calls of harvestForest currentTile becomes undefined. This could be caused by something in move(), and/or a consequence of event listeners not being removed properly.
 ### Screen navigation buttons not working after code testing and clean up
 #### Unresolved
 

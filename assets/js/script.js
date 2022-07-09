@@ -339,6 +339,7 @@ function main() {
       stockProfit.logsInStock = currentTile.kind.harvestForest(stockProfit); // calls forest method to increment logs in stock, and change tile to harvisted tile
       currentTile = currentTile.changeTile(currentTile, currentTileId, gmMap); // changes the forest tile to grass
       displayGameInfo(stockProfit); // Displays updated Game Info
+      return currentTile;
     };
 
     // Display Initialised Game
@@ -798,7 +799,7 @@ function main() {
       }, false);
     } else if (currentTile.kind.type === "forest"){ // if on forest tile
       elActionsMenuList.addEventListener("click", function() { //set harvest forest event listener
-        harvestForestAction(stockProfit, currentTile, currentTileId, gmMap);
+        currentTile =  harvestForestAction(stockProfit, currentTile, currentTileId, gmMap);
       }, false);
     } else if (currentTile.kind.type === "grass"){ // do nothing
     }

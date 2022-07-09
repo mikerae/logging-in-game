@@ -335,15 +335,12 @@ Also, because the event listener for Forest Action had not been removed, and the
 The solution was to add '''return currentTile''' at the end of the harvestForestAction function and also to recieve this value where it was called on line 801.
 The error message was no longer generated.
 However: the issue of un-removed event listeners calling harvestForestAction remains
-## Known Issues
-##### [Back to Top](#contents "Contents")
-### Eventlisteners for Game mechanics Actions firing multiple times
-#### Status: Unresolved
+### Eventlisteners not being removed
+#### Status: Ressolved
 It appears that there are compound firing of action event listeners- linked to these not having been removed on a previous move.
-This leads to premature ending of the game. This issue and "remove ActionEventListeners() not working"
-### remove ActionEventListeners() not working
-#### Status: Unresolved
-The code for removing event Listeners is not working as desired. The move() and Action Event  listeners are still active.
+This causes the game mechanics actions firing multiple times, and then leads to premature ending of the game. This is because "remove ActionEventListeners() is not working.
+
+The code for removing event Listeners is not working as desired. and Action Event  listeners are still active.
 https://stackoverflow.com/questions/10444077/javascript-removeeventlistener-not-working is still relevant. However, it has not been
 possible to construct a named function which then receives the required parameters. All attempts at passing parameters to a named function
 result in the function not being able to see them.
@@ -357,7 +354,15 @@ script.js:864 Uncaught TypeError: currentTile.kind.harvestForest is not a functi
 Using an anonymous function call with an event listener made it impossible to remove an event Listener later.
 When on a new forest tile, the actionsEventListeners is still firing the sell.logs event from the log cabin
 => it has not been removed.
-This remains a bug. 
+This remains a bug.
+
+However, it was decided to set the option to fire the event listeners only once using the optional parameter 
+'''{once: true}'''
+for logCampActions, harvestForestActions and move().
+This solved the issue, and also made the game mechanics work as designed for the first time!
+It is now necessary to return to the log camp to sell logs, make profit and win the game.
+## Known Issues
+##### [Back to Top](#contents "Contents")
 ### Eventlisteners for LumberJackie hove/unhover firing multiple times and behaving unpredictably
 #### Status: Partially resolved
 Lumber Jackie is removed quickly to the point that she does not display at all.
@@ -378,6 +383,9 @@ An undeleted image of LumberJakie is left after moving to the next tile. If the 
 IF the game is restarted with Lumber Jackie not at the Log Camp, her image remains at the start of a new game.
 ### Screen navigation buttons not working after code testing and clean up
 #### Unresolved
+### Move() is not restricted to tiles adjacent to the current tile
+#### Unresolved
+This is probably caused by the ajacentTiles set not being cleared correctly before being repolpulated after a move().
 
 ## Testing
 ##### [Back to Top](#contents "Contents")

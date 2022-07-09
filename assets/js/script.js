@@ -537,7 +537,7 @@ function main() {
         this.src = "assets/images/grass-tile.jpg";
         this.alt = "Grass Tile";
         this.actions = [];
-        this.messages = ["Here is a lovely place for a picnick!"];
+        this.messages = ["You can return to the Log Camp to sell your logs"];
       }
     }
     let grassTile = tiles.find(item => item.loc === tileId);
@@ -772,7 +772,7 @@ function main() {
         setTimeout(function() { // a delay of 1 second is set
           currentTile = move(adjacentTiles, gmMap, currentTileId, nextTileId, logCampAction, harvestForestAction, stockProfit); // after a short delay, LumberJackie moves to the chosen tile, 
         }, 1000);  // ready to receive further instructions. 
-      });  
+      }, {once: true});  
     }); // end of forEach
     setActionEventListeners(gmMap, currentTile, currentTileId, stockProfit, logCampAction, harvestForestAction); // set Action Event Listeners in the Actions List menu
   } // end of function
@@ -796,11 +796,11 @@ function main() {
     if (currentTile.kind.type === "logCamp") { // if  log camp tile
       elActionsMenuList.addEventListener("click", function() { // set sell logs event listener
         logCampAction(currentTile, stockProfit);
-      }, false);
+      }, {once: true});
     } else if (currentTile.kind.type === "forest"){ // if on forest tile
       elActionsMenuList.addEventListener("click", function() { //set harvest forest event listener
         currentTile =  harvestForestAction(stockProfit, currentTile, currentTileId, gmMap);
-      }, false);
+      }, {once: true});
     } else if (currentTile.kind.type === "grass"){ // do nothing
     }
   }

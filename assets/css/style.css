@@ -182,7 +182,7 @@ aspect-ratio: 16 / 9;
 /* Game Display */
 #displayGame-wrapper {
   height: 100%;
-  display:flexbox;
+  display:flex;
   flex-direction: column;
 }
 
@@ -218,13 +218,14 @@ aspect-ratio: 16 / 9;
 
 #game-body-wrapper {
   height: 100%;
-  display: flexbox;
+  display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content:space-around;
 }
 
 #menu-messages-wrapper {
-  display: flexbox;
+  display: flex;
+  flex-direction: column;
   text-align: center;
   height: 100%;
 }
@@ -480,7 +481,7 @@ aspect-ratio: 16 / 9;
 
 
 .tile-img {
-  object-fit: fit;
+  object-fit:contain;
   width: 100%;
   aspect-ratio: 1/1;
   z-index: 0;
@@ -567,8 +568,8 @@ aspect-ratio: 16 / 9;
   /* This grid positions the info bar above the Fire Alet div*/
   #info-bar-wrapper {
     display: grid;
-    grid-template-columns: 1;
-    grid-template-rows: 2;
+    grid-template-columns:1fr;
+    grid-template-rows: 2fr;
     order: 1;
   }
 
@@ -670,7 +671,7 @@ aspect-ratio: 16 / 9;
 
   /* Display Image and Text */
   #inner-display-wrapper {
-    display:flexbox;
+    display:flex;
     flex-direction: column;
   }
 
@@ -729,7 +730,8 @@ aspect-ratio: 16 / 9;
   }
 
   #game-body-wrapper {
-    display: flexbox;
+    display: flex;
+    flex-direction: column;
   }
 
   #spacer {

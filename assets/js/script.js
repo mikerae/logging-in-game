@@ -772,7 +772,7 @@ function main() {
       tile.addEventListener("mouseout", unHoverLumberJackie); // on mouseout LumberJackie is hidden
       tile.addEventListener("click", function() { // on click Move to next tile
         let nextTileId = event.target.parentElement.getAttribute("id");
-        setTimeout(function() { // a delay of 1 second is set
+        setTimeout(function() { // a delay of 0.5 seconds is set
           currentTile = move(adjacentTiles, gmMap, currentTileId, nextTileId, logCampAction, harvestForestAction, stockProfit); // after a short delay, LumberJackie moves to the chosen tile, 
         }, 500);  // ready to receive further instructions. 
       }, {once: true});  
@@ -861,11 +861,11 @@ function main() {
       elTile.removeEventListener("mouseout", unHoverLumberJackie, false); // LumberJackie is hidden
     });
     document.getElementById(currentTile.loc).removeEventListener("click", function() { // on click Move to next tile
-        let nextTileId = event.target.parentElement.getAttribute("id");
-        setTimeout(function() { // a delay of 1 second is set
-          currentTile = move(adjacentTiles, gmMap, currentTileId, nextTileId, logCampAction, harvestForestAction, stockProfit); // after a short delay, LumberJackie moves to the chosen tile, 
-        }, 1000); // ready to receive further instructions.
-      }, false);
+      let nextTileId = event.target.parentElement.getAttribute("id");
+      setTimeout(function() { // a delay of 0.5 seconds is set
+        currentTile = move(adjacentTiles, gmMap, currentTileId, nextTileId, logCampAction, harvestForestAction, stockProfit); // after a short delay, LumberJackie moves to the chosen tile, 
+      }, 500);  // ready to receive further instructions. 
+    }, {once: true});
   }
   /**
    * Removes (or attempts to remove) event listeners from Action List Menu
@@ -882,11 +882,11 @@ function main() {
   function removeActionEventListeners(gmMap , currentTile, currentTileId, logCampAction, harvestForestAction, stockProfit) {
     currentTile = gmMap.get(currentTileId); // get current tile
     let elActionsMenuList = document.getElementById("actions-menu-list"); // get DOM Actions Menu list
-    elActionsMenuList.removeEventListener("click", function() { // set sell logs event listener
-      logCampAction(currentTile, stockProfit); // removes previously attached harvestForest event listener.
-    }, {once: true}); 
-    elActionsMenuList.removeEventListener("click", function() { // removes previously attached harvestForest event listener.
-      harvestForestAction(stockProfit, currentTile, currentTileId, gmMap);
+    elActionsMenuList.removeEventListener("click", function() { // removes previously attached sell logs event listener
+      currentTile = logCampAction(currentTile, stockProfit);
+    }, {once: true});
+    elActionsMenuList.removeEventListener("click", function() {  // removes previously attached harvestForest event listener.
+      currentTile =  harvestForestAction(stockProfit, currentTile, currentTileId, gmMap);
     }, {once: true});
   }
 
